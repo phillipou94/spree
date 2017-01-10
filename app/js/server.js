@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(session({ secret : '6170', resave : true, saveUninitialized : true }));
 
 app.get('*', function(req, res){
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, '../index.html'));
 });
 
 

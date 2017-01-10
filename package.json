@@ -2,9 +2,9 @@
   "name": "Spree",
   "version": "1.4.1",
   "description": "6.148 Project",
-  "main": "app/server.js",
+  "main": "app/js/server.js",
   "scripts": {
-    "start": "NODE_ENV='development' node app/server.js",
+    "start": "NODE_ENV='development' node app/js/server.js",
     "test": "npm run test-unit",
     "test-unit": "NODE_ENV=test mocha 'test/*.js'",
     "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"

@@ -4,7 +4,7 @@ var webpack = require('webpack');
 // Based on template from:
 // https://www.twilio.com/blog/2015/08/setting-up-react-for-es6-with-webpack-and-babel-2.html
 module.exports = {
-    entry : './app/main.js',  //main file, where does it start
+    entry : './app/js/main.js',  //main file, where does it start
     output : { path : __dirname+'/js', filename : 'bundle.js' },
     module : {
         loaders : [

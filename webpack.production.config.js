@@ -9,7 +9,7 @@ var webpack = require('webpack');
  * @type {{entry: string[], output: {filename: string, path: string, publicPath: string}, devServer: {inline: boolean, hot: boolean, publicPath: string, contentBase: string}, plugins: *[], module: {loaders: *[]}, node: {console: boolean, fs: string, net: string, tls: string}}}
  */
 module.exports = {
-    entry : ['./app/main.js', 'webpack-hot-middleware/client', 'webpack/hot/dev-server'],
+    entry : ['./app/js/main.js', 'webpack-hot-middleware/client', 'webpack/hot/dev-server'],
     output : {
         filename : 'bundle.js',
         path : '/',
