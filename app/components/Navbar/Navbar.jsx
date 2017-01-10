@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import ReactSVG from 'react-svg';
-import styles from "./Navbar.css"
+import styles from "./Navbar.css";
+import {Link} from 'react-scroll';
 
 class Navbar extends Component {
 
@@ -17,7 +18,11 @@ class Navbar extends Component {
         </a>
         <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
         <div className = {styles.links}>
-          <a href ="/"><p>How it Works</p></a>
+          <Link to="howToAnchor"
+                smooth={true}
+                duration={1000}>
+                  <a href = "/"><p>How it Works</p></a>
+          </Link>
           <a href ="/signup"><p>Sign Up</p></a>
           <a href ="/login"><p>Login</p></a>
         </div>

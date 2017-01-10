@@ -3,9 +3,12 @@ import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import ReactSVG from 'react-svg';
 import styles from "./LandingPage.css";
+import {Element} from 'react-scroll';
 
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Button from "../../components/Button/Button.jsx";
+
+
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -27,6 +30,7 @@ class LandingPage extends React.Component {
            <Button title = {"Sign Me Up"} />
         </div>
         <div className = {styles.howItWorksSection}>
+          <Element name="howToAnchor" />
           <h1>How It Works</h1>
           <div className = {styles.steps}>
             <div className = {styles.stepCard}>
