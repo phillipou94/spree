@@ -7,7 +7,6 @@ class App extends Component {
 	render(){
     return (
 			<div id = "app">
-				<Navbar />
         <div className="content">
           {this.props.children}
         </div>

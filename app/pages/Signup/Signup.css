@@ -1,0 +1,58 @@
+
+.authContainer {
+  margin-left:30%;
+  width:40%;
+  padding-top:50px;
+}
+
+.titleContainer {
+  padding-left:35%;
+}
+
+.logo {
+  width:40px;
+  height:40px;
+  display:inline-block;
+  float:left;
+  margin-top:20px;
+  margin-right:10px;
+}
+.header {
+  color:#33AE8B;
+  display: inline-block;
+  padding:0px;
+  margin-bottom:20px;
+}
+
+.inputs {
+  display: block;
+}
+
+.input {
+  -webkit-border-radius: 5px;
+  height: 35px;
+  font-weight: 300;
+  font-size:15px;
+  width:70%;
+  padding-left:5px;
+  margin-top:10px;
+  margin-left:15%;
+}
+
+.inputs button {
+  width:70%;
+  height:35px;
+  margin-left:15%;
+  margin-top:20px;
+  font-size:15px;
+  box-shadow: 3px 3px 3px #888888;
+}
+
+.inputs p {
+  margin-top:20px;
+  margin-left:15%;
+}
+
+.inputs a {
+  color:#33AE8B;
+}

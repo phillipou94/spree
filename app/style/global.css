@@ -18,3 +18,21 @@ a:link {
 button {
   border-style:none;
 }
+
+input {
+  border: 1px solid #9199A3;
+  background: none;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+input:focus {
+  border: none;
+  border: 2px solid #435061;
+  background: none;
+}
+
+
+p {
+  color:#435061
+}

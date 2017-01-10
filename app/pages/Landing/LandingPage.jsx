@@ -4,7 +4,8 @@ import CSSModules from 'react-css-modules';
 import ReactSVG from 'react-svg';
 import styles from "./LandingPage.css";
 
-import Button from "../components/Button/Button.jsx";
+import Navbar from '../../components/Navbar/Navbar.jsx';
+import Button from "../../components/Button/Button.jsx";
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class LandingPage extends React.Component {
   render() {
     return (
       <div>
+        <Navbar />
         <div className = {styles.introSection}>
           <ReactSVG path="../../assets/SpreeLogo.svg"
                     className={styles.logo}
@@ -41,7 +43,7 @@ class LandingPage extends React.Component {
                         evalScript="always"
                         />
               <h2>2. Earn Credits</h2>
-              <p>Every dollar under budget is money you can use to spend</p>
+              <p>Every dollar under budget is a dollar you can spend on Spree events</p>
             </div>
             <div className = {styles.stepCard}>
               <ReactSVG path="../../assets/ShoppingCart.svg"
