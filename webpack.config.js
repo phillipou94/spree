@@ -1,38 +1,36 @@
-const webpack = require('webpack');
-const path = require('path');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
 
+// Based on template from:
+// https://www.twilio.com/blog/2015/08/setting-up-react-for-es6-with-webpack-and-babel-2.html
 module.exports = {
-  devServer: {
-    historyApiFallback: true,
-    hot: true,
-    inline: true,
-    progress: true,
-    contentBase: './app',
-    port: 8080
-  },
-  entry: [
-    'webpack/hot/dev-server',
-    'webpack-dev-server/client?http://localhost:8080',
-    path.resolve(__dirname, 'app/main.js')
-  ],
-  output: {
-    path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
-    filename: './bundle.js'
-  },
-  module: {
-    loaders: [
+    entry : './app/main.js',  //main file, where does it start
+    output : { path : __dirname+'/js', filename : 'bundle.js' },
+    module : {
+        loaders : [
+            {
+                test : /.jsx?$/,  //regex to tell babel to load .jsx file through babel-loader
+                loader : 'babel-loader',
+                exclude : /node_modules/,
+                query : {
+                    presets : ['es2015', 'react']
+                }
+            },
+            { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]' },
+            { test: /\.(svg|ttf|woff|eot|woff2)(\?.*)?$/, loader: 'file' },
+            { test : /\.json$/, loader: 'json'},
+            {
+              test: /\.(jpg|png)$/,
+              loader: 'url?limit=25000',
+              include: __dirname+'/app/assets'
+            }
 
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]' },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
-    ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new OpenBrowserPlugin({ url: 'http://localhost:8080' })
-  ]
+        ]
+    },
+    node: {
+        console: true,
+        fs: 'empty',
+        net: 'empty',
+        tls: 'empty'
+    }
 };

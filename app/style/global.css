@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600&subset=latin-ext');
 
-html, body, #app, .content {
+.Application html, body, #app, .content {
   font-family: 'Lato', sans-serif;
   height: 100%;
   padding: 0;
   margin: 0;
 }
 
-a, a:visited {
+.Application a, a:visited {
   text-decoration: none;
 }
 
-a:link {
+.Application a:link {
    color:inherit;
 }
 
-button {
+.Application button {
   border-style:none;
 }
 
-input {
+.Application input {
   border: 1px solid #9199A3;
   background: none;
   -webkit-appearance: none;

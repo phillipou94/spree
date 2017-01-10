@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
-import ReactSVG from 'react-svg';
 import styles from "./Auth.css";
 
 import Button from "../../components/Button/Button.jsx";
@@ -12,14 +11,12 @@ class LoginPage extends React.Component {
   }
 
   render() {
+    const logo = require("../../assets/SpreeLogo.svg");
     return (
       <div>
         <div className = {styles.authContainer}>
           <a href ="/"><div className = {styles.titleContainer}>
-            <ReactSVG path="../../assets/SpreeLogo.svg"
-                      className={styles.logo}
-                      evalScript="always"
-                      />
+            <img src = {logo} className = {styles.logo} />
             <h1 className = {styles.header}>Spree</h1>
           </div>
           </a>
