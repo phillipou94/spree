@@ -23,14 +23,9 @@ module.exports = {
   },
   module: {
     loaders: [
+
       { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader?modules=true&localIdentName=[name]__[local]___[hash:base64:5]' },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.(svg|ttf|woff|eot|woff2)(\?.*)?$/, loader: 'file' },
-      {
-              test: /\.(jpg|png)$/,
-              loader: 'url?limit=25000',
-              include: __dirname+'/app/assets'
-      }
+      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
     ]
   },
   resolve: {

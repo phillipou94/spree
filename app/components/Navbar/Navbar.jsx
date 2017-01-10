@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
+import ReactSVG from 'react-svg';
 import styles from "./Navbar.css"
 
 class Navbar extends Component {
 
   render() {
-    var SpreeLogo = require('../../assets/SpreeLogo.svg');
+    // var SpreeLogo = require('../../assets/SpreeLogo.svg');
     return (
       <div className = {styles.Navbar}>
-        <a href ="/"><img src ={SpreeLogo}/></a>
+        <a href ="/">
+          <ReactSVG path="../../assets/SpreeLogo.svg"
+                    className={styles.logo}
+                    evalScript="always"
+                    />
+        </a>
         <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
         <div className = {styles.links}>
-          <a href ="/"><p>Events</p></a>
-          <a href ="/"><p>Wishlist</p></a>
-          <a href ="/"><p>Account</p></a>
+          <a href ="/"><p>How it Works</p></a>
+          <a href ="/"><p>Sign Up</p></a>
+          <a href ="/"><p>Login</p></a>
         </div>
       </div>
     )
