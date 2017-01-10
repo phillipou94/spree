@@ -18,8 +18,8 @@ class Navbar extends Component {
         <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
         <div className = {styles.links}>
           <a href ="/"><p>How it Works</p></a>
-          <a href ="/"><p>Sign Up</p></a>
-          <a href ="/"><p>Login</p></a>
+          <a href ="/signup"><p>Sign Up</p></a>
+          <a href ="/login"><p>Login</p></a>
         </div>
       </div>
     )

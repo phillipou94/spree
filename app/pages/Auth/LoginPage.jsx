@@ -2,11 +2,11 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import ReactSVG from 'react-svg';
-import styles from "./Signup.css";
+import styles from "./Auth.css";
 
 import Button from "../../components/Button/Button.jsx";
 
-class SignpPage extends React.Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,11 +24,10 @@ class SignpPage extends React.Component {
           </div>
           </a>
           <div className = {styles.inputs}>
-            <input className = {styles.input} name='name' placeholder='Name'/>
             <input className = {styles.input} name='email' placeholder='Email'/>
             <input className = {styles.input} name='password' placeholder='Password' type='password'/>
-            <Button title = {"Create an Account"}/>
-            <p>Already have an account? <a href = "/"> Log in </a> </p>
+            <Button title = {"Sign In"}/>
+            <p>Don't have an account? <a href = "/signup"> Sign Up </a> </p>
           </div>
         </div>
       </div>
@@ -37,4 +36,4 @@ class SignpPage extends React.Component {
 
 }
 
-export default withRouter(CSSModules(SignpPage, styles));
+export default withRouter(CSSModules(LoginPage, styles));
