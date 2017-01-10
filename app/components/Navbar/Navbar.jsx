@@ -7,7 +7,6 @@ import styles from "./Navbar.css"
 class Navbar extends Component {
 
   render() {
-    // var SpreeLogo = require('../../assets/SpreeLogo.svg');
     return (
       <div className = {styles.Navbar}>
         <a href ="/">

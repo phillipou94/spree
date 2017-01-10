@@ -14,3 +14,7 @@ a, a:visited {
 a:link {
    color:inherit;
 }
+
+button {
+  border-style:none;
+}

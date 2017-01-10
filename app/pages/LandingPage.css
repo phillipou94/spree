@@ -1,0 +1,38 @@
+
+.introSection {
+  padding-left:70px;
+  padding-top:80px;
+}
+
+.logo {
+  float:right;
+  width:175px;
+  height:175px;
+  margin-right:100px;
+  margin-top:40px;
+}
+
+.highlighted {
+  color:#435061;
+  font-weight:400;
+}
+
+.introSection h1 {
+  color:#435061;
+  font-size: 45px;
+  margin-bottom:0px;
+}
+
+.introSection p {
+  color:#9199A3;
+  margin-top:10px;
+  font-weight:300;
+  font-size: 35px;
+  width:60%;
+}
+
+.introSection button {
+  padding:10px 40px;
+  font-size:20px;
+  box-shadow: 3px 3px 3px #888888;
+}
