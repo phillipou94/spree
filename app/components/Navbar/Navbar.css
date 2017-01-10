@@ -1,0 +1,28 @@
+/**Navbar **/
+a{
+  color:none
+}
+
+.Navbar {
+  margin-top:0px;
+}
+.header {
+  color:#33AE8B;
+  display: inline-block;
+  padding:0px;
+  margin-top:10px;
+}
+
+.links {
+  display: inline-block;
+  padding-right:100px;
+  float:right;
+
+}
+
+.links a {
+  display: inline-block;
+  color:#435061;
+  margin-left:15px;
+
+}

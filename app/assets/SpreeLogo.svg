@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="198px" height="198px" viewBox="0 0 198 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="198" height="198" rx="16"></rect>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="198" height="198" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g>
+            <use id="Rectangle" stroke="#435061" mask="url(#mask-2)" stroke-width="16" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <polygon id="Rectangle-2" fill="#33AE8B" points="7.557042 99.4230814 99.7722916 189.969788 83.9577641 189.969788 7.557042 114.537165"></polygon>
+            <polygon id="Rectangle-2-Copy" fill="#33AE8B" points="7.557042 76.4230814 121.299024 189.999382 105.332407 189.999382 7.557042 93.15578"></polygon>
+        </g>
+    </g>
+</svg>
