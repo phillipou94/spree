@@ -2,6 +2,7 @@
 .introSection {
   padding-left:70px;
   padding-top:80px;
+  height:80%;
 }
 
 .logo {
@@ -35,4 +36,48 @@
   padding:10px 40px;
   font-size:20px;
   box-shadow: 3px 3px 3px #888888;
+}
+
+.howItWorksSection {
+  padding-top:50px;
+  background:#435061;
+  padding-bottom:50px;
+}
+
+.howItWorksSection h1 {
+  color:white;
+  font-size: 35px;
+  margin-bottom:0px;
+  text-align:center;
+}
+
+.steps {
+  margin-top:30px;
+  display:flex;
+  flex-direction:row;
+  justify-content: center;
+
+}
+
+.stepCard {
+  width:20%;
+  margin:20px 60px;
+}
+
+.stepCardLogo {
+  margin-left:10%;
+  width:80%;
+}
+
+.stepCard h2 {
+  font-weight:400;
+  color:white;
+  text-align:center;
+}
+
+.stepCard p {
+  color:white;
+  text-align:center;
+  font-weight:300;
+  padding: 0 10%;
 }
