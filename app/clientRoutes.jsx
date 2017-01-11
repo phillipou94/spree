@@ -2,9 +2,11 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import App from './App.jsx';
 
+import BankPage from './pages/Bank/BankPage.jsx';
 import LandingPage from './pages/Landing/LandingPage.jsx';
-import SignupPage from './pages/Auth/SignupPage.jsx';
 import LoginPage from './pages/Auth/LoginPage.jsx';
+import SignupPage from './pages/Auth/SignupPage.jsx';
+
 
 export default(
   <Router history={browserHistory}>
@@ -12,6 +14,7 @@ export default(
       <IndexRoute component={LandingPage} />
       <Route path="signup" component={SignupPage} />
       <Route path="login" component={LoginPage} />
+      <Route path="bank" component={BankPage} />
     </Route>
   </Router>
 );
