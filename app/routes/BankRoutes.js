@@ -11,7 +11,21 @@ router.get('/all', function(req, res) {
       });
       utils.sendSuccessResponse(res,banks);
     } else {
-        utils.sendErrorResponse(res, 500, 'Could not retrieve banks');
+      utils.sendErrorResponse(res, 500, 'Could not retrieve banks');
+    }
+  });
+});
+
+router.get('/search/:searchTerm', function(req, res) {
+  var searchTerm = req.params.searchTerm;
+  Bank.search(searchTerm, function(error, response) {
+    if (!error) {
+      var banks = response.map(function(bankObject) {
+        return Bank(bankObject);
+      });
+      utils.sendSuccessResponse(res,banks);
+    } else {
+      utils.sendErrorResponse(res, 500, 'Could not retrieve banks');
     }
   });
 });

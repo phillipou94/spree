@@ -14,5 +14,13 @@ export default {
       method: 'GET',
       json : true
     });
+  },
+
+  search : (searchTerm) => {
+    return request({
+      uri : BASE_URL + '/search/'+searchTerm,
+      method: 'GET',
+      json : true
+    });
   }
 }

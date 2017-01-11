@@ -39,4 +39,10 @@ Bank.all = function(callback) {
   });
 };
 
+Bank.search = function(searchString, callback) {
+  plaid.searchInstitutions({product:"auth", query: searchString}, PLAID_ENV, function(err, response) {
+    callback(err, response);
+  });
+};
+
 module.exports = Bank;

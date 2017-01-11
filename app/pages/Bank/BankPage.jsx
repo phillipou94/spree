@@ -12,6 +12,7 @@ import Searchbar from '../../components/Searchbar/Searchbar.jsx';
 class BankPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {searchTerm:""};
   }
 
   componentWillMount() {
@@ -23,7 +24,18 @@ class BankPage extends React.Component {
   }
 
   searchInputDidChange(event) {
+    this.setState({searchTerm:event.target.value});
+  }
 
+  searchBanks() {
+    var searchTerm = this.state.searchTerm;
+    if (searchTerm && searchTerm.length > 0) {
+      BankServices.search(searchTerm).then((res) => {
+        console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      });
+    }
   }
 
   render() {
@@ -45,7 +57,8 @@ class BankPage extends React.Component {
         <div className = {styles.header}>
           <h1>Select Your Bank</h1>
           <Searchbar placeholder = {"Find your bank"}
-                     inputDidChange = {this.searchInputDidChange.bind(this)}/>
+                     inputDidChange = {this.searchInputDidChange.bind(this)}
+                     onSubmit = {this.searchBanks.bind(this)}/>
         </div>
 
       </div>
