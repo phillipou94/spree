@@ -13,7 +13,8 @@ class SignpPage extends React.Component {
     this.state = {
       name:"",
       email:"",
-      password:""
+      password:"",
+      errorMessage:null,
     }
   }
 

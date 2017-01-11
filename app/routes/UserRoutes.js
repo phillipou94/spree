@@ -3,6 +3,8 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var User = require('../models/User.js');
 
+var validator = require("email-validator");
+
 /*
  Require authentication on ALL access to /notes/*
  Clients which are not logged in will receive a 403 error code.
@@ -27,7 +29,7 @@ router.post('/logout', requireAuthentication);
  immediately in this case.
  */
 var invalidLogin = function(req, res) {
-    if (req.currentUser) {
+    if (req.session.user) {
         utils.sendErrorResponse(res, 403, 'There is already a user logged in.');
         return true;
     } else if (!(req.body.email && req.body.password)) {
@@ -49,12 +51,17 @@ router.post('/signup', function(req, res) {
         utils.sendErrorResponse(res, 500, 'An unknown error has occurred.');
       }
     } else {
+      req.session.user = user;
       utils.sendSuccessResponse(res, user);
     }
   });
 });
 
 router.post('/login', function(req, res) {
+  if (!validator.validate(req.body.email)) {
+    utils.sendErrorResponse(res, 400, 'This is not a valid email address.');
+    return;
+  }
   if (invalidLogin(req, res)) {
     return;
   }

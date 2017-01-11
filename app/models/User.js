@@ -40,8 +40,6 @@ UserSchema.methods.hashPassword = function(password) {
  * @returns {*}
  */
 UserSchema.methods.validPassword = function(password) {
-  console.log(password);
-
   return bcrypt.compareSync(password, this.password);
 };
 
