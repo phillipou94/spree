@@ -7,7 +7,7 @@
     "start": "NODE_ENV='development' node app/js/server.js",
     "test": "npm run test-unit",
     "test-unit": "NODE_ENV=test mocha 'test/*.js'",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "heroku-postbuild": "webpack -p --config ./webpack.production.config.js --progress"
   },
   "dependencies": {
     "babel-runtime": "6.x",
@@ -48,11 +48,9 @@
     "webpack-dev-server": "latest"
   },
   "keywords": [
-    "es6",
-    "web app",
-    "boilerplate"
+    "spree"
   ],
-  "author": "Ruan Yifeng",
+  "author": "Phillip Ou",
   "license": "MIT",
   "config": {
     "validate-commit-msg": {
