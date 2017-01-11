@@ -26,15 +26,22 @@ class BankPage extends React.Component {
   }
 
   searchInputDidChange(event) {
-    this.setState({searchTerm:event.target.value});
+    this.searchBanks(event.target.value);
   }
 
-  searchBanks() {
-    var searchTerm = this.state.searchTerm;
+  searchBanks(query) {
+    var searchTerm = query;
     if (searchTerm && searchTerm.length > 0) {
       BankServices.search(searchTerm).then((res) => {
         const banks = res.body;
         console.log(banks);
+        this.setState({banks:banks});
+      }).catch((err) => {
+        console.log(err);
+      });
+    } else {
+      BankServices.all().then((res) => {
+        const banks = res.body;
         this.setState({banks:banks});
       }).catch((err) => {
         console.log(err);
@@ -52,6 +59,13 @@ class BankPage extends React.Component {
     return (
       <div>
         <Navbar hideLinks = {true}/>
+          <div className = {styles.header}>
+            <h1>Connect your bank or credit card statement</h1>
+            <Searchbar width = {"95%"}
+                       placeholder = {"Find your bank"}
+                       inputDidChange = {this.searchInputDidChange.bind(this)}
+            />
+          </div>
         <div className = {styles.infoPane}>
           <img src = {infoPaneIcon} className = {styles.infoPaneIcon}/>
           <div className = {styles.QA}>
@@ -63,12 +77,7 @@ class BankPage extends React.Component {
             <p>No. Spree only monitors your transactions to determine how much you’ve spent.</p>
           </div>
         </div>
-        <div className = {styles.header}>
-          <h1>Select Your Bank</h1>
-          <Searchbar placeholder = {"Find your bank"}
-                     inputDidChange = {this.searchInputDidChange.bind(this)}
-                     onSubmit = {this.searchBanks.bind(this)}/>
-        </div>
+
         <div className = {styles.banksContainer}>
           {banks.map((bank, index) => {
             return (

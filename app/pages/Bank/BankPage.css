@@ -1,12 +1,11 @@
 .header {
   padding-left:70px;
-  color:#33AE8B;
+  color:#435061;
 }
 
 .header h1 {
   margin-bottom:0px;
 }
-
 
 .infoPane {
   float:right;
@@ -28,9 +27,11 @@
 }
 
 .banksContainer{
+  margin-top:20px;
   margin-left:70px;
-  width:62%;
+  width:65%;
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding-bottom:50px;
 }
