@@ -30,7 +30,7 @@ var invalidLogin = function(req, res) {
     if (req.currentUser) {
         utils.sendErrorResponse(res, 403, 'There is already a user logged in.');
         return true;
-    } else if (!(req.body.username && req.body.password)) {
+    } else if (!(req.body.email && req.body.password)) {
         utils.sendErrorResponse(res, 400, 'Username or password not provided.');
         return true;
     }
@@ -39,7 +39,7 @@ var invalidLogin = function(req, res) {
 
 
 router.post('/signup', function(req, res) {
-  User.create(req.body.username, req.body.password, function(err) {
+  User.create(req.body.name, req.body.email, req.body.password, function(err, user) {
     if (err) {
       if (err.taken) {
         utils.sendErrorResponse(res, 400, 'That username is already taken!');
@@ -49,7 +49,7 @@ router.post('/signup', function(req, res) {
         utils.sendErrorResponse(res, 500, 'An unknown error has occurred.');
       }
     } else {
-      utils.sendSuccessResponse(res);
+      utils.sendSuccessResponse(res, user);
     }
   });
 });
@@ -58,12 +58,12 @@ router.post('/login', function(req, res) {
   if (invalidLogin(req, res)) {
     return;
   }
-  User.login(req.body.username, req.body.password, function(err, user) {
+  User.login(req.body.email, req.body.password, function(err, user) {
     if (user) {
       req.session.user = user;
       utils.sendSuccessResponse(res, { user: user});
     } else {
-      utils.sendErrorResponse(res, 403, 'Invalid username or password.');
+      utils.sendErrorResponse(res, 403, 'Invalid username and password.');
     }
   });
 });

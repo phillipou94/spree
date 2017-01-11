@@ -5,6 +5,8 @@ import styles from "./Auth.css";
 
 import Button from "../../components/Button/Button.jsx";
 
+import UserServices from "../../services/UserServices.js";
+
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +26,14 @@ class LoginPage extends React.Component {
   }
 
   login() {
-    console.log(this.state);
+    const email = this.state.email;
+    const password = this.state.password;
+    console.log(email);
+    UserServices.login(email, password).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   render() {

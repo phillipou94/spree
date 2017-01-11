@@ -25,10 +25,10 @@ var utils = (function() {
     as provided in the arguments to the response argument provided.
     The caller of this function should return after calling
   */
-  _utils.sendSuccessResponse = function(res, content) {
+  _utils.sendSuccessResponse = function(res, body) {
     res.status(200).json({
       success: true,
-      content: content,
+      body: body,
     }).end();
   };
 

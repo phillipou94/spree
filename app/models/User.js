@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
+var time = require("../utils/time.js");
+
 var UserSchema = mongoose.Schema({
   name: String,
   email: {
@@ -17,7 +19,7 @@ var UserSchema = mongoose.Schema({
   bank_id:{type: String, default: null},
   pending_ticket_id:{type: mongoose.Schema.Types.ObjectId,ref: 'Ticket'},
   account_last_updated: {type: Date, default: Date.now},
-  end_of_current_week: {type: Date, default: Date.now},
+  end_of_current_week: {type: Date, default: time.getNearestMondayAfterDate(new Date())},
   previous_weeks: {type: mongoose.Schema.Types.ObjectId,ref: 'Week'}
 }, { timestamps: true });
 
@@ -38,7 +40,9 @@ UserSchema.methods.hashPassword = function(password) {
  * @returns {*}
  */
 UserSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.password);
+  console.log(password);
+
+  return bcrypt.compareSync(password, this.password);
 };
 
 var UserModel = mongoose.model('User', UserSchema);
@@ -49,7 +53,7 @@ var UserModel = mongoose.model('User', UserSchema);
 var User = (function(UserModel) {
   that = {};
 
-  that.create = function(username, password, callback) {
+  that.create = function(name, email, password, callback) {
     UserModel.findOne({ email: email}, function(err, result) {
       if (result !== null) {
         callback({ msg: 'A user has already signed up with this email' });
@@ -57,7 +61,8 @@ var User = (function(UserModel) {
         callback({ msg: 'Please select a longer password!' });
       } else {
         var user = new UserModel();
-        user.username = username;
+        user.name = name;
+        user.email = email;
         user.password = user.hashPassword(password);
         user.save(function(err, user) {
           if (err) callback({ msg: err });
@@ -67,8 +72,8 @@ var User = (function(UserModel) {
     });
   };
 
-  that.login = function(username, password, callback) {
-    userModel.findOne({ email: email }, function(err, user) {
+  that.login = function(email, password, callback) {
+    UserModel.findOne({ email: email }, function(err, user) {
       if (err) callback({ msg: err });
       if (user !== null && user.validPassword(password)) {
         callback(null, user);

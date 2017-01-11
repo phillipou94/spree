@@ -5,6 +5,8 @@ import styles from "./Auth.css";
 
 import Button from "../../components/Button/Button.jsx";
 
+import UserServices from "../../services/UserServices.js";
+
 class SignpPage extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +27,14 @@ class SignpPage extends React.Component {
   }
 
   signup() {
-    console.log(this.state);
+    const name = this.state.name;
+    const email = this.state.email;
+    const password = this.state.password;
+    UserServices.signup(name, email, password).then((res) => {
+      console.log(res);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   render() {

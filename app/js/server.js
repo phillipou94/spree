@@ -11,7 +11,7 @@ var UserRoutes = require('../routes/UserRoutes.js');
 
 /** Set up MongoDB **/
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/mymongodb');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/spree');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 
