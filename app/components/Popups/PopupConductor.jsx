@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from "./PopupConductor.css";
 
 import BankLoginPopup from "./BankLoginPopup/BankLoginPopup.jsx"
+import BankQuestionPopup from "./BankQuestionPopup/BankQuestionPopup.jsx"
 
 class PopupConductor extends Component {
 
@@ -11,6 +12,8 @@ class PopupConductor extends Component {
     switch (type) {
        case 'BANK_LOGIN':
          return <BankLoginPopup {...this.props}/>;
+       case 'BANK_QUESTION':
+         return <BankQuestionPopup {...this.props}/>;
        default:
          return null;
      }

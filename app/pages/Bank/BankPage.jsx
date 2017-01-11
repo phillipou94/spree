@@ -64,8 +64,9 @@ class BankPage extends React.Component {
     return (
       <div>
         {this.state.showPopup &&
-          <PopupConductor type = {"BANK_LOGIN"}
+          <PopupConductor type = {"BANK_QUESTION"}
                           bank = {this.state.selectedBank}
+                          question = "What is your mother's maiden name?"
                           closePressed = {this.closePopup.bind(this)}/>
         }
         <Navbar hideLinks = {true}/>
