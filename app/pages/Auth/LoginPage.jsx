@@ -28,9 +28,10 @@ class LoginPage extends React.Component {
   login() {
     const email = this.state.email;
     const password = this.state.password;
-    console.log(email);
     UserServices.login(email, password).then((res) => {
-      console.log(res);
+      var user = res.body;
+      var path = user.bank_id ? "events" : "bank";
+      this.props.router.push(path);
     }).catch((err) => {
       console.log(err);
     });

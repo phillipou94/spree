@@ -31,7 +31,12 @@ if (process.env.NODE_ENV !== 'production'){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(session({ secret : '6170', resave : true, saveUninitialized : true }));
+app.use(session({
+  cookieName: 'session',
+  secret: 'fdjskalj9320DSFDs392dsac',
+  duration: 30 * 24 * 60 * 1000,
+  activeDuration: 5 * 60 * 1000,
+}));
 
 
 

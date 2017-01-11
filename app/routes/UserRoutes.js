@@ -75,6 +75,23 @@ router.post('/login', function(req, res) {
   });
 });
 
+//TODO: Calculate buget
+router.get('/current', function(req, res) {
+  if (req.session.user) {
+        User.findById(req.session.user._id, function(error, user) {
+            if (!error) {
+              console.log(user);
+                req.session.user = user;
+                utils.sendSuccessResponse(res, { authenticated: true, user: user })
+            } else {
+                utils.sendErrorResponse(res, 500, 'Problem finding current_user user');
+            }
+        });
+    } else {
+        utils.sendSuccessResponse(res, { authenticated: false });
+    }
+});
+
 // router.put('/logout', function(req, res) {
 //     req.session.destroy();
 //     utils.sendSuccessResponse(res);

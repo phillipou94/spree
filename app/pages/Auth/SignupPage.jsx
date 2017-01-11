@@ -32,7 +32,7 @@ class SignpPage extends React.Component {
     const email = this.state.email;
     const password = this.state.password;
     UserServices.signup(name, email, password).then((res) => {
-      console.log(res);
+      this.props.router.push("bank");
     }).catch((err) => {
       console.log(err);
     });

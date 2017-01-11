@@ -32,4 +32,13 @@ export default {
       json : true
     });
   },
+
+  currentUser : () => {
+    return request({
+      uri : BASE_URL + '/current',
+      method: 'GET',
+      json : true
+    });
+
+  }
 }

@@ -51,6 +51,17 @@ var UserModel = mongoose.model('User', UserSchema);
 var User = (function(UserModel) {
   that = {};
 
+  that.findById = function(_id, callback) {
+    UserModel.findById(_id, function(err, user) {
+        if (err) callback({ msg: err });
+        if (user !== null) {
+            callback(null, user);
+        } else {
+            callback({ msg: 'This user does not exist!' });
+        }
+    });
+  };
+
   that.create = function(name, email, password, callback) {
     UserModel.findOne({ email: email}, function(err, result) {
       if (result !== null) {
