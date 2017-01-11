@@ -6,8 +6,7 @@
   "scripts": {
     "start": "NODE_ENV='development' node app/js/server.js",
     "test": "npm run test-unit",
-    "test-unit": "NODE_ENV=test mocha 'test/*.js'",
-    "heroku-postbuild": "webpack -p --config ./webpack.production.config.js --progress"
+    "test-unit": "NODE_ENV=test mocha 'test/*.js'"
   },
   "dependencies": {
     "babel-runtime": "6.x",
