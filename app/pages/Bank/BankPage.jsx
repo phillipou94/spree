@@ -5,6 +5,7 @@ import styles from "./BankPage.css";
 
 import BankServices from "../../services/BankServices.js";
 
+import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Searchbar from '../../components/Searchbar/Searchbar.jsx';
 
@@ -12,12 +13,13 @@ import Searchbar from '../../components/Searchbar/Searchbar.jsx';
 class BankPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchTerm:""};
+    this.state = {searchTerm:"", banks:[]};
   }
 
   componentWillMount() {
     BankServices.all().then((res) => {
-      console.log(res);
+      const banks = res.body;
+      this.setState({banks:banks});
     }).catch((err) => {
       console.log(err);
     });
@@ -31,15 +33,22 @@ class BankPage extends React.Component {
     var searchTerm = this.state.searchTerm;
     if (searchTerm && searchTerm.length > 0) {
       BankServices.search(searchTerm).then((res) => {
-        console.log(res);
+        const banks = res.body;
+        console.log(banks);
+        this.setState({banks:banks});
       }).catch((err) => {
         console.log(err);
       });
     }
   }
 
+  didClickBank(bank) {
+
+  }
+
   render() {
     const infoPaneIcon = require("../../assets/PiggyBankLock.svg");
+    const banks = this.state.banks;
     return (
       <div>
         <Navbar hideLinks = {true}/>
@@ -59,6 +68,19 @@ class BankPage extends React.Component {
           <Searchbar placeholder = {"Find your bank"}
                      inputDidChange = {this.searchInputDidChange.bind(this)}
                      onSubmit = {this.searchBanks.bind(this)}/>
+        </div>
+        <div className = {styles.banksContainer}>
+          {banks.map((bank, index) => {
+            return (
+              <BankCard
+                key={bank._id}
+                index={index}
+                bank={bank}
+                onClick = {this.didClickBank.bind(this, bank)}
+              />
+            );
+          })}
+
         </div>
 
       </div>

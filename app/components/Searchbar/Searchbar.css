@@ -1,11 +1,15 @@
-.Searchbar{ position:relative; padding:0; margin:0; }
+.Searchbar{ position:relative;
+            padding:0;
+            margin:0;
+            width:65%;
+}
 
 .input {
   -webkit-border-radius: 10px;
   height: 30px;
   font-weight: 300;
   font-size:15px;
-  width:65%;
+  width:100%;
   padding-left:30px;
   margin-top:10px;
 }
