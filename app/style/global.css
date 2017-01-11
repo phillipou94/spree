@@ -36,3 +36,7 @@ input:focus {
 p {
   color:#435061
 }
+
+button {
+  outline: none;
+}

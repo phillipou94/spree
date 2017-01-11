@@ -4,7 +4,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require('mongoose');
-var webpackDevHelper = require('./hotReload.js');;
+var webpackDevHelper = require('./hotReload.js');
+
+// Require routes.
+var UserRoutes = require('../routes/UserRoutes.js');
 
 /** Set up MongoDB **/
 
@@ -30,6 +33,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(session({ secret : '6170', resave : true, saveUninitialized : true }));
 
+
+
+// Set up our routes.
+app.use('/api/users', UserRoutes);
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname, '../index.html'));
 });

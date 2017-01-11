@@ -14,6 +14,10 @@ class LandingPage extends React.Component {
     super(props);
   }
 
+  navigateToSignUp() {
+    this.props.router.push("signup");
+  }
+
   render() {
     const logo = require("../../assets/SpreeLogo.svg");
     const dollarMonitor = require("../../assets/DollarMonitor.svg");
@@ -28,7 +32,7 @@ class LandingPage extends React.Component {
           <h1>Never Worry About Spending Again</h1>
           <p>We help you manage your finances so you can spend on the experiences
              you’ve always wanted: <span className = {styles.highlighted}> Guilt Free </span></p>
-           <Button title = {"Sign Me Up"} />
+           <Button title = {"Sign Me Up"} onClick = {this.navigateToSignUp.bind(this)}/>
         </div>
         <div className = {styles.howItWorksSection}>
           <Element name="howToAnchor" />
