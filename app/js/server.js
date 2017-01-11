@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var webpackDevHelper = require('./hotReload.js');
 
 // Require routes.
+var BankRoutes = require('../routes/BankRoutes.js');
 var UserRoutes = require('../routes/UserRoutes.js');
 
 /** Set up MongoDB **/
@@ -42,6 +43,7 @@ app.use(session({
 
 // Set up our routes.
 app.use('/api/users', UserRoutes);
+app.use('/api/banks', BankRoutes);
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname, '../index.html'));
 });

@@ -33,6 +33,7 @@
     "json-loader": "^0.5.4",
     "mongoose": "^4.7.6",
     "open-browser-webpack-plugin": "0.0.3",
+    "plaid": "^1.1.1",
     "react": "15.x",
     "react-css-modules": "^4.1.0",
     "react-dom": "15.x",

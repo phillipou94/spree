@@ -17,6 +17,7 @@ var UserSchema = mongoose.Schema({
   events_purchased:[{type: mongoose.Schema.Types.ObjectId,ref: 'Event'}],
   bank_name:{type: String, default: null},
   bank_id:{type: String, default: null},
+  plaid_access_token:{type: String, default: null},
   pending_ticket_id:{type: mongoose.Schema.Types.ObjectId,ref: 'Ticket'},
   account_last_updated: {type: Date, default: Date.now},
   end_of_current_week: {type: Date, default: time.getNearestMondayAfterDate(new Date())},
