@@ -8,12 +8,13 @@ import BankServices from "../../services/BankServices.js";
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
 import Searchbar from '../../components/Searchbar/Searchbar.jsx';
+import PopupConductor from '../../components/Popups/PopupConductor.jsx';
 
 
 class BankPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchTerm:"", banks:[]};
+    this.state = {searchTerm:"", banks:[], showPopup:false};
   }
 
   componentWillMount() {
@@ -50,7 +51,11 @@ class BankPage extends React.Component {
   }
 
   didClickBank(bank) {
+    this.setState({showPopup:true, selectedBank:bank});
+  }
 
+  closePopup() {
+    this.setState({showPopup:false, selectedBank:null});
   }
 
   render() {
@@ -58,6 +63,11 @@ class BankPage extends React.Component {
     const banks = this.state.banks;
     return (
       <div>
+        {this.state.showPopup &&
+          <PopupConductor type = {"BANK_LOGIN"}
+                          bank = {this.state.selectedBank}
+                          closePressed = {this.closePopup.bind(this)}/>
+        }
         <Navbar hideLinks = {true}/>
           <div className = {styles.header}>
             <h1>Connect your bank or credit card statement</h1>
