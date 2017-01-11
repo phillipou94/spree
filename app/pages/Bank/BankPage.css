@@ -1,0 +1,28 @@
+.header {
+  padding-left:70px;
+  color:#33AE8B;
+}
+
+.header h1 {
+  margin-bottom:0px;
+}
+
+
+.infoPane {
+  float:right;
+  padding-right:50px;
+  padding-left:50px;
+  width:20%;
+  height:100%;
+  border-left:2px solid #435061;
+}
+
+.QA {
+  margin-bottom:60px;
+  font-weight:300;
+}
+
+.QA p{
+  margin-top:-10px;
+  padding-top:0px;
+}
