@@ -25,6 +25,7 @@
     "copy-webpack-plugin": "latest",
     "css-loader": "~0.26.1",
     "cz-conventional-changelog": "^1.2.0",
+    "dotenv": "^4.0.0",
     "email-validator": "^1.0.7",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
@@ -47,7 +48,7 @@
     "webpack-dev-server": "latest",
     "webpack-hot-middleware": "^2.15.0"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "babel-core": "6.x",
     "babel-eslint": "7.x",
     "babel-loader": "6.x",

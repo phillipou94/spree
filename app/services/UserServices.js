@@ -1,6 +1,6 @@
 var dev = 'http://localhost:3000/api/users';
 var prod = '';
-const BASE_URL = dev;
+const BASE_URL =  dev;
 
 var request = require('request-promise-native');
 

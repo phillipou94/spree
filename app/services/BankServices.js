@@ -1,6 +1,6 @@
 var dev = 'http://localhost:3000/api/banks';
 var prod = '';
-const BASE_URL = dev;
+const BASE_URL =  dev;
 
 var request = require('request-promise-native');
 
@@ -22,5 +22,18 @@ export default {
       method: 'GET',
       json : true
     });
-  }
+  },
+
+  authenticate : (req) => {
+    return request({
+      uri : BASE_URL + '/authenticate',
+      method: 'POST',
+      body : {
+        username : req.username,
+        password : req.password,
+        type : req.type
+      },
+      json : true
+    });
+  },
 }

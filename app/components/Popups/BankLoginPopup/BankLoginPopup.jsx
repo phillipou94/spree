@@ -23,6 +23,13 @@ class BankLoginPopup extends Component {
     });
   }
 
+  submitClicked() {
+    const username = this.state.username;
+    const password = this.state.password;
+    var authInfo = {username:username, password: password,type:this.props.bank.type};
+    this.props.bankLoginSubmitted(authInfo);
+  }
+
   render() {
     const bank = this.props.bank;
     return (
@@ -41,7 +48,7 @@ class BankLoginPopup extends Component {
                  type='password'
                  onChange={this.updateInputValue.bind(this)}
         />
-        <Button title = {"Submit"}/>
+        <Button title = {"Submit"} onClick = {this.submitClicked.bind(this)}/>
       </div>
     );
   }

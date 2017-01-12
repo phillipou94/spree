@@ -18,6 +18,12 @@ class BankQuestionPopup extends Component {
     this.setState({answer:answer});
   }
 
+  submitClicked() {
+    this.props.answerSubmitted(this.state.answer);
+  }
+
+
+
   render() {
     return (
       <div className = {styles.BankQuestionPopup}>
@@ -29,7 +35,7 @@ class BankQuestionPopup extends Component {
                  placeholder={"Answer"}
                  onChange={this.updateInputValue.bind(this)}
         />
-        <Button title = {"Submit"}/>
+        <Button title = {"Submit"} onClick = {this.submitClicked.bind(this)}/>
       </div>
     );
   }

@@ -32,6 +32,14 @@ var utils = (function() {
     }).end();
   };
 
+  _utils.sendStepResponse = function(res, body) {
+    res.status(201).json({
+      success: true,
+      additionalSteps:true,
+      body: body,
+    }).end();
+  };
+
   Object.freeze(_utils);
   return _utils;
 

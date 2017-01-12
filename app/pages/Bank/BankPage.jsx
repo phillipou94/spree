@@ -14,7 +14,7 @@ import PopupConductor from '../../components/Popups/PopupConductor.jsx';
 class BankPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchTerm:"", banks:[], showPopup:false};
+    this.state = {searchTerm:"", banks:[], showPopup:false, popupType : "BANK_LOGIN", question:""};
   }
 
   componentWillMount() {
@@ -55,19 +55,48 @@ class BankPage extends React.Component {
   }
 
   closePopup() {
-    this.setState({showPopup:false, selectedBank:null});
+    this.setState({showPopup:false, selectedBank:null, question:"", popupType:"BANK_LOGIN"});
+  }
+
+  bankLoginSubmitted(authInfo) {
+    BankServices.authenticate(authInfo).then((res) => {
+      if (res.success) {
+        if (res.additionalSteps) {
+          var mfa = res.body.mfa;
+          if (mfa.message) {
+            var message = mfa.message;
+
+          } else if (mfa.length >= 1) {
+            var question = mfa[0].question;
+            this.setState({popupType:"BANK_QUESTION", question:question});
+          }
+        } else {
+          //success
+          console.log(res);
+        }
+      } else {
+        console.log("ERROR HANDLING");
+      }
+    });
+  }
+
+  answerSubmitted(answer) {
+
   }
 
   render() {
     const infoPaneIcon = require("../../assets/PiggyBankLock.svg");
     const banks = this.state.banks;
+    const type = this.state.popupType;
     return (
       <div>
         {this.state.showPopup &&
-          <PopupConductor type = {"BANK_QUESTION"}
+          <PopupConductor type = {type}
                           bank = {this.state.selectedBank}
-                          question = "What is your mother's maiden name?"
-                          closePressed = {this.closePopup.bind(this)}/>
+                          closePressed = {this.closePopup.bind(this)}
+                          bankLoginSubmitted = {this.bankLoginSubmitted.bind(this)}
+                          answerSubmitted = {this.answerSubmitted.bind(this)}
+                          question = {this.state.question}/>
         }
         <Navbar hideLinks = {true}/>
           <div className = {styles.header}>
