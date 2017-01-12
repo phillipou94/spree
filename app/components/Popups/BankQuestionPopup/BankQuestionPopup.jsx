@@ -19,7 +19,7 @@ class BankQuestionPopup extends Component {
   }
 
   submitClicked() {
-    this.props.answerSubmitted(this.state.answer);
+    this.props.answerSubmitted(this.state.answer, this.props.bank);
   }
 
 

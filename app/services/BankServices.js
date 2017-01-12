@@ -31,7 +31,24 @@ export default {
       body : {
         username : req.username,
         password : req.password,
-        type : req.type
+        type : req.type,
+        bank_name: req.bank_name,
+        bank_id: req.bank_id,
+      },
+      json : true
+    });
+  },
+
+  answerSecurityQuestion : (req) => {
+    return request({
+      uri : BASE_URL + '/answer',
+      method: 'POST',
+      body : {
+        answer : req.answer,
+        access_token : req.access_token,
+        type : req.type,
+        bank_name: req.bank_name,
+        bank_id: req.bank_id,
       },
       json : true
     });

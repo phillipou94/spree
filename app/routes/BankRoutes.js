@@ -32,7 +32,22 @@ router.get('/search/:searchTerm', function(req, res) {
 
 router.post('/authenticate', function(req, res) {
   var body = req.body;
-  Bank.authenticate(body, function(error, mfaResponse, response) {
+  var user = req.session.user;
+  Bank.authenticate(user, body, function(error, mfaResponse, response) {
+    if (error) {
+      utils.sendErrorResponse(res, 401, error);
+    } else if (mfaResponse) {
+      utils.sendStepResponse(res, mfaResponse);
+    } else {
+      utils.sendSuccessResponse(res,response);
+    }
+  });
+});
+
+router.post('/answer', function(req, res) {
+  var body = req.body;
+  var user = req.session.user;
+  Bank.answerSecurityQuestion(user, body, function(error, mfaResponse, response) {
     if (error) {
       utils.sendErrorResponse(res, 401, error);
     } else if (mfaResponse) {

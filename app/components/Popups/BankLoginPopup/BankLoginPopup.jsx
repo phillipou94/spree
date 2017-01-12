@@ -26,7 +26,13 @@ class BankLoginPopup extends Component {
   submitClicked() {
     const username = this.state.username;
     const password = this.state.password;
-    var authInfo = {username:username, password: password,type:this.props.bank.type};
+    var authInfo = {
+                    username:username,
+                    password: password,
+                    type:this.props.bank.type,
+                    bank_name:this.props.bank.name,
+                    bank_id:this.props.bank._id
+                  };
     this.props.bankLoginSubmitted(authInfo);
   }
 

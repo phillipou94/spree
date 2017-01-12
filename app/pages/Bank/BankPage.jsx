@@ -14,7 +14,12 @@ import PopupConductor from '../../components/Popups/PopupConductor.jsx';
 class BankPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {searchTerm:"", banks:[], showPopup:false, popupType : "BANK_LOGIN", question:""};
+    this.state = {searchTerm:"",
+                  banks:[],
+                  showPopup:false,
+                  popupType : "BANK_LOGIN",
+                  question:"",
+                  mfa_access_token:""};
   }
 
   componentWillMount() {
@@ -63,16 +68,19 @@ class BankPage extends React.Component {
       if (res.success) {
         if (res.additionalSteps) {
           var mfa = res.body.mfa;
+          var question = "";
+          var mfa_access_token = res.body.access_token;
           if (mfa.message) {
             var message = mfa.message;
-
+            question = mfa.message;
           } else if (mfa.length >= 1) {
-            var question = mfa[0].question;
-            this.setState({popupType:"BANK_QUESTION", question:question});
+            question = mfa[0].question;
           }
+          this.setState({popupType:"BANK_QUESTION", question:question, mfa_access_token:mfa_access_token});
         } else {
           //success
           console.log(res);
+          this.closePopup();
         }
       } else {
         console.log("ERROR HANDLING");
@@ -80,8 +88,34 @@ class BankPage extends React.Component {
     });
   }
 
-  answerSubmitted(answer) {
+  answerSubmitted(answer, bank) {
+    var req = {answer:answer,
+               access_token:this.state.mfa_access_token,
+               bank_name:bank.name,
+               bank_id:bank._id,
+               type:bank.type};
+    BankServices.answerSecurityQuestion(req).then((res) => {
+      if (res.success) {
+        if (res.additionalSteps) {
+          var mfa = res.body.mfa;
+          var question = "";
 
+          if (mfa.message) {
+            var message = mfa.message;
+            question = mfa.message;
+          } else if (mfa.length >= 1) {
+            question = mfa[0].question;
+          }
+          this.setState({popupType:"BANK_QUESTION", question:question});
+        } else {
+          //success
+          console.log(res);
+          this.closePopup();
+        }
+      } else {
+        console.log("ERROR HANDLING");
+      }
+    });
   }
 
   render() {

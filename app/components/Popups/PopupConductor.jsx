@@ -11,7 +11,7 @@ class PopupConductor extends Component {
   getPopup(type) {
     switch (type) {
        case 'BANK_LOGIN':
-         return <BankLoginPopup {...this.props}/>;
+         return <BankLoginPopup {...this.props}/>;  //pass all props
        case 'BANK_QUESTION':
          return <BankQuestionPopup {...this.props}/>;
        default:

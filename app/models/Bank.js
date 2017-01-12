@@ -6,6 +6,8 @@ var PLAID_SECRET = process.env.PLAID_SECRET;
 const PLAID_ENV = plaid.environments.tartan; //TODO: CHANGE THIS WHEN WE'RE IN PRODUCTION
 var plaidClient = new plaid.Client(PLAID_ID, PLAID_SECRET, PLAID_ENV);
 
+var User = require('./User');
+
 const LOGO_MAP = {
   "amex":"http://logo.clearbit.com/americanexpress.com",
   "bbt":"http://logo.clearbit.com/bbt.com",
@@ -51,12 +53,33 @@ Bank.search = function(searchString, callback) {
   });
 };
 
-Bank.authenticate = function(body, callback) {
+Bank.authenticate = function(user, body, callback) {
   // Add a BofA auth user going through question-based MFA
   const type = body.type;
   const username = body.username;
   const password = body.password;
-  plaidClient.addAuthUser(type, {username: username, password: password}, function(err, mfaResponse, response) {
+  plaidClient.addConnectUser(type, {username: username, password: password}, function(err, mfaResponse, response) {
+    if (err != null) {
+      // Bad request - invalid credentials, account locked, etc.
+      callback(err,null, null);
+    } else if (mfaResponse != null) {
+      callback(null,mfaResponse,null);
+    } else {
+      var bankInfo = {
+        bank_name : body.bank_name,
+        bank_id : body.bank_id,
+        plaid_access_token : response.access_token
+      }
+      User.updateBankInformation(user._id, bankInfo, function(err, user) {
+        callback(err,null, user);
+      });
+    }
+  });
+}
+
+Bank.answerSecurityQuestion = function(user, body, callback) {
+  // Add a BofA auth user going through question-based MFA
+  plaidClient.stepConnectUser(body.access_token, body.answer, {}, function(err, mfaResponse, response) {
     if (err != null) {
       // Bad request - invalid credentials, account locked, etc.
       callback(err,null, null);
@@ -64,7 +87,14 @@ Bank.authenticate = function(body, callback) {
       callback(null,mfaResponse,null);
     } else {
       // No MFA required - response body has accounts
-      callback(err,null, response);
+      var bankInfo = {
+        bank_name : body.bank_name,
+        bank_id : body.bank_id,
+        plaid_access_token : response.access_token
+      }
+      User.updateBankInformation(user._id, bankInfo, function(err, user) {
+        callback(err,null, user);
+      });
     }
   });
 }
