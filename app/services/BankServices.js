@@ -53,4 +53,17 @@ export default {
       json : true
     });
   },
+
+  getTransactions : (start_date,end_date) => {
+    return request({
+      uri : BASE_URL + '/transactions/start_date='+start_date+'&end_date='+end_date,
+      method: 'GET',
+      body : {
+        start_date : start_date,
+        end_date : end_date
+      },
+      json : true
+    });
+  },
+
 }

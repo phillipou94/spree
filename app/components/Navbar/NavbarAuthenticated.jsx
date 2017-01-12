@@ -6,6 +6,14 @@ import {Link} from 'react-scroll';
 
 class NavbarAuthenticated extends Component {
 
+  isActiveLink(link) {
+    return this.props.currentPage === link;
+  }
+
+  getLinkStyle(link) {
+    return {color: this.isActiveLink(link) ? "#435061" : "#9199A3"};
+  }
+
   render() {
     const logo = require("../../assets/SpreeLogo.svg");
     return (
@@ -16,9 +24,9 @@ class NavbarAuthenticated extends Component {
         <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
         {! this.props.hideLinks &&
           <div className = {styles.links}>
-            <a href ="/events"><p>Events</p></a>
-            <a href ="/wishlist"><p>Wishlist</p></a>
-            <a href ="/account"><p>Account</p></a>
+            <a href ="/events" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
+            <a href ="/wishlist"><p style = {this.getLinkStyle("WishList")}>Wishlist</p></a>
+            <a href ="/account"><p style = {this.getLinkStyle("Account")}>Account</p></a>
           </div>
         }
       </div>

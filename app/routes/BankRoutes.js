@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var utils = require('../utils/utils');
+var time = require('../utils/time.js');
+
 var Bank = require('../models/Bank.js');
 
 router.get('/all', function(req, res) {
@@ -54,6 +56,18 @@ router.post('/answer', function(req, res) {
       utils.sendStepResponse(res, mfaResponse);
     } else {
       utils.sendSuccessResponse(res,response);
+    }
+  });
+});
+
+router.get('/transactions/start_date=:start_date&end_date=:end_date', function(req, res) {
+  var body = req.body;
+  var user = req.session.user;
+  Bank.getTransactions(user,req.params.start_date,req.params.end_date,function(error, transactions) {
+    if (!error) {
+      utils.sendSuccessResponse(res,transactions);
+    } else {
+      utils.sendErrorResponse(res, 500, 'Could not retrieve transactions');
     }
   });
 });

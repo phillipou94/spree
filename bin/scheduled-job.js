@@ -33,7 +33,7 @@ var calculateAllUsersWeeklySpending = function(callback) {
       var promiseStack = [];
       users.forEach(function(user){
         var weekPromise = new Promise(function(resolve, reject) {
-          Bank._getTransactions(user, start_of_week, end_of_week, function(err, transactions) {
+          Bank.getTransactions(user, start_of_week, end_of_week, function(err, transactions) {
             var spent_this_week = TransactionUtils.calculateTotal(transactions);
             var weekModel = {
                              budget : user.budget,

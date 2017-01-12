@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./AccountPage.css";
+import time from "../../utils/time.js";
 
 import BankServices from "../../services/BankServices.js";
 
@@ -17,7 +18,12 @@ class AccountPage extends React.Component {
   }
 
   componentWillMount() {
-
+    var now = new Date();
+    var start_of_week = time.getNearestMondayBeforeDate(now);
+    BankServices.getTransactions(start_of_week, now).then((res) => {
+      var transactions = res.body;
+      console.log(transactions);
+    });
   }
 
   closePopup() {
@@ -33,7 +39,7 @@ class AccountPage extends React.Component {
                           closePressed = {this.closePopup.bind(this)}
                           />
         }
-        <NavbarAuthenticated />
+        <NavbarAuthenticated currentPage = {"Account"}/>
 
       </div>
     );

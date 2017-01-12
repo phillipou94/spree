@@ -76,7 +76,6 @@ router.post('/login', function(req, res) {
   });
 });
 
-//TODO: Calculate budget given spending
 router.get('/current', function(req, res) {
   if (req.session.user) {
     var user_id = req.session.user._id
