@@ -63,6 +63,16 @@ var User = (function(UserModel) {
     });
   };
 
+  that._bankAuthenticatedUsers = function(callback) {
+    UserModel.find({ plaid_access_token: { $exists: true, $ne:null} }).
+              select('_id plaid_access_token').
+              exec(function(err, users) {
+                if(!err) {
+                  callback(null, users);
+                }
+    });
+  }
+
   that.create = function(name, email, password, callback) {
     UserModel.findOne({ email: email}, function(err, result) {
       if (result !== null) {

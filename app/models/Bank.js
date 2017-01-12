@@ -75,7 +75,7 @@ Bank.authenticate = function(user, body, callback) {
       });
     }
   });
-}
+};
 
 Bank.answerSecurityQuestion = function(user, body, callback) {
   // Add a BofA auth user going through question-based MFA
@@ -97,14 +97,23 @@ Bank.answerSecurityQuestion = function(user, body, callback) {
       });
     }
   });
-}
+};
 
 Bank.getTransactions = function(user,startDate,endDate) {
   plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
     var transactions = response.transactions;
   console.log('You have ' + response.transactions.length +
               ' transactions from the last thirty days.');
-});
-}
+            });
+};
+
+Bank._getTransactions = function(user,callback) {
+  plaidClient.getConnectUser(user.plaid_access_token, {/*gte: '7 days ago'*/}, function(err, response) {
+    var transactions = response.transactions;
+    callback(err,transactions);
+  });
+};
+
+
 
 module.exports = Bank;
