@@ -66,20 +66,30 @@ var calculateAllUsersWeeklySpending = function(callback) {
   return getBankAuthenticatedUsers.then(setWeekForAllUsers);
 }
 
-TIME_LIMIT_TO_COMPLETE = 5 * 60 * 1000 //5 minutes
-setTimeout(
-  function(){
-    throw new Error("Job Timed Out");
- }, TIME_LIMIT_TO_COMPLETE);
+var run = function() {
+  var today = new Date();
+  if (today.getDay() !== 1) {
+    throw new Error("Only Run Job on Mondays");
+  }
 
- var db = mongoose.connection;
+  //TODO: FIND BETTER WAY TO FORCE CLOSE DB
+  // TIME_LIMIT_TO_COMPLETE = 5 * 60 * 1000 //5 minutes
+  // setTimeout(
+  //   function(){
+  //     throw new Error("Job Timed Out");
+  //  }, TIME_LIMIT_TO_COMPLETE);
 
- db.on('error', console.error.bind(console, 'connection error:'));
+   var db = mongoose.connection;
 
- db.once('open', function() {
-   var task = calculateAllUsersWeeklySpending();
-   task.then(function() {
-      console.log("Finished : Calculate All Users Weekly Spending Task");
-      db.close();
-    });
- });
+   db.on('error', console.error.bind(console, 'connection error:'));
+
+   db.once('open', function() {
+     var task = calculateAllUsersWeeklySpending();
+     task.then(function() {
+        console.log("Finished : Calculate All Users Weekly Spending Task");
+        db.close();
+      });
+   });
+}
+
+run();
