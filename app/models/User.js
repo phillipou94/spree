@@ -10,9 +10,9 @@ var UserSchema = mongoose.Schema({
       index: {unique: true}
   },
   password: String,
-  budget:0,
-  total_balance:0,
-  current_week_spent:0,
+  budget:{type:Number},
+  total_balance:{type:Number},
+  current_week_spent:{type:Number},
   events_saved:[{type: mongoose.Schema.Types.ObjectId,ref: 'Event'}],
   events_purchased:[{type: mongoose.Schema.Types.ObjectId,ref: 'Event'}],
   bank_name:{type: String, default: null},
@@ -21,7 +21,7 @@ var UserSchema = mongoose.Schema({
   pending_ticket_id:{type: mongoose.Schema.Types.ObjectId,ref: 'Ticket'},
   account_last_updated: {type: Date, default: Date.now},
   end_of_current_week: {type: Date, default: time.getNearestMondayAfterDate(new Date())},
-  previous_weeks: {type: mongoose.Schema.Types.ObjectId,ref: 'Week'}
+  previous_weeks: [{type: mongoose.Schema.Types.ObjectId,ref: 'Week'}]
 }, { timestamps: true });
 
 UserSchema.index({email: 'text'});
@@ -65,7 +65,7 @@ var User = (function(UserModel) {
 
   that._bankAuthenticatedUsers = function(callback) {
     UserModel.find({ plaid_access_token: { $exists: true, $ne:null} }).
-              select('_id plaid_access_token').
+              select('_id plaid_access_token budget').
               exec(function(err, users) {
                 if(!err) {
                   callback(null, users);

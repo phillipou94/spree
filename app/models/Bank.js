@@ -107,8 +107,8 @@ Bank.getTransactions = function(user,startDate,endDate) {
             });
 };
 
-Bank._getTransactions = function(user,callback) {
-  plaidClient.getConnectUser(user.plaid_access_token, {/*gte: '7 days ago'*/}, function(err, response) {
+Bank._getTransactions = function(user, startDate, endDate, callback) {
+  plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
     var transactions = response.transactions;
     callback(err,transactions);
   });
