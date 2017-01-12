@@ -99,4 +99,12 @@ Bank.answerSecurityQuestion = function(user, body, callback) {
   });
 }
 
+Bank.getTransactions = function(user,startDate,endDate) {
+  plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
+    var transactions = response.transactions;
+  console.log('You have ' + response.transactions.length +
+              ' transactions from the last thirty days.');
+});
+}
+
 module.exports = Bank;
