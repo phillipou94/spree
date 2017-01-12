@@ -42,7 +42,6 @@ var calculateAllUsersWeeklySpending = function(callback) {
                              start_date : start_of_week,
                              end_date : end_of_week
                            };
-            resolve(weekModel);
             Week.create(weekModel, function(e, week) {
               resolve(week)
             });

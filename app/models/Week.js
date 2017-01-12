@@ -27,6 +27,17 @@ var Week = (function(WeekModel) {
       callback(null, week);
     });
   }
+
+  that.getPreviousWeeks = function(user_id, callback) {
+    WeekModel.find({ user_id: user_id}).exec(function(err, weeks) {
+        if(!err) {
+          callback(null, weeks);
+        } else {
+          callback(err, null);
+        }
+    });
+  }
+
   Object.freeze(that);
   return that;
 
