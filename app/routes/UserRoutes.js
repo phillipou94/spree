@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var utils = require('../utils/utils');
 var User = require('../models/User.js');
+var Week = require('../models/Week.js')
 
 var validator = require("email-validator");
 
@@ -75,22 +76,44 @@ router.post('/login', function(req, res) {
   });
 });
 
-//TODO: Calculate buget
+//TODO: Calculate budget given spending
 router.get('/current', function(req, res) {
   if (req.session.user) {
-        User.findById(req.session.user._id, function(error, user) {
-            if (!error) {
-              console.log(user);
-                req.session.user = user;
-                utils.sendSuccessResponse(res, { authenticated: true, user: user })
-            } else {
-                utils.sendErrorResponse(res, 500, 'Problem finding current_user user');
-            }
-        });
-    } else {
-        utils.sendSuccessResponse(res, { authenticated: false });
-    }
+    var user_id = req.session.user._id
+      User.findById(user_id, function(error, user) {
+          if (!error) {
+            req.session.user = user;
+            Week.getPreviousWeeks(user_id, function(err, weeks) {
+              if (err) {
+                utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0 })
+              } else {
+                //calculate how much under budget you are total
+                var balance = calculateTotalBalance(weeks);
+                var sessionInfo = { authenticated: true, user: user, balance:balance }
+                console.log(sessionInfo);
+                utils.sendSuccessResponse(res, sessionInfo)
+              }
+            });
+          } else {
+              utils.sendErrorResponse(res, 500, 'Problem finding current_user user');
+          }
+      });
+  } else {
+      utils.sendSuccessResponse(res, { authenticated: false });
+  }
 });
+
+var calculateTotalBalance(weeks) {
+  var balance = weeks.reduce(function(current,week){
+    var weekly_budget = week.budget ? week.budget : 0;
+    console.log("weekly budget: "+weekly_budget);
+    console.log("weekly spent: "+week.spent);
+    console.log("-------");
+    var weekly_balance = Math.max(0,weekly_budget - week.spent);
+    return current+weekly_balance;
+  },0);
+  return balance;
+}
 
 // router.put('/logout', function(req, res) {
 //     req.session.destroy();

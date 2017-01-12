@@ -3,6 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 var time = require("../utils/time.js");
 
+
 var WeekSchema = mongoose.Schema({
   budget:{type:Number},
   spent:{type:Number},

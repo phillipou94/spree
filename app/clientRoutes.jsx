@@ -4,6 +4,7 @@ import App from './App.jsx';
 
 import UserServices from "./services/UserServices.js";
 
+import AccountPage from './pages/Account/AccountPage.jsx';
 import BankPage from './pages/Bank/BankPage.jsx';
 import LandingPage from './pages/Landing/LandingPage.jsx';
 import LoginPage from './pages/Auth/LoginPage.jsx';
@@ -17,7 +18,7 @@ const authCheck = (nextState, replace, callback) => {
         }
         callback();
     }).catch((err) => {
-        console.log("Err on getCurrentUser() : ", err);
+        console.log("Err on authCheck : ", err);
         callback();
     });
 };
@@ -29,6 +30,7 @@ export default(
       <Route path="signup" component={SignupPage} />
       <Route path="login" component={LoginPage} />
       <Route path="bank" component={BankPage} onEnter={authCheck}/>
+      <Route path="account" component={AccountPage} onEnter={authCheck}/>
     </Route>
   </Router>
 );
