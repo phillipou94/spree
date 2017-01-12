@@ -103,12 +103,9 @@ router.get('/current', function(req, res) {
   }
 });
 
-var calculateTotalBalance(weeks) {
+var calculateTotalBalance = function(weeks) {
   var balance = weeks.reduce(function(current,week){
     var weekly_budget = week.budget ? week.budget : 0;
-    console.log("weekly budget: "+weekly_budget);
-    console.log("weekly spent: "+week.spent);
-    console.log("-------");
     var weekly_balance = Math.max(0,weekly_budget - week.spent);
     return current+weekly_balance;
   },0);
