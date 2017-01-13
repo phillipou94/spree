@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600&subset=latin-ext');
 
 .Application html, body, #app, .content {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Raleway', sans-serif;
   height: 100%;
   padding: 0;
   margin: 0;
