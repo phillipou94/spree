@@ -21,7 +21,7 @@ import WeekItem from '../../components/AccountItems/WeekItem.jsx';
 class AccountPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {showPopup:false}
+    this.state = {showPopup:false, budget:300, spentThisWeek: 289.94, balance:10.04}
   }
 
   componentWillMount() {
@@ -49,12 +49,12 @@ class AccountPage extends React.Component {
         <NavbarAuthenticated currentPage = {"Account"}/>
         <h1 className = {styles.header}>Phillip Ou's Account</h1>
         <div className = {styles.AccountCardsContainer}>
-          <BalanceCard />
+          <BalanceCard balance = {this.state.balance}/>
           <SetBudgetCard />
           <UpdateBankCard />
         </div>
         <div className = {styles.AccountGraphicsContainer}>
-          <BalanceGraphic />
+          <BalanceGraphic budget = {this.state.budget} spentThisWeek = {this.state.spentThisWeek}/>
         </div>
 
         <TransactionItem />

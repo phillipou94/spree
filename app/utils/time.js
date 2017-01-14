@@ -18,6 +18,14 @@ var time = (function() {
     return date;
   }
 
+  that.daysLeftInWeek = function() {
+    var oneDay = 24*60*60*1000;
+    var today = new Date();
+    var nextMonday = this.getNearestMondayAfterDate(today);
+    var daysLeft = Math.ceil(Math.abs((nextMonday.getTime() - today.getTime())/(oneDay)));
+    return daysLeft;
+  }
+
   Object.freeze(that);
   return that;
 
