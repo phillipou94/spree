@@ -1,0 +1,6 @@
+.AccountCardsContainer {
+  margin-left:70px;
+  margin-right:70px;
+  display:flex;
+  flex-flow:space-between;
+}

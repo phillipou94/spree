@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="115px" height="7px" viewBox="0 0 115 7" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Line</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="square">
+        <g id="Account.jsx-(Weeks)" transform="translate(-158.000000, -397.000000)" stroke="#FFFFFF" fill="#FFFFFF">
+            <g id="Group-4" transform="translate(99.000000, 196.000000)">
+                <path d="M59.5,204.5 L173.5,204.5" id="Line"></path>
+                <path id="Line-decoration-1" d="M173.5,204.5 L162.7,201.5 L162.7,207.5 L173.5,204.5 Z"></path>
+            </g>
+        </g>
+    </g>
+</svg>

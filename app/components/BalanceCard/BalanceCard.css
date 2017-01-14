@@ -1,0 +1,37 @@
+.BalanceCard {
+  background:white;
+  overflow:auto;
+  cursor:pointer;
+  display:inline-block;
+  border: 1px solid #435061;
+  height:123px;
+  width:325px;
+  margin-right:50px;
+
+}
+
+.title {
+  weight:300;
+  color:#9199A3;
+  font-size:20px;
+  margin:0;
+  margin-left:30px;
+  margin-top:20px;
+}
+
+.amount {
+  weight:400;
+  font-size:35px;
+  float:left;
+  margin:0;
+  margin-left:30px;
+
+}
+
+.weeklyAmount {
+  margin-top:15px;
+  float:left;
+  weight: 300;
+  color:#33AE8B;
+  margin-left:10px;
+}

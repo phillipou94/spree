@@ -9,6 +9,9 @@ import BankServices from "../../services/BankServices.js";
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
 import PopupConductor from '../../components/Popups/PopupConductor.jsx';
+import SetBudgetCard from '../../components/SetBudgetCard/SetBudgetCard.jsx';
+import UpdateBankCard from '../../components/UpdateBankCard/UpdateBankCard.jsx';
+import BalanceCard from '../../components/BalanceCard/BalanceCard.jsx';
 import TicketItem from '../../components/AccountItems/TicketItem.jsx';
 import TransactionItem from '../../components/AccountItems/TransactionItem.jsx';
 import WeekItem from '../../components/AccountItems/WeekItem.jsx';
@@ -43,6 +46,13 @@ class AccountPage extends React.Component {
                           />
         }
         <NavbarAuthenticated currentPage = {"Account"}/>
+        <div className = {styles.AccountCardsContainer}>
+          <BalanceCard />
+          <SetBudgetCard />
+          <UpdateBankCard />
+
+        </div>
+
         <TransactionItem />
         <TicketItem />
         <WeekItem />

@@ -1,0 +1,40 @@
+.SetBudgetCard {
+  background:#33AE8B;
+  cursor:pointer;
+  display:inline-block;
+  min-width:325px;
+  margin-right:50px;
+  height:125px;
+}
+
+.iconContainer {
+  margin-top:20px;
+  background:rgba(216,216,216,0.49);
+  padding:8px;
+  border-radius:50%;
+  display:inline-block;
+  float:left;
+  margin-right:10px;
+  margin-left:40px;
+
+}
+
+.icon {
+  width:30px;
+  height:30px;
+}
+
+.title {
+  color:white;
+  display:block;
+  font-size:25px;
+  margin-top:20px;
+  width:90%;
+  margin-bottom:5px;
+}
+
+.arrow {
+  margin-bottom:20px;
+  margin-left:40px;
+  width:60%;
+}
