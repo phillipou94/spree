@@ -122,6 +122,7 @@ class BankPage extends React.Component {
     const infoPaneIcon = require("../../assets/PiggyBankLock.svg");
     const banks = this.state.banks;
     const type = this.state.popupType;
+    const skipToPage = "/account";
     return (
       <div>
         {this.state.showPopup &&
@@ -132,14 +133,18 @@ class BankPage extends React.Component {
                           answerSubmitted = {this.answerSubmitted.bind(this)}
                           question = {this.state.question}/>
         }
-        <Navbar hideLinks = {true}/>
           <div className = {styles.header}>
-            <h1>Connect your bank or credit card statement</h1>
-            <Searchbar width = {"95%"}
-                       placeholder = {"Find your bank"}
-                       inputDidChange = {this.searchInputDidChange.bind(this)}
-            />
+            <a href = {skipToPage} className = {styles.skipButton}>skip > </a>
+            <h1>Select your bank</h1>
+            <p>Find your bank below</p>
+
+            <div className = {styles.divider}></div>
           </div>
+          <div className = {styles.searchbarContainer}>
+            <Searchbar placeholder = {"Find your bank"}
+                       inputDidChange = {this.searchInputDidChange.bind(this)}
+          />
+        </div>
         <div className = {styles.infoPane}>
           <img src = {infoPaneIcon} className = {styles.infoPaneIcon}/>
           <div className = {styles.QA}>
