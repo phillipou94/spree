@@ -14,6 +14,7 @@ import UpdateBankCard from '../../components/UpdateBankCard/UpdateBankCard.jsx';
 import BalanceCard from '../../components/BalanceCard/BalanceCard.jsx';
 import TicketItem from '../../components/AccountItems/TicketItem.jsx';
 import TransactionItem from '../../components/AccountItems/TransactionItem.jsx';
+import BalanceGraphic from '../../components/BalanceGraphic/BalanceGraphic.jsx';
 import WeekItem from '../../components/AccountItems/WeekItem.jsx';
 
 
@@ -46,11 +47,14 @@ class AccountPage extends React.Component {
                           />
         }
         <NavbarAuthenticated currentPage = {"Account"}/>
+        <h1 className = {styles.header}>Phillip Ou's Account</h1>
         <div className = {styles.AccountCardsContainer}>
           <BalanceCard />
           <SetBudgetCard />
           <UpdateBankCard />
-
+        </div>
+        <div className = {styles.AccountGraphicsContainer}>
+          <BalanceGraphic />
         </div>
 
         <TransactionItem />

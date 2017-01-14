@@ -2,5 +2,19 @@
   margin-left:70px;
   margin-right:70px;
   display:flex;
-  flex-flow:space-between;
+  justify-content:space-between;
+}
+
+.AccountGraphicsContainer {
+  margin-left:70px;
+  margin-right:70px;
+  margin-top:30px;
+
+  display:flex;
+  justify-content:left;
+}
+
+.header {
+  margin-left:70px;
+  color:#435061;
 }

@@ -1,0 +1,83 @@
+.BalanceGraphic {
+  background:white;
+  border: 1px solid #435061;
+  width:100%;
+  display:flex;
+  justify-content:flex-start;
+}
+
+
+.WeeklyBalanceInfo {
+  flex-grow:1;
+  background:white;
+  overflow:auto;
+  cursor:pointer;
+  display:inline-block;
+  width:325px;
+  max-width:325px;
+  min-width:325px;
+  flex-basis: 325px | auto;
+  display:flex;
+  flex-wrap:wrap;
+}
+
+.WeeklyBalanceInfo .title {
+  color:#9199A3;
+}
+
+.WeeklyBalanceInfo .info {
+  font-size:25px;
+  color:#435061;
+}
+
+.WeeklyBalanceInfo .infoContainer {
+  margin-top:10px;
+  margin-bottom:10px;
+  width:50%;
+  text-align:center;
+}
+
+.WeeklyBalanceInfo .infoContainer p {
+  margin:0;
+}
+
+.graphicContainer {
+  display:inline-block;
+  width:50%;
+  margin-left:60px;
+}
+
+.graphicTitle {
+  margin-top:10px;
+  margin-bottom:25px;
+  color:#9199A3;
+}
+
+.graphic {
+  width:100%;
+
+}
+
+.amountBar {
+  background:#33AE8B;
+  height:10px;
+  margin:0;
+}
+
+.amount {
+  margin:0;
+  padding:0;
+  color:#33AE8B;
+}
+
+.totalBar {
+  background:#435061;
+  height:10px;
+}
+
+.total {
+  margin:0;
+  padding:0;
+  color:#435061;
+  float:right;
+}
