@@ -39,6 +39,7 @@
     "react": "15.x",
     "react-css-modules": "^4.1.0",
     "react-dom": "15.x",
+    "react-dropdown": "^1.2.0",
     "react-router": "^3.0.0",
     "react-scroll": "^1.4.4",
     "request": "^2.79.0",
