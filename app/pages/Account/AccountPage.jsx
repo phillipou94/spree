@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./AccountPage.css";
 import time from "../../utils/time.js";
+import TransactionUtils from "../../utils/TransactionUtils.js";
 
 import BankServices from "../../services/BankServices.js";
 import UserServices from "../../services/UserServices.js";
@@ -27,7 +28,7 @@ class AccountPage extends React.Component {
     super(props);
     this.state = {showPopup:false,
                   budget:300,
-                  spentThisWeek: 289.94,
+                  spentThisWeek: 0,
                   balance:10.04,
                   dropDownOptions: ["Transactions", "Tickets", "Previous Weeks"],
                   selectedOption:"Transactions",
@@ -44,9 +45,9 @@ class AccountPage extends React.Component {
       this.setState({user:res.body.user});
     });
     BankServices.getTransactions(start_of_week, now).then((res) => {
-      var transactions = res.body;
-      console.log(transactions);
-      this.setState({transactions:transactions});
+      var transactions = TransactionUtils.filter(res.body);
+      var spentThisWeek = TransactionUtils.calculateTotal(transactions);
+      this.setState({transactions:transactions, spentThisWeek:spentThisWeek});
     });
   }
 
