@@ -3,11 +3,9 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var Week = require('../models/Week.js');
 
-router.get('/previous/:user_id', function(req, res) {
-  var user_id = req.params.user_id;
+router.get('/previous', function(req, res) {
+  var user_id = req.session.user._id;
   Week.getPreviousWeeks(user_id, function(error, weeks) {
-    console.log(weeks);
-    console.log(error);
     if (!error) {
       utils.sendSuccessResponse(res,weeks);
     } else {

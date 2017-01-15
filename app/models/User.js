@@ -107,8 +107,6 @@ var User = (function(UserModel) {
     const bank_name = bankInfo.bank_name;
     const bank_id = bankInfo.bank_id;
     const plaid_access_token = bankInfo.plaid_access_token;
-    console.log(bankInfo);
-    console.log(bank_id)
     UserModel.findOneAndUpdate({_id:user_id},{bank_name:bank_name,
                                               bank_id:bank_id,
                                               plaid_access_token:plaid_access_token}, function(err, user) {
@@ -119,6 +117,15 @@ var User = (function(UserModel) {
           callback({ msg: 'This user does not exist!' });
       }
     });
+  }
+
+  that.updateBudget = function(user_id, newBudget, callback) {
+    UserModel.findByIdAndUpdate(user_id,{budget:newBudget}, function(err, user) {
+      if (err) callback({ msg: err });
+      user.budget = newBudget;
+      callback(null, user);
+    });
+
   }
 
   Object.freeze(that);

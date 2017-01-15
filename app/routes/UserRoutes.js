@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var utils = require('../utils/utils');
 var User = require('../models/User.js');
-var Week = require('../models/Week.js')
+var Week = require('../models/Week.js');
 
 var validator = require("email-validator");
 
@@ -103,6 +103,17 @@ router.get('/current', function(req, res) {
 
 router.get('/cached', function(req, res) {
   utils.sendSuccessResponse(res, { user: req.session.user });
+});
+
+router.put('/budget', function(req,res) {
+  var newBudget = req.body.budget;
+  User.updateBudget(req.session.user._id, newBudget, function(error, user) {
+    if (error) {
+      utils.sendErrorResponse(res, 500, 'Could not update user budget');
+    } else {
+      utils.sendSuccessResponse(res, user);
+    }
+  });
 });
 
 var calculateTotalBalance = function(weeks) {

@@ -6,13 +6,15 @@ import styles from "./BalanceGraphic.css";
 import time from "../../utils/time.js";
 
 class BalanceGraphic extends Component {
+
   calculateSpendingPercentages(spent, budget) {
     var percentage = spent < budget ? spent * 100 / budget : budget * 100 / spent;
     return spent < budget ? {"spent" : percentage, "budget" : 100} : {"spent" : 100, "budget" : percentage};
   }
+
   render() {
-    var budget = this.props.budget;
-    var spent = this.props.spentThisWeek;
+    var budget = new Number(this.props.budget).toFixed(2);
+    var spent = new Number(this.props.spentThisWeek).toFixed(2);
     var left = Math.max(0, budget - spent);
     var leftInBudgetRounded = Math.ceil(left * 100) / 100;
     var daysLeft = time.daysLeftInWeek();
@@ -23,6 +25,10 @@ class BalanceGraphic extends Component {
     var amountBarStyle = {width:spentPercentage+"%"};
     var budgetBarStyle = {width:budgetPercentage+"%"};
 
+    var now = new Date();
+    var end_of_week = time.formattedMonthDayString(time.getNearestMondayAfterDate(now))
+    var start_of_week = time.formattedMonthDayString(time.getNearestMondayBeforeDate(now));
+    var dateString = "Week of "+start_of_week+" - "+ end_of_week;
 
     return (
       <div className = {styles.BalanceGraphic}>
@@ -45,7 +51,7 @@ class BalanceGraphic extends Component {
           </div>
         </div>
         <div className = {styles.graphicContainer}>
-          <p className = {styles.graphicTitle}>Week of Aug 12 - Aug 19</p>
+          <p className = {styles.graphicTitle}>{dateString}</p>
           <div className = {styles.graphic}>
             <div>
               <p className = {styles.amount}>{"Spent $ "+spent}</p>

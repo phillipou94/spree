@@ -8,11 +8,9 @@ var request = require('request-promise-native');
  * Services to link the front-end to the user models
  */
 export default {
-  previousWeeks : (user_id) => {
-    console.log("services!");
-    console.log(user_id);
+  previousWeeks : () => {
     return request({
-      uri : BASE_URL + '/previous/'+user_id,
+      uri : BASE_URL + '/previous/',
       method: 'GET',
       json : true
     });

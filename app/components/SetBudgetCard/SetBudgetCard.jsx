@@ -8,7 +8,7 @@ class SetBudgetCard extends Component {
     var icon = require("../../assets/Coins.svg");
     var arrow = require("../../assets/Arrow.svg");
     return (
-      <div className = {styles.SetBudgetCard}>
+      <div className = {styles.SetBudgetCard} onClick = {this.props.onClick}>
         <div className = {styles.iconContainer}>
           <img src = {icon} className = {styles.icon}/>
         </div>

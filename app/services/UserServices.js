@@ -50,4 +50,16 @@ export default {
     });
 
   },
+
+  updateBudget : (newBudget) => {
+    return request({
+      uri : BASE_URL + '/budget',
+      method: 'PUT',
+      body : {
+        budget : newBudget
+      },
+      json : true
+    });
+
+  }
 }

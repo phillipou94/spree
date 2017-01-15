@@ -9,7 +9,7 @@ class WeekItem extends Component {
     var week = this.props.week;
     var icon = require("../../assets/Calendar.svg");
     var budget = this.props.budget ? this.props.budget : 0;
-    var amountBelowBudget = Math.max(0, budget - week.spent);
+    var amountBelowBudget = new Number(Math.max(0, budget - week.spent)).toFixed(2);
     return (
       <div className = {styles.AccountItem}>
         <div className = {styles.iconContainer}>

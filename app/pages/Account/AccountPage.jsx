@@ -27,9 +27,9 @@ class AccountPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {showPopup:false,
-                  budget:300,
-                  spentThisWeek: 0,
-                  balance:10.04,
+                  budget:0.00,
+                  spentThisWeek: 0.00,
+                  balance:0.00,
                   dropDownOptions: ["Transactions", "Tickets", "Previous Weeks"],
                   selectedOption:"Transactions",
                   user: null,
@@ -39,16 +39,16 @@ class AccountPage extends React.Component {
   }
 
   componentWillMount() {
-    var now = new Date();
-    var start_of_week = time.getNearestMondayBeforeDate(now);
     UserServices.cachedUser().then((res) => {
-      this.setState({user:res.body.user});
+      var user = res.body.user;
+      if (user) {
+        var budget = user.budget ? user.budget : 0.00;
+        this.setState({user:res.body.user, budget:budget});
+      }
+      this.getTransactions();
+      this.getPreviousWeeks(user);
     });
-    BankServices.getTransactions(start_of_week, now).then((res) => {
-      var transactions = TransactionUtils.filter(res.body);
-      var spentThisWeek = TransactionUtils.calculateTotal(transactions);
-      this.setState({transactions:transactions, spentThisWeek:spentThisWeek});
-    });
+
   }
 
   closePopup() {
@@ -58,28 +58,44 @@ class AccountPage extends React.Component {
   didSelectDropdown(event) {
     var option = event.target.value;
     this.setState({selectedOption:option});
-    if (option === this.state.dropDownOptions[2]) {
-      this.getPreviousWeeks();
+    if (option === this.state.dropDownOptions[0]) {
+      this.getTransactions();
+    } else if (option === this.state.dropDownOptions[1]) {
+
+    }else {
+      // we've already retrieved previous weeks
     }
   }
 
-  getPreviousWeeks() {
-    WeekServices.previousWeeks(this.state.user._id).then((res) => {
+  getTransactions() {
+    var now = new Date();
+    var start_of_week = time.getNearestMondayBeforeDate(now);
+    BankServices.getTransactions(start_of_week, now).then((res) => {
+      var transactions = TransactionUtils.filter(res.body);
+      var spentThisWeek = TransactionUtils.calculateTotal(transactions);
+      this.setState({transactions:transactions, spentThisWeek:spentThisWeek});
+    });
+  }
+
+  getPreviousWeeks(user) {
+    var budget = this.props.budget ? this.props.budget : 0;
+    WeekServices.previousWeeks(user._id).then((res) => {
       var weeks = res.body;
-      this.setState({weeks:weeks});
+      var totalBalance = weeks.reduce(function(total,week) {
+        var amountBelowBudget = Math.max(0, budget - week.spent);
+        return total + amountBelowBudget;
+      }, 0);
+      this.setState({weeks:weeks, balance: totalBalance});
     });
   }
 
   subheader() {
-    var now = new Date();
-    var end_of_week = time.formattedMonthDayString(time.getNearestMondayAfterDate(now))
-    var start_of_week = time.formattedMonthDayString(time.getNearestMondayBeforeDate(now));
     if (this.state.selectedOption === "Tickets") {
       return "2 Tickets";
     } else if (this.state.selectedOption === "Previous Weeks") {
       return "Amount Spent";
     } else {
-      return "Week of " + start_of_week + " - " + end_of_week;
+      return "Your Spending this Week";
     }
   }
 
@@ -114,6 +130,16 @@ class AccountPage extends React.Component {
     });
   }
 
+  didSelectSetBudget() {
+    UserServices.updateBudget(150.00).then((res) => {
+      var user = res.body.user;
+      if (user) {
+        var budget = user.budget ? user.budget : 0.00;
+        this.setState({user:res.body.user, budget:budget});
+      }
+    });
+  }
+
   render() {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
     return (
@@ -128,8 +154,10 @@ class AccountPage extends React.Component {
         <NavbarAuthenticated currentPage = {"Account"}/>
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
-          <BalanceCard balance = {this.state.balance}/>
-          <SetBudgetCard />
+          <BalanceCard balance = {this.state.balance}
+                       spentThisWeek = {this.state.spentThisWeek}
+                       budget = {this.state.budget}/>
+          <SetBudgetCard onClick = {this.didSelectSetBudget}/>
           <UpdateBankCard />
         </div>
         <div className = {styles.AccountGraphicsContainer}>
