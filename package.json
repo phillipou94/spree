@@ -26,6 +26,7 @@
     "copy-webpack-plugin": "latest",
     "css-loader": "~0.26.1",
     "cz-conventional-changelog": "^1.2.0",
+    "dateformat": "^2.0.0",
     "dotenv": "^4.0.0",
     "email-validator": "^1.0.7",
     "express": "^4.14.0",

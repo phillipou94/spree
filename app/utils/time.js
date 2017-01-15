@@ -1,5 +1,5 @@
 var time = (function() {
-
+  var dateFormat = require('dateformat');
   var that = {};
 
   that.getNearestMondayAfterDate = function(milliseconds) {
@@ -24,6 +24,14 @@ var time = (function() {
     var nextMonday = this.getNearestMondayAfterDate(today);
     var daysLeft = Math.ceil(Math.abs((nextMonday.getTime() - today.getTime())/(oneDay)));
     return daysLeft;
+  }
+
+  that.formattedDateString = function(date) {
+    return dateFormat(date, "mmm dd, yyyy");
+  }
+
+  that.formattedMonthDayString = function(date) {
+    return dateFormat(date, "mmm dd");
   }
 
   Object.freeze(that);

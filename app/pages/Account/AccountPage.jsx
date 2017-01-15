@@ -45,6 +45,7 @@ class AccountPage extends React.Component {
     });
     BankServices.getTransactions(start_of_week, now).then((res) => {
       var transactions = res.body;
+      console.log(transactions);
       this.setState({transactions:transactions});
     });
   }
@@ -69,19 +70,23 @@ class AccountPage extends React.Component {
   }
 
   subheader() {
+    var now = new Date();
+    var end_of_week = time.formattedMonthDayString(time.getNearestMondayAfterDate(now))
+    var start_of_week = time.formattedMonthDayString(time.getNearestMondayBeforeDate(now));
     if (this.state.selectedOption === "Tickets") {
       return "2 Tickets";
     } else if (this.state.selectedOption === "Previous Weeks") {
-      return "Week 5";
+      return "Amount Spent";
     } else {
-      return "Week of Sept 11 - Sept 18";
+      return "Week of " + start_of_week + " - " + end_of_week;
     }
   }
 
   transactionItems(transactions) {
-    return transactions.map(function(index, transaction){
+    return transactions.map(function(transaction, index){
+
       return (
-        <div key = {index}>
+        <div key = {transaction._id}>
           <TransactionItem transaction = {transaction}/>
         </div>
       );
@@ -99,17 +104,17 @@ class AccountPage extends React.Component {
   }
 
   weekItems(weeks) {
-    return weeks.map(function(index, week){
+    return weeks.map(function(week, index){
       return (
         <div key = {week._id}>
-          <WeekItem weeks = {weeks}/>
+          <WeekItem weekNumber = {weeks.length - index} week = {week}/>
         </div>
       );
     });
   }
 
   render() {
-    var title = this.state.user ? this.state.user.name+'s Account' : "Account";
+    var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
