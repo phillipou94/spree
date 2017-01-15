@@ -24,6 +24,7 @@
   margin-right:70px;
   margin-bottom:30px;
   border: 1px solid #435061;
+  min-height:100px;
 }
 
 .tableHeader {

@@ -40,5 +40,14 @@ export default {
       json : true
     });
 
-  }
+  },
+
+  cachedUser : () => {
+    return request({
+      uri : BASE_URL + '/cached',
+      method: 'GET',
+      json : true
+    });
+
+  },
 }

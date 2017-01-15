@@ -5,6 +5,7 @@ import styles from "./AccountPage.css";
 import time from "../../utils/time.js";
 
 import BankServices from "../../services/BankServices.js";
+import UserServices from "../../services/UserServices.js";
 
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Dropdown from 'react-dropdown';
@@ -29,6 +30,7 @@ class AccountPage extends React.Component {
                   balance:10.04,
                   dropDownOptions: ["Transactions", "Tickets", "Previous Weeks"],
                   selectedOption:"Transactions",
+                  user: null,
                   weeks:[],
                   transactions:[],
                   tickets:[]}
@@ -37,10 +39,12 @@ class AccountPage extends React.Component {
   componentWillMount() {
     var now = new Date();
     var start_of_week = time.getNearestMondayBeforeDate(now);
+    UserServices.cachedUser().then((res) => {
+      this.setState({user:res.body.user});
+    });
     BankServices.getTransactions(start_of_week, now).then((res) => {
       var transactions = res.body;
       this.setState({transactions:transactions});
-      console.log(transactions);
     });
   }
 
@@ -50,6 +54,10 @@ class AccountPage extends React.Component {
 
   didSelectDropdown(event) {
     this.setState({selectedOption:event.target.value})
+  }
+
+  getPreviousWeeks() {
+    
   }
 
   subheader() {
@@ -93,6 +101,7 @@ class AccountPage extends React.Component {
   }
 
   render() {
+    var title = this.state.user ? this.state.user.name+'s Account' : "Account";
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
@@ -103,7 +112,7 @@ class AccountPage extends React.Component {
                           />
         }
         <NavbarAuthenticated currentPage = {"Account"}/>
-        <h1 className = {styles.header}>Phillip Ou's Account</h1>
+        <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
           <BalanceCard balance = {this.state.balance}/>
           <SetBudgetCard />
@@ -127,13 +136,13 @@ class AccountPage extends React.Component {
 
           </div>
           {this.state.selectedOption === this.state.dropDownOptions[0] &&
-            this.transactionItems([1,2,3,4,5,6])
+            this.transactionItems(this.state.transactions)
           }
           {this.state.selectedOption === this.state.dropDownOptions[1] &&
-            this.ticketItems([1,2,3,4,5,6])
+            this.ticketItems(this.state.tickets)
           }
           {this.state.selectedOption === this.state.dropDownOptions[2] &&
-            this.weekItems([1,2,3,4,5,6])
+            this.weekItems(this.state.weeks)
           }
 
         </div>

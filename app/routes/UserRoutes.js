@@ -84,12 +84,11 @@ router.get('/current', function(req, res) {
             req.session.user = user;
             Week.getPreviousWeeks(user_id, function(err, weeks) {
               if (err) {
-                utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0 })
+                utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0, weeks:[] });
               } else {
                 //calculate how much under budget you are total
                 var balance = calculateTotalBalance(weeks);
-                var sessionInfo = { authenticated: true, user: user, balance:balance }
-                console.log(sessionInfo);
+                var sessionInfo = { authenticated: true, user: user, balance:balance, weeks:weeks };
                 utils.sendSuccessResponse(res, sessionInfo)
               }
             });
@@ -100,6 +99,10 @@ router.get('/current', function(req, res) {
   } else {
       utils.sendSuccessResponse(res, { authenticated: false });
   }
+});
+
+router.get('/cached', function(req, res) {
+  utils.sendSuccessResponse(res, { user: req.session.user });
 });
 
 var calculateTotalBalance = function(weeks) {
