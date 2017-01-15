@@ -51,10 +51,6 @@ class AccountPage extends React.Component {
 
   }
 
-  closePopup() {
-    this.setState({showPopup:false});
-  }
-
   didSelectDropdown(event) {
     var option = event.target.value;
     this.setState({selectedOption:option});
@@ -131,19 +127,22 @@ class AccountPage extends React.Component {
   }
 
   didSelectSetBudget() {
-
+    this.setState({showPopup:true});
   }
+    closePopup() {
+      this.setState({showPopup:false});
+    }
 
   didSelectUpdateBank() {
     this.props.router.push("/bank");
   }
 
-  updateBudget() {
-    UserServices.updateBudget(150.00).then((res) => {
-      var user = res.body.user;
+  budgetSubmitted(newBudget) {
+    UserServices.updateBudget(newBudget).then((res) => {
+      var user = res.body;
       if (user) {
         var budget = user.budget ? user.budget : 0.00;
-        this.setState({user:res.body.user, budget:budget});
+        this.setState({user:res.body.user, budget:budget, showPopup:false});
       }
     });
   }
@@ -155,7 +154,7 @@ class AccountPage extends React.Component {
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
         {this.state.showPopup &&
           <PopupConductor type = {"BUDGET"}
-                          bank = {this.state.selectedBank}
+                          budgetSubmitted = {this.budgetSubmitted.bind(this)}
                           closePressed = {this.closePopup.bind(this)}
                           />
         }

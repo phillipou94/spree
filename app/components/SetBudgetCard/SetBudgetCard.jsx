@@ -12,7 +12,7 @@ class SetBudgetCard extends Component {
         <div className = {styles.iconContainer}>
           <img src = {icon} className = {styles.icon}/>
         </div>
-        <h1 className = {styles.title}>Set Weekly Budget</h1>
+        <h1 className = {styles.title}>Change Weekly Budget</h1>
         <img src = {arrow} className = {styles.arrow}/>
       </div>
     )

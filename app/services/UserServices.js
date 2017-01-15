@@ -52,6 +52,7 @@ export default {
   },
 
   updateBudget : (newBudget) => {
+    console.log("SERVICES");
     return request({
       uri : BASE_URL + '/budget',
       method: 'PUT',
