@@ -6,6 +6,7 @@ import time from "../../utils/time.js";
 
 import BankServices from "../../services/BankServices.js";
 import UserServices from "../../services/UserServices.js";
+import WeekServices from "../../services/WeekServices.js";
 
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Dropdown from 'react-dropdown';
@@ -53,11 +54,18 @@ class AccountPage extends React.Component {
   }
 
   didSelectDropdown(event) {
-    this.setState({selectedOption:event.target.value})
+    var option = event.target.value;
+    this.setState({selectedOption:option});
+    if (option === this.state.dropDownOptions[2]) {
+      this.getPreviousWeeks();
+    }
   }
 
   getPreviousWeeks() {
-    
+    WeekServices.previousWeeks(this.state.user._id).then((res) => {
+      var weeks = res.body;
+      this.setState({weeks:weeks});
+    });
   }
 
   subheader() {
@@ -93,7 +101,7 @@ class AccountPage extends React.Component {
   weekItems(weeks) {
     return weeks.map(function(index, week){
       return (
-        <div key = {index}>
+        <div key = {week._id}>
           <WeekItem weeks = {weeks}/>
         </div>
       );
