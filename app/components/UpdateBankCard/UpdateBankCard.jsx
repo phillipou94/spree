@@ -8,7 +8,7 @@ class UpdateBankCard extends Component {
     var icon = require("../../assets/PiggyBankDollar.svg");
     var arrow = require("../../assets/Arrow.svg");
     return (
-      <div className = {styles.UpdateBankCard}>
+      <div className = {styles.UpdateBankCard} onClick = {this.props.onClick}>
         <div className = {styles.iconContainer}>
           <img src = {icon} className = {styles.icon}/>
         </div>

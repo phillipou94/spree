@@ -131,6 +131,14 @@ class AccountPage extends React.Component {
   }
 
   didSelectSetBudget() {
+
+  }
+
+  didSelectUpdateBank() {
+    this.props.router.push("/bank");
+  }
+
+  updateBudget() {
     UserServices.updateBudget(150.00).then((res) => {
       var user = res.body.user;
       if (user) {
@@ -157,8 +165,8 @@ class AccountPage extends React.Component {
           <BalanceCard balance = {this.state.balance}
                        spentThisWeek = {this.state.spentThisWeek}
                        budget = {this.state.budget}/>
-          <SetBudgetCard onClick = {this.didSelectSetBudget}/>
-          <UpdateBankCard />
+          <SetBudgetCard onClick = {this.didSelectSetBudget.bind(this)}/>
+          <UpdateBankCard onClick = {this.didSelectUpdateBank.bind(this)}/>
         </div>
         <div className = {styles.AccountGraphicsContainer}>
           <BalanceGraphic budget = {this.state.budget} spentThisWeek = {this.state.spentThisWeek}/>
