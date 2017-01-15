@@ -1,7 +1,7 @@
 .BalanceCard {
   background:white;
   overflow:auto;
-  cursor:pointer;
+  cursor:default;
   display:inline-block;
   border: 1px solid #435061;
   height:123px;

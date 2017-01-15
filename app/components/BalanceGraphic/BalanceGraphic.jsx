@@ -6,12 +6,23 @@ import styles from "./BalanceGraphic.css";
 import time from "../../utils/time.js";
 
 class BalanceGraphic extends Component {
+  calculateSpendingPercentages(spent, budget) {
+    var percentage = spent < budget ? spent * 100 / budget : budget * 100 / spent;
+    return spent < budget ? {"spent" : percentage, "budget" : 100} : {"spent" : 100, "budget" : percentage};
+  }
   render() {
     var budget = this.props.budget;
     var spent = this.props.spentThisWeek;
     var left = Math.max(0, budget - spent);
     var leftInBudgetRounded = Math.ceil(left * 100) / 100;
     var daysLeft = time.daysLeftInWeek();
+
+    var spentPercentage = this.calculateSpendingPercentages(spent,budget).spent;
+    var budgetPercentage = this.calculateSpendingPercentages(spent,budget).budget;
+
+    var amountBarStyle = {width:spentPercentage+"%"};
+    var budgetBarStyle = {width:budgetPercentage+"%"};
+
 
     return (
       <div className = {styles.BalanceGraphic}>
@@ -37,12 +48,12 @@ class BalanceGraphic extends Component {
           <p className = {styles.graphicTitle}>Week of Aug 12 - Aug 19</p>
           <div className = {styles.graphic}>
             <div>
-              <p className = {styles.amount}>{"$ "+spent}</p>
-              <div style = {{width:"50%"}} className = {styles.amountBar}></div>
+              <p className = {styles.amount}>{"Spent $ "+spent}</p>
+              <div style = {amountBarStyle} className = {styles.amountBar}></div>
             </div>
             <div>
-              <div style = {{width:"100%"}} className = {styles.totalBar}></div>
-              <p className = {styles.total}>{"$ "+budget}</p>
+              <div style = {budgetBarStyle} className = {styles.totalBar}></div>
+              <p className = {styles.total}>{"Budgetted $ "+budget}</p>
             </div>
           </div>
         </div>
