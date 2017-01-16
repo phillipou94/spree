@@ -28,6 +28,7 @@ class AccountPage extends React.Component {
     super(props);
     this.state = {showPopup:false,
                   budget:0.00,
+                  recommendedBudget:0.00,
                   spentThisWeek: 0.00,
                   balance:0.00,
                   dropDownOptions: ["Transactions", "Tickets", "Previous Weeks"],
@@ -73,11 +74,29 @@ class AccountPage extends React.Component {
     });
   }
 
+  getRecommendedBudget(callback) {
+    if (this.state.budget && this.state.budget > 0) {
+      callback(null);
+    }
+    var now = new Date();
+    var start_of_last_week = time.getFirstMondayLastWeek(now);
+    var end_of_last_week = time.getNearestMondayAfterDate(start_of_last_week);
+    BankServices.getTransactions(start_of_last_week, end_of_last_week).then((res) => {
+      var transactions = TransactionUtils.filter(res.body);
+      var spentThatWeek = TransactionUtils.calculateTotal(transactions);
+      var recommended = spentThatWeek + (50.00 - (spentThatWeek % 50));
+      var recommendedBudget = new Number(recommended).toFixed(2);
+      this.setState({recommendedBudget:recommendedBudget});
+      callback(recommendedBudget);
+    });
+  }
+
   getPreviousWeeks(user) {
-    var budget = this.props.budget ? this.props.budget : 0;
+
     WeekServices.previousWeeks(user._id).then((res) => {
       var weeks = res.body;
       var totalBalance = weeks.reduce(function(total,week) {
+        var budget = week.budget ? week.budget : 0;
         var amountBelowBudget = Math.max(0, budget - week.spent);
         return total + amountBelowBudget;
       }, 0);
@@ -127,11 +146,15 @@ class AccountPage extends React.Component {
   }
 
   didSelectSetBudget() {
-    this.setState({showPopup:true});
+    var that = this;
+    this.getRecommendedBudget(function(recommendedBudget) {
+      console.log(recommendedBudget);
+      that.setState({recommendedBudget:recommendedBudget, showPopup:true});
+    })
   }
-    closePopup() {
-      this.setState({showPopup:false});
-    }
+  closePopup() {
+    this.setState({showPopup:false});
+  }
 
   didSelectUpdateBank() {
     this.props.router.push("/bank");
@@ -155,6 +178,8 @@ class AccountPage extends React.Component {
         {this.state.showPopup &&
           <PopupConductor type = {"BUDGET"}
                           budgetSubmitted = {this.budgetSubmitted.bind(this)}
+                          currentBudget = {this.state.budget}
+                          recommendedBudget = {this.state.recommendedBudget}
                           closePressed = {this.closePopup.bind(this)}
                           />
         }

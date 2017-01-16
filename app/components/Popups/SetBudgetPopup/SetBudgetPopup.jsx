@@ -9,8 +9,12 @@ import Button from "../../Button/Button.jsx";
 class SetBudgetPopup extends Component {
   constructor(props) {
     super(props);
+    var budget = props.currentBudget;
+    var hasBudget = budget && budget > 0;
+    var recommendedBudget = "$ "+props.recommendedBudget;
+    var amount = hasBudget ? "$ "+new Number(budget).toFixed(2) : recommendedBudget;
     this.state = {
-      amount:"$ 0.00"
+      amount:amount
     }
   }
 
@@ -18,12 +22,13 @@ class SetBudgetPopup extends Component {
     var amount = value;
     amount = amount.replace("$", "");
     amount = amount.replace(" ","");
-    console.log(amount);
     this.setState({amount:amount});
   }
 
   submitClicked() {
-    this.props.budgetSubmitted(this.state.amount);
+    var amount = this.state.amount.replace("$", "");
+    amount = amount.replace(" ","");
+    this.props.budgetSubmitted(amount);
   }
 
 
