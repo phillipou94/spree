@@ -1,8 +1,6 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt-nodejs');
 var SeatGeek = require('../js/seatgeek.js');
 var seatgeek = new SeatGeek();
-
 
 var EventSchema = mongoose.Schema({
   title:{type:String},
@@ -10,15 +8,13 @@ var EventSchema = mongoose.Schema({
   low_price:{type:Number},
   average_price:{type:Number},
   high_price:{type:Number},
-  purchase_price:{type:Number},
   url:{type:String},
   date:{type: Date},
   date_tbd:{type:Boolean},
   time_tbd:{type:Boolean},
   venue: {},
   performers:[],
-  favorited_by:{type: mongoose.Schema.Types.ObjectId,ref: 'User'},
-  bought_by:{type: mongoose.Schema.Types.ObjectId,ref: 'User'}
+  favorited_by:{type: mongoose.Schema.Types.ObjectId,ref: 'User'}
 }, { timestamps: true });
 
 var EventModel = mongoose.model('Event', EventSchema);
