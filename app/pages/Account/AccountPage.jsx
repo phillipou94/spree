@@ -164,8 +164,8 @@ class AccountPage extends React.Component {
           <BalanceCard balance = {this.state.balance}
                        spentThisWeek = {this.state.spentThisWeek}
                        budget = {this.state.budget}/>
-          <SetBudgetCard onClick = {this.didSelectSetBudget.bind(this)}/>
           <UpdateBankCard onClick = {this.didSelectUpdateBank.bind(this)}/>
+          <SetBudgetCard onClick = {this.didSelectSetBudget.bind(this)}/>
         </div>
         <div className = {styles.AccountGraphicsContainer}>
           <BalanceGraphic budget = {this.state.budget} spentThisWeek = {this.state.spentThisWeek}/>

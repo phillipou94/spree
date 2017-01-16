@@ -13,8 +13,8 @@ var time = require('./app/utils/time.js');
 
 var calculateAllUsersWeeklySpending = function(callback) {
   console.log("Started : Calculate All Users Weekly Spending Task");
-  var start_of_week = time.getNearestMondayBeforeDate(new Date());
-  var end_of_week = time.getNearestMondayAfterDate(new Date());
+  var start_of_last_week = time.getFirstMondayLastWeek(new Date());
+  var end_of_last_week = time.getNearestMondayAfterDate(start_of_last_week);
 
   var getBankAuthenticatedUsers = function() {
     var promise = new Promise(function(resolve,reject)  {
@@ -34,7 +34,7 @@ var calculateAllUsersWeeklySpending = function(callback) {
     //this weekPromise method will be applied to each user in users
     var weekPromise = function(user) {
         return new Promise(function(resolve, reject) {
-          Bank.getTransactions(user, start_of_week, end_of_week, function(err, transactions) {
+          Bank.getTransactions(user, start_of_last_week, end_of_last_week, function(err, transactions) {
             if (err) {
               reject(err);
             }
@@ -43,8 +43,8 @@ var calculateAllUsersWeeklySpending = function(callback) {
                              budget : user.budget,
                              user_id : user._id,
                              spent : spent_this_week,
-                             start_date : start_of_week,
-                             end_date : end_of_week
+                             start_date : start_of_last_week,
+                             end_date : end_of_last_week
                            };
             Week.create(weekModel, function(error, week) {
               if (error) {
