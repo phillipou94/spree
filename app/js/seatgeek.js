@@ -4,7 +4,7 @@ var CLIENT_ID  = "NjU0MzMzOHwxNDgzMzI4NzU2";
 
 var SeatGeek = function() {
   var that = Object.create(SeatGeek.prototype);
-  var today = new Date;
+  var today = new Date();
 
   var defaultParams = function() {
     return "sort=score.desc&datetime_utc.gte="+today.toISOString();
