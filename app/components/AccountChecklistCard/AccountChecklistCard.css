@@ -1,0 +1,32 @@
+.AccountChecklistCard {
+  background:white;
+  overflow:auto;
+  cursor:default;
+  display:inline-block;
+  border: 1px solid #435061;
+  height:123px;
+  min-width:325px;
+  max-width:325px;
+  width:325px;
+}
+
+.item {
+  margin:0;
+  padding:0;
+  margin-left:20px;
+  margin-top:10px;
+}
+.item img {
+  padding:0;
+  margin:0;
+  margin-right:10px;
+  display:inline-block;
+  cursor:pointer;
+}
+.item p{
+  margin:0;
+  padding:0;
+  display:inline-block;
+  vertical-align: middle;
+  margin-top:-15px;
+}

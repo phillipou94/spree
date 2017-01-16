@@ -9,6 +9,7 @@ import BankServices from "../../services/BankServices.js";
 import UserServices from "../../services/UserServices.js";
 import WeekServices from "../../services/WeekServices.js";
 
+import AccountChecklistCard from '../../components/AccountChecklistCard/AccountChecklistCard.jsx';
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Dropdown from 'react-dropdown';
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
@@ -27,6 +28,7 @@ class AccountPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {showPopup:false,
+                  accountCompleted:false,
                   budget:0.00,
                   recommendedBudget:0.00,
                   spentThisWeek: 0.00,
@@ -44,7 +46,9 @@ class AccountPage extends React.Component {
       var user = res.body.user;
       if (user) {
         var budget = user.budget ? user.budget : 0.00;
-        this.setState({user:res.body.user, budget:budget});
+        var accountCompleted = user.budget && user.bank_id;
+        console.log("account completed?" +accountCompleted);
+        this.setState({user:res.body.user, budget:budget, accountCompleted:accountCompleted});
       }
       this.getTransactions();
       this.getPreviousWeeks(user);
@@ -172,6 +176,7 @@ class AccountPage extends React.Component {
 
   render() {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
+    var accountCompleted = this.state.accountCompleted;
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
@@ -186,9 +191,14 @@ class AccountPage extends React.Component {
         <NavbarAuthenticated currentPage = {"Account"}/>
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
+          {!accountCompleted &&
+            <AccountChecklistCard />
+          }
+          {accountCompleted &&
           <BalanceCard balance = {this.state.balance}
                        spentThisWeek = {this.state.spentThisWeek}
                        budget = {this.state.budget}/>
+                   }
           <UpdateBankCard onClick = {this.didSelectUpdateBank.bind(this)}/>
           <SetBudgetCard onClick = {this.didSelectSetBudget.bind(this)}/>
         </div>

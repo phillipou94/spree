@@ -13,8 +13,10 @@ class SetBudgetPopup extends Component {
     var hasBudget = budget && budget > 0;
     var recommendedBudget = "$ "+props.recommendedBudget;
     var amount = hasBudget ? "$ "+new Number(budget).toFixed(2) : recommendedBudget;
+
     this.state = {
-      amount:amount
+      amount:amount,
+      showTooltip:!hasBudget
     }
   }
 
@@ -34,6 +36,7 @@ class SetBudgetPopup extends Component {
 
 
   render() {
+    //TODO: DISPLAY TOOLTIP
     return (
       <div className = {styles.SetBudgetPopup}>
 
