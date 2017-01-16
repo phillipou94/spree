@@ -4,10 +4,15 @@ var CLIENT_ID  = "NjU0MzMzOHwxNDgzMzI4NzU2";
 
 var SeatGeek = function() {
   var that = Object.create(SeatGeek.prototype);
+  var today = new Date;
+
+  var defaultParams = function() {
+    return "sort=score.desc&datetime_utc.gte="+today.toISOString();
+  }
 
   var parseOptions = function(options) {
     if (!options) {
-      return "sort=score.desc";
+      return defaultParams();
     }
     var optionsString = "";
     if (options.latitude && options.longitude) {
@@ -22,7 +27,7 @@ var SeatGeek = function() {
     if (options.budget && options.budget > 0) {
       optionsString += "lowest_price.lte="+options.budget;
     }
-    return optionsString+"sort=score.desc";
+    return optionsString+defaultParams();
   }
 
   var authenticationString = function() {
