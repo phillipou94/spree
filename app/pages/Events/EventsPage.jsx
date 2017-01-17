@@ -13,7 +13,10 @@ import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx
 class EventsPage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {user:null, balance: 0.00}
+    this.state = {user:null,
+                  balance: 0.00,
+                  displayIndex: 0,
+                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png']}
 
   }
 
@@ -27,9 +30,21 @@ class EventsPage extends React.Component {
     });
   }
 
+  nextPressed() {
+    var displayIndex = this.state.displayIndex;
+    displayIndex = (displayIndex + 1) % this.state.images.length;
+    this.setState({displayIndex:displayIndex});
+  }
 
+  previousPressed() {
+    var displayIndex = this.state.displayIndex;
+    displayIndex = Math.abs((displayIndex - 1) % this.state.images.length);
+    this.setState({displayIndex:displayIndex});
+  }
 
   render() {
+    var leftArrow = require("../../assets/LeftArrow.svg");
+    var rightArrow = require("../../assets/RightArrow.svg");
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
@@ -37,8 +52,13 @@ class EventsPage extends React.Component {
                              currentPage = {"Events"}
         />
       <div className = {styles.carouselContainer}>
-        <EventCarousel />
-      </div>
+          <img className = {styles.leftArrow} src = {leftArrow} onClick = {this.previousPressed.bind(this)}/>
+
+
+        <EventCarousel displayIndex = {this.state.displayIndex} images = {this.state.images}/>
+        <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
+
+        </div>
       </div>
     );
   }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="54px" height="54px" viewBox="0 0 54 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Events.jsx-(Searching)" transform="translate(-93.000000, -280.000000)">
+            <g id="Group-2" transform="translate(120.000000, 307.000000) rotate(180.000000) translate(-120.000000, -307.000000) translate(95.000000, 282.000000)">
+                <path d="M31.2662313,37.8425373 L19.8378731,26.4216418 C19.2580224,25.8425373 19.2580224,24.9037313 19.8378731,24.3246269 L31.2662313,12.9037313 C31.5557836,12.6141791 32.0259328,12.6141791 32.3154851,12.9037313 L33.3647388,13.9522388 C33.654291,14.241791 33.654291,14.711194 33.3647388,15.0007463 L23.5095149,24.8485075 C23.2199627,25.1380597 23.2199627,25.608209 23.5095149,25.8970149 L33.3647388,35.7455224 C33.654291,36.0350746 33.654291,36.5044776 33.3647388,36.7940299 L32.3154851,37.8425373 C32.0259328,38.1320896 31.5557836,38.1320896 31.2662313,37.8425373" id="Icon" fill="#EDE9E9" transform="translate(26.492444, 25.373134) rotate(180.000000) translate(-26.492444, -25.373134) "></path>
+                <ellipse id="Oval" stroke="#EDE9E9" stroke-width="3" cx="25" cy="25" rx="25" ry="25"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

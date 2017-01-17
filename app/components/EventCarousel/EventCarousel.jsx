@@ -10,8 +10,9 @@ class BackgroundImage extends React.Component {
   render() {
     const style = {
       position: 'fixed',
-      backgroundColor: '#FFFEF4',
-      width: '100%'
+      marginTop: "40px",
+      marginLeft:"225px",
+      width: '30%'
     };
 
    return <img src={this.props.image} style={style} />;
@@ -19,35 +20,19 @@ class BackgroundImage extends React.Component {
 }
 
 class EventCarousel extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {displayIndex:0, images:['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png']};
-  }
-  nextPressed() {
-    var displayIndex = this.state.displayIndex;
-    displayIndex = (displayIndex + 1) % this.state.images.length;
-    this.setState({displayIndex:displayIndex});
-  }
-
-  previousPressed() {
-    var displayIndex = this.state.displayIndex;
-    displayIndex = Math.abs((displayIndex - 1) % this.state.images.length);
-    this.setState({displayIndex:displayIndex});
-  }
     render() {
-      var image = this.state.images[this.state.displayIndex];
+      var image = this.props.images[this.props.displayIndex];
         return (
           <div>
-            <button onClick = {this.nextPressed.bind(this)}>Next</button>
-            <button onClick = {this.previousPressed.bind(this)}>Previous</button>
+            <div className = {styles.leftFrame}></div>
              <ReactCSSTransitionGroup
                 transitionName={CarouselAnimation}
                 transitionEnterTimeout={1000}
                 transitionLeaveTimeout={1000}
-              >
-                <BackgroundImage image={image} key={image} />
+                style = {{width:"30%"}}>
+              <BackgroundImage image={image} key={image} />
               </ReactCSSTransitionGroup>
-      </div>
+          </div>
         )
     }
 }

@@ -1,0 +1,13 @@
+.EventCarousel {
+  background:red;
+}
+
+.leftFrame {
+  width:225px;
+  margin:0;
+  position:fixed;
+  height:400px;
+  z-index:30;
+  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+
+}
