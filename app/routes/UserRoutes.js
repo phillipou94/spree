@@ -69,7 +69,7 @@ router.post('/login', function(req, res) {
   User.login(req.body.email, req.body.password, function(err, user) {
     if (user) {
       req.session.user = user;
-      Week.getPreviousWeeks(user_id, function(err, weeks) {
+      Week.getPreviousWeeks(user._id, function(err, weeks) {
         if (err) {
           utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0, weeks:[] });
         } else {
