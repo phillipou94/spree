@@ -43,7 +43,6 @@ var Event = (function(EventModel) {
         callback(error, []);
       } else {
         var objects = JSON.parse(response.body).events;
-        console.log(objects);
         var events = objects.map(function(seatGeekObject) {
           return parse(seatGeekObject);
         });
@@ -59,7 +58,6 @@ var Event = (function(EventModel) {
         callback(error, []);
       } else {
         var objects = JSON.parse(response.body).events;
-        console.log(objects);
         var events = objects.map(function(seatGeekObject) {
           return parse(seatGeekObject);
         });

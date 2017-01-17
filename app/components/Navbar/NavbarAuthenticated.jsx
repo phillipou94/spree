@@ -16,12 +16,13 @@ class NavbarAuthenticated extends Component {
 
   render() {
     const logo = require("../../assets/SpreeLogo.svg");
+    var title = this.props.showBalance ? "$ "+this.props.balance+" saved" : "Spree";
     return (
       <div className = {styles.Navbar}>
         <a href ="/">
           <img src = {logo} className = {styles.logo} />
         </a>
-        <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
+        <a href ="/"><h1 className = {styles.header}>{title}</h1></a>
         {! this.props.hideLinks &&
           <div className = {styles.links}>
             <a href ="/events" ><p style = {this.getLinkStyle("Events")}>Events</p></a>

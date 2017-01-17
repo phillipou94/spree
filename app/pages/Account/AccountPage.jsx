@@ -47,7 +47,6 @@ class AccountPage extends React.Component {
       if (user) {
         var budget = user.budget ? user.budget : 0.00;
         var accountCompleted = user.budget && user.bank_id;
-        console.log("account completed?" +accountCompleted);
         this.setState({user:res.body.user, budget:budget, accountCompleted:accountCompleted});
       }
       this.getTransactions();
@@ -96,7 +95,6 @@ class AccountPage extends React.Component {
   }
 
   getPreviousWeeks(user) {
-
     WeekServices.previousWeeks(user._id).then((res) => {
       var weeks = res.body;
       var totalBalance = weeks.reduce(function(total,week) {

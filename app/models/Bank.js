@@ -43,6 +43,7 @@ var Bank = function(plaidBankObject) {
 
 Bank.all = function(callback) {
   plaid.getInstitutions(PLAID_ENV, function(err, response) {
+    console.log(err);
     callback(err, response);
   });
 };
@@ -101,8 +102,13 @@ Bank.answerSecurityQuestion = function(user, body, callback) {
 
 Bank.getTransactions = function(user, startDate, endDate, callback) {
   plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
-    var transactions = response.transactions;
-    callback(err,transactions);
+    if (response) {
+      var transactions = response.transactions;
+      callback(err,transactions);
+    } else {
+      callback(err, []);
+    }
+
   });
 };
 

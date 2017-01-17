@@ -69,7 +69,17 @@ router.post('/login', function(req, res) {
   User.login(req.body.email, req.body.password, function(err, user) {
     if (user) {
       req.session.user = user;
-      utils.sendSuccessResponse(res, { user: user});
+      Week.getPreviousWeeks(user_id, function(err, weeks) {
+        if (err) {
+          utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0, weeks:[] });
+        } else {
+          //calculate how much under budget you are total
+          var balance = calculateTotalBalance(weeks);
+          req.session.user.balance = balance;
+          var sessionInfo = { authenticated: true, user: user, balance:balance, weeks:weeks };
+          utils.sendSuccessResponse(res, sessionInfo)
+        }
+      });
     } else {
       utils.sendErrorResponse(res, 403, 'Invalid username and password.');
     }
@@ -88,6 +98,7 @@ router.get('/current', function(req, res) {
               } else {
                 //calculate how much under budget you are total
                 var balance = calculateTotalBalance(weeks);
+                req.session.user.balance = balance;
                 var sessionInfo = { authenticated: true, user: user, balance:balance, weeks:weeks };
                 utils.sendSuccessResponse(res, sessionInfo)
               }
