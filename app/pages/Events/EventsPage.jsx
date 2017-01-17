@@ -5,6 +5,7 @@ import styles from "./EventsPage.css";
 
 import UserServices from "../../services/UserServices.js";
 
+import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
 
@@ -36,7 +37,7 @@ class EventsPage extends React.Component {
                              currentPage = {"Events"}
         />
       <div className = {styles.carouselContainer}>
-        
+        <EventCarousel />
       </div>
       </div>
     );
