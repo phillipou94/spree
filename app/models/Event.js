@@ -8,6 +8,7 @@ var EventSchema = mongoose.Schema({
   low_price:{type:Number},
   average_price:{type:Number},
   high_price:{type:Number},
+  photo_url: {type:String},
   url:{type:String},
   date:{type: Date},
   date_tbd:{type:Boolean},

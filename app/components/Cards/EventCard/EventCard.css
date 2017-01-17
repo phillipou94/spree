@@ -1,0 +1,54 @@
+.EventCard {
+  background:white;
+  width:300px;
+  border: 1px solid #9199A3;
+  border-radius:5px;
+  cursor:pointer;
+  text-align:center;
+}
+
+
+.wishlistIcon {
+  margin:5px;
+  float:right;
+}
+
+.photo {
+  text-align:center;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+
+.title {
+  font-weight:400;
+  font-size:25px;
+  color:#435061;
+  padding:0;
+  margin:0;
+  margin-top:5px;
+}
+
+.secondaryInfo {
+  text-align:left;
+  padding:5%;
+}
+
+.venueDescription p {
+  margin:0;
+  padding:0;
+}
+
+.priceContainer{
+  float:right;
+  background:#435061;
+  width:50px;
+  height:50px;
+  border-radius:50%;
+}
+
+.price {
+    color:white;
+    text-align:center;
+    vertical-align: middle;
+}

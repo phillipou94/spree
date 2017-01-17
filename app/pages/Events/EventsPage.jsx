@@ -5,6 +5,7 @@ import styles from "./EventsPage.css";
 
 import UserServices from "../../services/UserServices.js";
 
+import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
 
 
@@ -19,7 +20,6 @@ class EventsPage extends React.Component {
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
-      console.log(balance);
       if (user) {
         this.setState({user:user, balance: balance});
       }
@@ -34,6 +34,7 @@ class EventsPage extends React.Component {
         <NavbarAuthenticated balance = {this.state.balance}
                              showBalance = {true}
                              currentPage = {"Events"}/>
+        <EventCard />
       </div>
     );
   }
