@@ -33,8 +33,11 @@ class EventsPage extends React.Component {
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
                              showBalance = {true}
-                             currentPage = {"Events"}/>
-        <EventCard />
+                             currentPage = {"Events"}
+        />
+      <div className = {styles.carouselContainer}>
+        
+      </div>
       </div>
     );
   }

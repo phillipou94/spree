@@ -8,15 +8,19 @@ class EventCard extends Component {
     super(props);
     this.state = {showWishlistButton:false, onWishList:false}
   }
+
   didClickHeart() {
     this.setState({onWishList: !this.state.onWishList});
   }
+
   onMouseEnter() {
     this.setState({showWishlistButton:true});
   }
+
   onMouseLeave() {
     this.setState({showWishlistButton:false})
   }
+
   render() {
     const { event } = this.props;
     var empty_heart = require("../../../assets/Heart.svg");
@@ -34,6 +38,7 @@ class EventCard extends Component {
       "backgroundRepeat": "no-repeat",
       "backgroundImage":backgroundImage
     };
+    
     return (
       <div className = {styles.EventCard}
            onClick = {this.props.onClick}

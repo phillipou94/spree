@@ -1,0 +1,4 @@
+.carouselContainer {
+  height:400px;
+  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+}
