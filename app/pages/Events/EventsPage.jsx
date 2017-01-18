@@ -2,6 +2,8 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./EventsPage.css";
+var TicketMaster = require("../../js/ticketmaster.js");
+var tm = new TicketMaster();
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
@@ -16,6 +18,7 @@ class EventsPage extends React.Component {
     super(props);
     this.state = {user:null,
                   events:[],
+                  featuredEvents:[],
                   balance: 0.00,
                   displayIndex: 0,
                   images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
@@ -33,8 +36,7 @@ class EventsPage extends React.Component {
     });
     EventServices.events().then((res) => {
       var events = res.body;
-      console.log("EVENTS");
-      console.log(events);
+      this.getFeaturedEvents(events);
       this.setState({events:events});
     });
   }
@@ -59,20 +61,32 @@ class EventsPage extends React.Component {
 
   }
 
-  getFeaturedEvents() {
+  getFeaturedEvents(events) {
     if (!this.state.events) {
       return [];
     }
-    var events = this.state.events;
-    events.sort( function() { return 0.5 - Math.random() } );
     var topEventRange = Math.min(4,events.length);
-    return this.state.events.slice(0,topEventRange);
+    var featuredEvents = events.slice(0,topEventRange);
+    EventServices.images(featuredEvents).then((res) => {
+      var images = res.body;
+      featuredEvents.map(function(event) {
+        var matched_images = images.filter(function(imageObject) {
+          return imageObject.event_id === event._id;
+        });
+        if(matched_images.length > 0) {
+          var featured_image = matched_images[0].image;
+          event.featured_image = featured_image;
+        }
+        return event;
+      })
+      this.setState({featuredEvents:featuredEvents});
+    });
   }
 
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
-    var featuredEvents = this.getFeaturedEvents();
+    var featuredEvents = this.state.featuredEvents;
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}

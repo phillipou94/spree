@@ -4,7 +4,12 @@ var Event = require("./app/models/Event.js");
 const request = require('request');
 
 var test = function() {
-  var seatgeek = new SeatGeek();
+
+
+  var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
+  Event.getTicketMasterImages(events, function(error, images) {
+    console.log(images);
+  });
   // seatgeek.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
@@ -77,4 +82,4 @@ var ticketmaster = function() {
 
 }
 
-ticketmaster();
+test();

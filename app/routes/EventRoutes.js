@@ -24,4 +24,19 @@ router.get('/search/:searchTerm', function(req, res) {
   });
 });
 
+router.post('/images', function(req, res) {
+  var events = req.body.events;
+
+  var requestedEvents = events.map(function(event) {
+    return {_id:event._id, title:event.title, type:event.type};
+  });
+  Event.getTicketMasterImages(requestedEvents, function(error, images){
+    if (!error) {
+      utils.sendSuccessResponse(res,images);
+    } else {
+      utils.sendErrorResponse(res, 500, images);
+    }
+  });
+});
+
 module.exports = router;

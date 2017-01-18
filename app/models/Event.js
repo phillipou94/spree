@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var SeatGeek = require('../js/seatgeek.js');
 var seatgeek = new SeatGeek();
+var TicketMaster = require("../js/ticketmaster.js");
+var tm = new TicketMaster();
 
 var EventSchema = mongoose.Schema({
   title:{type:String},
@@ -68,8 +70,13 @@ var Event = (function(EventModel) {
   }
 
   that.getTicketMasterImages = function(events, callback) {
-
-
+    console.log("hits model");
+    console.log(events);
+    tm.getImagesForEvents(events).then((res) => {
+      console.log("res");
+      console.log(res);
+      callback(null, res);
+    });
   }
 
   that.buy = function(event, callback) {
@@ -99,7 +106,7 @@ var ticketmasterImage = function(title) {
         return a.width < b.width;
       });
       var image = images[0].url;
-      
+
   });
 }
 

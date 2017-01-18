@@ -16,4 +16,15 @@ export default {
     });
   },
 
+  images : (events) => {
+    return request({
+      uri : BASE_URL+"/images",
+      method: 'POST',
+      json : true,
+      body : {
+        events: events
+      }
+    });
+  },
+
 }
