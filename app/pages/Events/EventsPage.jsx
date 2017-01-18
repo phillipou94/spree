@@ -57,8 +57,12 @@ class EventsPage extends React.Component {
 
   previousPressed() {
     var displayIndex = this.state.displayIndex;
-    displayIndex = Math.abs((displayIndex - 1) % this.state.images.length);
-    this.setState({displayIndex:displayIndex, transitionDirection:"LEFT"});
+    var length = this.state.images.length;
+    var index = (displayIndex - 1) % length;
+    if (index < 0) {
+      index = length - Math.abs(index);
+    }
+    this.setState({displayIndex:index, transitionDirection:"LEFT"});
   }
 
   didClickThumbnail(index) {

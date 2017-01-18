@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
-import CarouselAnimation from "./CarouselAnimation.css";
-import CarouselAnimation2 from "./CarouselAnimation2.css";
+import CarouselAnimationRight from "./CarouselAnimationRight.css";
+import CarouselAnimationLeft from "./CarouselAnimationLeft.css";
 import styles from "./EventCarousel.css";
 import time from "../../utils/time.js";
 
@@ -48,7 +48,7 @@ class EventCarousel extends Component {
       var image = event.featured_image ? event.featured_image : event.performers[0].image;
       var direction = this.props.transitionDirection;
 
-      var animation = direction === "RIGHT" ? CarouselAnimation : CarouselAnimation2;
+      var animation = direction === "RIGHT" ? CarouselAnimationRight : CarouselAnimationLeft;
       var that = this;
       var date = time.formattedDateString(new Date(event.date));
       var venueName = event.venue.name;
