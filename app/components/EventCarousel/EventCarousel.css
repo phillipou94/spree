@@ -3,11 +3,17 @@
 }
 
 .leftFrame {
-  width:225px;
   margin:0;
   position:fixed;
   height:400px;
-  z-index:30;
+  z-index:2;
   background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+}
 
+.rightFrame {
+  margin:0;
+  position:fixed;
+  height:400px;
+  z-index:2;
+  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
 }

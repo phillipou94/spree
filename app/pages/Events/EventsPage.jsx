@@ -16,7 +16,8 @@ class EventsPage extends React.Component {
     this.state = {user:null,
                   balance: 0.00,
                   displayIndex: 0,
-                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png']}
+                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
+                  transitionDirection:"LEFT"}
 
   }
 
@@ -33,13 +34,13 @@ class EventsPage extends React.Component {
   nextPressed() {
     var displayIndex = this.state.displayIndex;
     displayIndex = (displayIndex + 1) % this.state.images.length;
-    this.setState({displayIndex:displayIndex});
+    this.setState({displayIndex:displayIndex, transitionDirection:"RIGHT"});
   }
 
   previousPressed() {
     var displayIndex = this.state.displayIndex;
     displayIndex = Math.abs((displayIndex - 1) % this.state.images.length);
-    this.setState({displayIndex:displayIndex});
+    this.setState({displayIndex:displayIndex, transitionDirection:"LEFT"});
   }
 
   render() {
@@ -55,7 +56,9 @@ class EventsPage extends React.Component {
           <img className = {styles.leftArrow} src = {leftArrow} onClick = {this.previousPressed.bind(this)}/>
 
 
-        <EventCarousel displayIndex = {this.state.displayIndex} images = {this.state.images}/>
+        <EventCarousel displayIndex = {this.state.displayIndex}
+                       images = {this.state.images}
+                       transitionDirection = {this.state.transitionDirection}/>
         <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
 
         </div>
