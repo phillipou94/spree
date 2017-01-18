@@ -64,8 +64,12 @@ var Event = (function(EventModel) {
         });
         callback(error,events);
       }
-
     });
+  }
+
+  that.getTicketMasterImages = function(events, callback) {
+
+
   }
 
   that.buy = function(event, callback) {
@@ -80,5 +84,23 @@ var Event = (function(EventModel) {
   return that;
 
 })(EventModel);
+
+var ticketmasterImage = function(title) {
+  var url = "https://app.ticketmaster.com/discovery/v2/events.json?apikey=7elxdku9GGG5k8j0Xm8KWdANDgecHMV0&keyword="+title+"&size=1";
+  request.get({
+    url: url,
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+  }, function apiSuccess(err, data, res) {
+      var object = JSON.parse(data.body);
+      var event = object["_embedded"]["events"][0];
+      var images = event.images;
+      images.sort(function(a, b){
+        return a.width < b.width;
+      });
+      var image = images[0].url;
+      
+  });
+}
 
 module.exports = Event;

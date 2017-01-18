@@ -63,7 +63,9 @@ class EventsPage extends React.Component {
     if (!this.state.events) {
       return [];
     }
-    var topEventRange = Math.min(4,this.state.events.length);
+    var events = this.state.events;
+    events.sort( function() { return 0.5 - Math.random() } );
+    var topEventRange = Math.min(4,events.length);
     return this.state.events.slice(0,topEventRange);
   }
 
