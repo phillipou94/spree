@@ -11,6 +11,7 @@ import EventServices from "../../services/EventServices.js";
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
+import Searchbar from '../../components/Searchbar/Searchbar.jsx';
 
 
 class EventsPage extends React.Component {
@@ -108,6 +109,16 @@ class EventsPage extends React.Component {
 
         </div>
       }
+      <div className = {styles.header}>
+        <h1>Find Events</h1>
+        <div className = {styles.searchbarContainer}>
+          <Searchbar placeholder = {"Find Events You Love"} />
+        </div>
+      </div>
+      <div className = {styles.secondaryHeader}>
+        
+      </div>
+
       </div>
     );
   }
