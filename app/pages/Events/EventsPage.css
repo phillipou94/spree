@@ -29,10 +29,11 @@
   padding-left:70px;
   padding-right:70px;
   color:#435061;
+  display:block;
+  margin:0;
 }
 
 .header h1 {
-  float:left;
   display:inline-block;
 }
 
@@ -45,5 +46,45 @@
 }
 
 .secondaryHeader {
-  
+  margin-top:-40px;
+  padding-left:70px;
+  display:flex;
+  width:100%;
+
+}
+
+.secondaryHeader p {
+  padding:0;
+  margin:0;
+}
+
+.locationButton {
+  display:inline-block;
+}
+
+.secondaryHeader p {
+  display:inline-block;
+  color:#9199A3;
+}
+
+.locationIcon {
+  height:15px;
+  width:15px;
+  display:inline-block;
+}
+
+.dropdownIndicator {
+  height:12px;
+  width:9px;
+  margin-left:5px;
+  display:inline-block
+}
+
+.switch {
+  margin-left:30px;
+  display:inline-block;
+}
+
+.switch p {
+  margin-right:5px;
 }

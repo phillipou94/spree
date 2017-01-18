@@ -43,6 +43,7 @@
     "react-currency-input": "^1.1.1",
     "react-dom": "15.x",
     "react-dropdown": "^1.2.0",
+    "react-portal-tooltip": "^1.1.5",
     "react-router": "^3.0.0",
     "react-scroll": "^1.4.4",
     "react-select": "^1.0.0-rc.2",

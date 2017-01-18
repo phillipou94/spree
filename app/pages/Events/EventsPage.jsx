@@ -22,12 +22,14 @@ class EventsPage extends React.Component {
                   featuredEvents:[],
                   balance: 0.00,
                   displayIndex: 0,
+                  coordinates: null,
                   images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
                   transitionDirection:"LEFT"}
 
   }
 
   componentWillMount() {
+    this.getLocation();
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
@@ -68,7 +70,6 @@ class EventsPage extends React.Component {
     }
     var topEventRange = Math.min(4,events.length);
     var featuredEvents = events.slice(0,topEventRange);
-    console.log(featuredEvents);
     EventServices.images(featuredEvents).then((res) => {
       var images = res.body;
       featuredEvents.map(function(event) {
@@ -85,9 +86,24 @@ class EventsPage extends React.Component {
     });
   }
 
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        var coordinates = {latitude:latitude, longitude:longitude};
+        this.setState({coordinates:coordinates})
+      }, function(error){
+
+      }, {});
+    }
+  }
+
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
+    var locationIcon = require("../../assets/LocationIcon.svg");
+    var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
     return (
       <div>
@@ -116,10 +132,19 @@ class EventsPage extends React.Component {
         </div>
       </div>
       <div className = {styles.secondaryHeader}>
-        
+        <div id = "locationButton" className = {styles.locationButton}>
+          <img className = {styles.locationIcon} src = {locationIcon} />
+          <p>Los Angeles, California</p>
+          <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+        </div>
+        <div className = {styles.switch}>
+          <p>Most Popular</p>
+          <p>{" | "}</p>
+          <p>Within Budget</p>
+        </div>
       </div>
 
-      </div>
+    </div>
     );
   }
 }
