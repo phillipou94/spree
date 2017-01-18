@@ -1,15 +1,15 @@
 var TicketMaster = require("./app/js/ticketmaster.js");
 
-var Event = require("./app/models/Event.js");
+var User = require("./app/models/User.js");
 const request = require('request');
 
 var test = function() {
 
 
   var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
-  Event.getTicketMasterImages(events, function(error, images) {
-    console.log(images);
-  });
+  // Event.getTicketMasterImages(events, function(error, images) {
+  //   console.log(images);
+  // });
   // seatgeek.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
@@ -25,6 +25,13 @@ var test = function() {
   // seatgeek.searchEvents("red sox", {latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
+  User.getLocationCoordinates("91770", function(error, coordinates){
+    console.log(coordinates);
+  });
+
+  User.getCurrentCity({ latitude: 34.065164, longitude: -118.084194 }, function(error, location){
+    console.log(location)
+  });
 }
 
 var photo = function() {

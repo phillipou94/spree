@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 
 var time = require("../utils/time.js");
+var MapQuest = require("../js/mapquest.js");
+var mapquest = new MapQuest();
 
 var UserSchema = mongoose.Schema({
   name: String,
@@ -125,7 +127,20 @@ var User = (function(UserModel) {
       user.budget = newBudget;
       callback(null, user);
     });
+  }
 
+  that.getLocationCoordinates = function(addressString, callback) {
+    mapquest.geocode(addressString, function(error, coordinates) {
+      if (error) callback({ msg: error });
+      callback(null, coordinates);
+    });
+  }
+
+  that.getCurrentCity = function(coordinates, callback) {
+    mapquest.getCity(coordinates, function(error, city) {
+      if (error) callback({ msg: error });
+      callback(null, city);
+    });
   }
 
   Object.freeze(that);
