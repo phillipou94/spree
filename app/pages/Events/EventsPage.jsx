@@ -16,7 +16,7 @@ class EventsPage extends React.Component {
     this.state = {user:null,
                   balance: 0.00,
                   displayIndex: 0,
-                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
+                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
                   transitionDirection:"LEFT"}
 
   }
@@ -43,6 +43,14 @@ class EventsPage extends React.Component {
     this.setState({displayIndex:displayIndex, transitionDirection:"LEFT"});
   }
 
+  didClickThumbnail(index) {
+    if (index !== this.state.displayIndex) {
+      var transitionDirection = index > this.state.displayIndex ? "RIGHT" : "LEFT";
+      this.setState({displayIndex:index, transitionDirection:transitionDirection});
+    }
+
+  }
+
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
@@ -58,7 +66,8 @@ class EventsPage extends React.Component {
 
         <EventCarousel displayIndex = {this.state.displayIndex}
                        images = {this.state.images}
-                       transitionDirection = {this.state.transitionDirection}/>
+                       transitionDirection = {this.state.transitionDirection}
+                       didClickThumbnail = {this.didClickThumbnail.bind(this)}/>
         <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
 
         </div>

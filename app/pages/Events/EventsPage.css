@@ -4,13 +4,23 @@
 }
 
 .leftArrow {
+  height:30px;
+  width:30px;
+  margin-top:125px;
+  margin-left:10px;
   z-index:99;
   position:relative;
   float:left;
+  cursor:pointer;
 }
 
 .rightArrow {
+  height:30px;
+  width:30px;
+  margin-top:125px;
+  margin-right:10px;
   z-index:99;
   position:relative;
   float:right;
+  cursor:pointer;
 }
