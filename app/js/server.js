@@ -8,6 +8,7 @@ var webpackDevHelper = require('./hotReload.js');
 
 // Require routes.
 var BankRoutes = require('../routes/BankRoutes.js');
+var EventRoutes = require('../routes/EventRoutes.js');
 var UserRoutes = require('../routes/UserRoutes.js');
 var WeekRoutes = require('../routes/WeekRoutes.js');
 
@@ -46,6 +47,7 @@ app.use(session({
 app.use('/api/users', UserRoutes);
 app.use('/api/banks', BankRoutes);
 app.use('/api/weeks', WeekRoutes);
+app.use('/api/events', EventRoutes);
 app.get('*', function(req, res){
   res.sendFile(path.join(__dirname, '../index.html'));
 });

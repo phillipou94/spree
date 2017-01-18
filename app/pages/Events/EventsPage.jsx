@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from "./EventsPage.css";
 
 import UserServices from "../../services/UserServices.js";
+import EventServices from "../../services/EventServices.js";
 
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
@@ -14,6 +15,7 @@ class EventsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {user:null,
+                  events:[],
                   balance: 0.00,
                   displayIndex: 0,
                   images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
@@ -28,6 +30,12 @@ class EventsPage extends React.Component {
       if (user) {
         this.setState({user:user, balance: balance});
       }
+    });
+    EventServices.events().then((res) => {
+      var events = res.body;
+      console.log("EVENTS");
+      console.log(events);
+      this.setState({events:events});
     });
   }
 
@@ -51,26 +59,38 @@ class EventsPage extends React.Component {
 
   }
 
+  getFeaturedEvents() {
+    if (!this.state.events) {
+      return [];
+    }
+    var topEventRange = Math.min(4,this.state.events.length);
+    return this.state.events.slice(0,topEventRange);
+  }
+
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
+    var featuredEvents = this.getFeaturedEvents();
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
                              showBalance = {true}
                              currentPage = {"Events"}
         />
+      {featuredEvents && featuredEvents.length > 0 &&
       <div className = {styles.carouselContainer}>
           <img className = {styles.leftArrow} src = {leftArrow} onClick = {this.previousPressed.bind(this)}/>
 
 
         <EventCarousel displayIndex = {this.state.displayIndex}
+                       events = {featuredEvents}
                        images = {this.state.images}
                        transitionDirection = {this.state.transitionDirection}
                        didClickThumbnail = {this.didClickThumbnail.bind(this)}/>
         <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
 
         </div>
+      }
       </div>
     );
   }

@@ -33,15 +33,20 @@ class EventThumbnail extends React.Component {
     if (this.props.displayIndex === this.props.index) {
       style["border"] = "2px solid #33AE8B";
     }
-   return <img src={this.props.image} style={style} onClick = {this.didClick.bind(this)}/>;
+    var event = this.props.event;
+    var image = event.performers[0].image;
+   return <img src={image} style={style} onClick = {this.didClick.bind(this)}/>;
   }
 }
 
 class EventCarousel extends Component {
     render() {
-      var images = this.props.images;
-      var image = images[this.props.displayIndex];
+      var events = this.props.events;
+      var event = events[this.props.displayIndex];
+      console.log(events);
+      var image = event.performers[0].image;
       var direction = this.props.transitionDirection;
+
       var animation = direction === "RIGHT" ? CarouselAnimation : CarouselAnimation2;
       var that = this;
         return (
@@ -55,8 +60,8 @@ class EventCarousel extends Component {
               </ReactCSSTransitionGroup>
               <div className = {styles.rightFrame} style = {{width:"600px", marginLeft:"653px"}}>
                 <div className = {styles.thumbnails}>
-                  {images.map(function(image, index) {
-                    return <EventThumbnail image = {image}
+                  {events.map(function(event, index) {
+                    return <EventThumbnail event = {event}
                                            displayIndex = {that.props.displayIndex}
                                            index = {index}
                                            didClickThumbnail = {that.props.didClickThumbnail}/>
