@@ -1,6 +1,6 @@
 .carouselContainer {
   height:350px;
-  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
 }
 
 .leftArrow {

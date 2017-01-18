@@ -28,8 +28,8 @@ class EventThumbnail extends React.Component {
   }
   render() {
     const style = {
-      width: '80px',
-      height: '80px',
+      width: '100px',
+      height: '100px',
       marginRight:"20px"
     };
     if (this.props.displayIndex === this.props.index) {

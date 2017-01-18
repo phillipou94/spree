@@ -3,7 +3,7 @@
   position:fixed;
   height:350px;
   z-index:2;
-  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
 }
 
 .rightFrame {
@@ -11,18 +11,18 @@
   position:fixed;
   height:350px;
   z-index:2;
-  background: -webkit-linear-gradient(bottom, white, white 30%, #435061 30%, #435061);
+  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
 }
 
 .thumbnails {
-  height:80px;
+  height:100px;
   position:absolute;
   margin-left:50px;
-  bottom:80px;
+  bottom:30px;
 }
 
 .eventInfo {
-  margin-top:25px;
+  margin-top:50px;
   margin-left:50px;
 
 }
