@@ -36,7 +36,7 @@
 .eventTitle {
   font-size:35px;
   width:60%;
-  width:500px;
+  width:400px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
