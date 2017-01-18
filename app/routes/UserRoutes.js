@@ -3,6 +3,7 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var User = require('../models/User.js');
 var Week = require('../models/Week.js');
+var request = require('request');
 
 var validator = require("email-validator");
 
@@ -127,16 +128,33 @@ router.put('/budget', function(req,res) {
   });
 });
 
-router.get("/city/lat=:lat&lng=:lng", function(req,res) {
-  var latitude = req.params.lat;
-  var longitude = req.params.lng;
-  User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
-    if (error) {
-      utils.sendErrorResponse(res, 500, 'Could not find user location');
-    } else {
-      utils.sendSuccessResponse(res, location);
-    }
+router.get("/city", function(req,resp) {
+  if (req.session.location) {
+    var location = req.session.location;
+    var coordinates = req.session.coordinates;
+    utils.sendSuccessResponse(resp, {location:location, coordinates:coordinates});
+    return;
+  }
+  request.get({
+    url: 'http://ipinfo.io',
+    headers: { 'Content-Type': 'application/json' },
+    withCredentials: true,
+  }, function apiSuccess(err, data, res) {
+    var response = JSON.parse(data.body);
+    var coord = response.loc.split(',');
+    var latitude = coord[0];
+    var longitude = coord[1];
+    User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
+      req.session.location = location;
+      req.session.coordinates = { latitude: latitude, longitude: longitude };
+      if (error) {
+        utils.sendErrorResponse(resp, 500, 'Could not find user location');
+      } else {
+        utils.sendSuccessResponse(resp, {location:location, coordinates:{ latitude: latitude, longitude: longitude }});
+      }
+    });
   });
+
 });
 
 var calculateTotalBalance = function(weeks) {

@@ -8,9 +8,12 @@ var request = require('request-promise-native');
  * Services to link the front-end to the user models
  */
 export default {
-  events : () => {
+  events : (coordinates) => {
+    var lat = coordinates.latitude;
+    var lng = coordinates.longitude;
+    var uri = BASE_URL + '/lat='+lat+'&lng='+lng;
     return request({
-      uri : BASE_URL,
+      uri : uri,
       method: 'GET',
       json : true
     });

@@ -150,7 +150,6 @@ class AccountPage extends React.Component {
   didSelectSetBudget() {
     var that = this;
     this.getRecommendedBudget(function(recommendedBudget) {
-      console.log(recommendedBudget);
       that.setState({recommendedBudget:recommendedBudget, showPopup:true});
     })
   }

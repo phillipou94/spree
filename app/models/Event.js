@@ -51,7 +51,6 @@ var Event = (function(EventModel) {
         });
         callback(error,events);
       }
-
     });
   }
 

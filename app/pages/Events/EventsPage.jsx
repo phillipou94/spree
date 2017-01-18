@@ -30,6 +30,7 @@ class EventsPage extends React.Component {
   }
 
   componentWillMount() {
+    var that = this;
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
@@ -37,11 +38,14 @@ class EventsPage extends React.Component {
         this.setState({user:user, balance: balance});
       }
     });
-    this.getLocation();
-    EventServices.events().then((res) => {
-      var events = res.body;
-      this.getFeaturedEvents(events);
-      this.setState({events:events});
+    this.getLocation(function(coordinates){
+      console.log("HERE!");
+      console.log(coordinates);
+      EventServices.events(coordinates).then((res) => {
+        var events = res.body;
+        that.setState({events:events});
+        that.getFeaturedEvents(events);
+      });
     });
   }
 
@@ -87,25 +91,21 @@ class EventsPage extends React.Component {
     });
   }
 
-  getLocation() {
-    var that = this;
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-        var coordinates = {latitude:latitude, longitude:longitude};
-        that.setState({coordinates:coordinates});
-        UserServices.currentCity(coordinates).then((res) => {
-          var city = res.body;
-          console.log("hereee");
-          console.log(city);
-          that.setState({city:city});
-        });
+  getLocation(callback) {
+    UserServices.currentCity().then((res) => {
+      console.log(res);
+      if (res.body && res.body.location) {
+        var city = res.body.location;
+        var coordinates = res.body.coordinates;
+        console.log(coordinates);
+        this.setState({city:city, coordinates:coordinates});
+        callback(coordinates);
+      } else {
 
-      }, function(error){
+        callback(null);
+      }
 
-      }, {});
-    }
+    });
   }
 
   render() {
@@ -114,7 +114,6 @@ class EventsPage extends React.Component {
     var locationIcon = require("../../assets/LocationIcon.svg");
     var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
-    console.log(this.state.city);
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}

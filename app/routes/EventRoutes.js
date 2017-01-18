@@ -3,8 +3,10 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var Event = require('../models/Event.js');
 
-router.get('/', function(req, res) {
-  Event.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, events) {
+router.get('/lat=:lat&lng=:lng', function(req, res) {
+  var latitude = req.params.lat;
+  var longitude = req.params.lng;
+  Event.getEvents({latitude:latitude,longitude:longitude}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {
@@ -13,9 +15,10 @@ router.get('/', function(req, res) {
   });
 });
 
-router.get('/search/:searchTerm', function(req, res) {
+router.get('/search/:searchTerm/:coordinates', function(req, res) {
   var searchTerm = req.params.searchTerm;
-  Event.getEvents(searchTerm, {latitude:"42.36",longitude: "-71.06"}, function(error, events) {
+  var coordinates = req.params.coordinates;
+  Event.getEvents(searchTerm, {latitude:coordinates.latitude,longitude: coordinates.longitude}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {

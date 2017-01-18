@@ -1,6 +1,7 @@
 var TicketMaster = require("./app/js/ticketmaster.js");
 
 var User = require("./app/models/User.js");
+var Event = require("./app/models/Event.js");
 const request = require('request');
 
 var test = function() {
@@ -13,9 +14,9 @@ var test = function() {
   // seatgeek.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
-  // Event.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, events) {
-  //   console.log(events);
-  // });
+  Event.getEvents({ latitude: '42.3520434', longitude: '-71.134188' }, function(error, events) {
+    console.log(events);
+  });
 
   // Event.searchEvents("red sox",{page:5}, function(error, events) {
   //   console.log(events);
@@ -25,13 +26,13 @@ var test = function() {
   // seatgeek.searchEvents("red sox", {latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
-  User.getLocationCoordinates("91770", function(error, coordinates){
-    console.log(coordinates);
-  });
-
-  User.getCurrentCity({ latitude: 34.065164, longitude: -118.084194 }, function(error, location){
-    console.log(location)
-  });
+  // User.getLocationCoordinates("91770", function(error, coordinates){
+  //   console.log(coordinates);
+  // });
+  //
+  // User.getCurrentCity({ latitude: 34.065164, longitude: -118.084194 }, function(error, location){
+  //   console.log(location)
+  // });
 }
 
 var photo = function() {
