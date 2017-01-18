@@ -21,6 +21,7 @@ class EventsPage extends React.Component {
                   events:[],
                   featuredEvents:[],
                   balance: 0.00,
+                  city:"No Location Provided",
                   displayIndex: 0,
                   coordinates: null,
                   images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
@@ -29,7 +30,6 @@ class EventsPage extends React.Component {
   }
 
   componentWillMount() {
-    this.getLocation();
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
@@ -37,6 +37,7 @@ class EventsPage extends React.Component {
         this.setState({user:user, balance: balance});
       }
     });
+    this.getLocation();
     EventServices.events().then((res) => {
       var events = res.body;
       this.getFeaturedEvents(events);
@@ -87,12 +88,20 @@ class EventsPage extends React.Component {
   }
 
   getLocation() {
+    var that = this;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var latitude = position.coords.latitude;
         var longitude = position.coords.longitude;
         var coordinates = {latitude:latitude, longitude:longitude};
-        this.setState({coordinates:coordinates})
+        that.setState({coordinates:coordinates});
+        UserServices.currentCity(coordinates).then((res) => {
+          var city = res.body;
+          console.log("hereee");
+          console.log(city);
+          that.setState({city:city});
+        });
+
       }, function(error){
 
       }, {});
@@ -105,6 +114,7 @@ class EventsPage extends React.Component {
     var locationIcon = require("../../assets/LocationIcon.svg");
     var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
+    console.log(this.state.city);
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
@@ -134,7 +144,7 @@ class EventsPage extends React.Component {
       <div className = {styles.secondaryHeader}>
         <div id = "locationButton" className = {styles.locationButton}>
           <img className = {styles.locationIcon} src = {locationIcon} />
-          <p>Los Angeles, California</p>
+          <p>{this.state.city}</p>
           <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
         </div>
         <div className = {styles.switch}>

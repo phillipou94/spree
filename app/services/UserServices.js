@@ -51,6 +51,19 @@ export default {
 
   },
 
+  currentCity : (coordinates) => {
+    var lat = coordinates.latitude;
+    var lng = coordinates.longitude;
+    var uri = BASE_URL + '/city/lat='+lat+'&lng='+lng;
+    console.log(uri);
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+
+  },
+
   updateBudget : (newBudget) => {
     console.log("SERVICES");
     return request({

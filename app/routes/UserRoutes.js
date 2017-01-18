@@ -127,6 +127,18 @@ router.put('/budget', function(req,res) {
   });
 });
 
+router.get("/city/lat=:lat&lng=:lng", function(req,res) {
+  var latitude = req.params.lat;
+  var longitude = req.params.lng;
+  User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
+    if (error) {
+      utils.sendErrorResponse(res, 500, 'Could not find user location');
+    } else {
+      utils.sendSuccessResponse(res, location);
+    }
+  });
+});
+
 var calculateTotalBalance = function(weeks) {
   var balance = weeks.reduce(function(current,week){
     var weekly_budget = week.budget ? week.budget : 0;

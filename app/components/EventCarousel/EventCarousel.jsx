@@ -57,7 +57,7 @@ class EventCarousel extends Component {
       var price = event.low_price;
 
         return (
-          <div>
+          <div className = {styles.EventCarousel}>
             <div className = {styles.leftFrame} style = {{width:"100px"}}></div>
              <ReactCSSTransitionGroup
                 transitionName={animation}
