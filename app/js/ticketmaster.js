@@ -1,7 +1,7 @@
 const request = require('request');
 var API_URL = 'https://app.ticketmaster.com/discovery/v2/events.json?apikey=';
 var API_KEY  = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
-var DEFAULT_SPORTS_PHOTO = "https://s1.ticketm.net/dam/a/441/6c483401-d57c-41b7-aee7-bb94e5b58441_29091_TABLET_LANDSCAPE_LARGE_16_9.jpg"
+var DEFAULT_SPORTS_PHOTO = "https://s1.ticketm.net/dam/c/25d/09139288-a226-487d-a98d-6136663e325d_106551_TABLET_LANDSCAPE_LARGE_16_9.jpg";
 
 var TicketMaster = function() {
   var that = Object.create(TicketMaster.prototype);

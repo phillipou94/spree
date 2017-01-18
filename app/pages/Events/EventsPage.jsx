@@ -67,6 +67,7 @@ class EventsPage extends React.Component {
     }
     var topEventRange = Math.min(4,events.length);
     var featuredEvents = events.slice(0,topEventRange);
+    console.log(featuredEvents);
     EventServices.images(featuredEvents).then((res) => {
       var images = res.body;
       featuredEvents.map(function(event) {

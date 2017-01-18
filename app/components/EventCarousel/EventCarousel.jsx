@@ -34,8 +34,8 @@ class EventThumbnail extends React.Component {
       style["border"] = "2px solid #33AE8B";
     }
     var event = this.props.event;
-    var image = event.performers[0].image;
-   return <img src={image} style={style} onClick = {this.didClick.bind(this)}/>;
+    var image = event.featured_image ? event.featured_image : event.performers[0].image;
+    return <img src={image} style={style} onClick = {this.didClick.bind(this)}/>;
   }
 }
 
@@ -43,8 +43,7 @@ class EventCarousel extends Component {
     render() {
       var events = this.props.events;
       var event = events[this.props.displayIndex];
-      console.log(events);
-      var image = event.performers[0].image;
+      var image = event.featured_image ? event.featured_image : event.performers[0].image;
       var direction = this.props.transitionDirection;
 
       var animation = direction === "RIGHT" ? CarouselAnimation : CarouselAnimation2;
