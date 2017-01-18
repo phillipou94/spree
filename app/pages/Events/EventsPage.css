@@ -60,6 +60,7 @@
 
 .locationButton {
   display:inline-block;
+  cursor:pointer;
 }
 
 .secondaryHeader p {

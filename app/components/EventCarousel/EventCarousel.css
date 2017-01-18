@@ -36,6 +36,11 @@
 .eventTitle {
   font-size:35px;
   width:60%;
+  width:500px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-height:90px;
 }
 
 .EventCarousel button {
