@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./EventCard.css";
+import LazyLoad from "react-lazy-load";
 
 import time from "../../../utils/time.js";
 
@@ -30,18 +31,13 @@ class EventCard extends Component {
     var wishlist_icon = this.state.onWishList ? filled_heart : empty_heart;
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
     var date = time.formattedDateString(new Date(event.date));
-
-    var backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)),url("+image+")";
     var photoContainerStyle = {
       "width":"90%",
       "maxHeight":"175px",
       "marginLeft":"5%",
       "marginTop":'10px',
       "height": "175px",
-      "background":"red",
       "backgroundSize": "100% 100%",
-      "backgroundRepeat": "no-repeat",
-      "backgroundImage":backgroundImage
     };
 
     var priceContainerColor = {
@@ -53,12 +49,14 @@ class EventCard extends Component {
            onClick = {this.props.onClick}
            onMouseEnter = {this.onMouseEnter.bind(this)}
            onMouseLeave = {this.onMouseLeave.bind(this)}>
-
-        <div style = {photoContainerStyle}>
-          {this.state.showWishlistButton &&
-            <img src = {wishlist_icon} className = {styles.wishlistIcon} onClick = {this.didClickHeart.bind(this)}/>
-          }
-        </div>
+         <LazyLoad height = "175px">
+         <div style = {photoContainerStyle}>
+           {false &&this.state.showWishlistButton &&
+             <img src = {wishlist_icon} className = {styles.wishlistIcon} onClick = {this.didClickHeart.bind(this)}/>
+           }
+           <img style = {{height:"175px", width:"100%"}} src = {image}></img>
+         </div>
+         </LazyLoad>
 
         <div className = {styles.secondaryInfo}>
           <div className = {styles.priceContainer} style = {priceContainerColor}>

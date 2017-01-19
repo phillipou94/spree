@@ -44,7 +44,7 @@ class EventsPage extends React.Component {
     this.getLocation(function(coordinates){
       EventServices.events(that.state.page, coordinates).then((res) => {
         var events = res.body;
-        that.setState({events:events,loadMoreEvents:true, page:that.state.page+1});
+        that.setState({events:events,loadMoreEvents:(events && events.length > 0), page:that.state.page+1});
         that.getFeaturedEvents(events);
       });
     });
@@ -60,7 +60,7 @@ class EventsPage extends React.Component {
         EventServices.events(that.state.page,coordinates).then((res) => {
           console.log(that.state.page)
           var moreEvents = events.concat(res.body);
-          that.setState({events:moreEvents, loadMoreEvents:true,page:that.state.page+1});
+          that.setState({events:moreEvents, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
         });
       });
     }
