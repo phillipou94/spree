@@ -1,11 +1,10 @@
 .EventCard {
   background:white;
-  width:275px;
+  width:24%;
   border: 1px solid #9199A3;
   border-radius:5px;
   cursor:pointer;
   text-align:center;
-  margin-right:20px;
   margin-bottom:20px;
 }
 
