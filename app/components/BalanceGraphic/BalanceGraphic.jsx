@@ -8,8 +8,10 @@ import time from "../../utils/time.js";
 class BalanceGraphic extends Component {
 
   calculateSpendingPercentages(spent, budget) {
-    var percentage = spent < budget ? spent * 100 / budget : budget * 100 / spent;
-    return spent < budget ? {"spent" : percentage, "budget" : 100} : {"spent" : 100, "budget" : percentage};
+    var spentInt = Math.round(spent);
+    var budgetInt = Math.round(budget);
+    var percentage = spentInt < budgetInt ? spentInt * 100 / budgetInt : budgetInt *100 / spentInt;
+    return spentInt < budgetInt ? {"spent" : percentage, "budget" : 100} : {"spent" : 100, "budget" : percentage};
   }
 
   render() {

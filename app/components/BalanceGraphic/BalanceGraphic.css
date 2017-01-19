@@ -62,6 +62,7 @@
 }
 
 .amountBar {
+  position:relative;
   background:#33AE8B;
   height:10px;
   margin:0;
