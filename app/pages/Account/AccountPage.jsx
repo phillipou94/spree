@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./AccountPage.css";
 import time from "../../utils/time.js";
-import TransactionUtils from "../../utils/TransactionUtils.js";
+import TransactionUtils from "../../utils/transactionUtils.js";
 
 import BankServices from "../../services/BankServices.js";
 import UserServices from "../../services/UserServices.js";
