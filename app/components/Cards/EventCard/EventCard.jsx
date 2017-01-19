@@ -51,7 +51,7 @@ class EventCard extends Component {
            onMouseLeave = {this.onMouseLeave.bind(this)}>
          <LazyLoad height = "175px">
          <div style = {photoContainerStyle}>
-           {false &&this.state.showWishlistButton &&
+           {this.state.showWishlistButton &&
              <img src = {wishlist_icon} className = {styles.wishlistIcon} onClick = {this.didClickHeart.bind(this)}/>
            }
            <img style = {{height:"175px", width:"100%"}} src = {image}></img>

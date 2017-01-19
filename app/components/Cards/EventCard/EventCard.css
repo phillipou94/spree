@@ -10,6 +10,8 @@
 
 
 .wishlistIcon {
+  position:absolute;
+  z-index:5;
   margin:5px;
   float:right;
 }
