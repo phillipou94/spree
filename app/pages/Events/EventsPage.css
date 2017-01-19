@@ -96,4 +96,12 @@
   width:100%;
   padding:70px;
   height:700px;
+  padding-top:20px;
+}
+
+.eventsTable {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-right:70px;
 }

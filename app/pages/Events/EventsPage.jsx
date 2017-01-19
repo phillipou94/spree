@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
+import InfiniteScroll from 'react-infinite-scroller';
 import styles from "./EventsPage.css";
 var TicketMaster = require("../../js/ticketmaster.js");
 var tm = new TicketMaster();
@@ -19,6 +20,7 @@ class EventsPage extends React.Component {
     super(props);
     this.state = {user:null,
                   events:[],
+                  loadMoreEvents:true,
                   featuredEvents:[],
                   balance: 0.00,
                   city:"No Location Provided",
@@ -39,14 +41,28 @@ class EventsPage extends React.Component {
       }
     });
     this.getLocation(function(coordinates){
-      console.log("HERE!");
-      console.log(coordinates);
       EventServices.events(coordinates).then((res) => {
         var events = res.body;
-        that.setState({events:events});
+        that.setState({events:events,loadMoreEvents:true});
         that.getFeaturedEvents(events);
       });
     });
+  }
+
+  getEvents() {
+    if (this.state.loadMoreEvents) {
+      var events = this.state.events;
+      this.setState({loadMoreEvents:false});
+      var that = this;
+      this.getLocation(function(coordinates){
+        EventServices.events(coordinates).then((res) => {
+          var moreEvents = events.concat(res.body);
+          that.setState({events:moreEvents, loadMoreEvents:true});
+        });
+      });
+    }
+
+
   }
 
   nextPressed() {
@@ -97,11 +113,9 @@ class EventsPage extends React.Component {
 
   getLocation(callback) {
     UserServices.currentCity().then((res) => {
-      console.log(res);
       if (res.body && res.body.location) {
         var city = res.body.location;
         var coordinates = res.body.coordinates;
-        console.log(coordinates);
         this.setState({city:city, coordinates:coordinates});
         callback(coordinates);
       } else {
@@ -118,6 +132,13 @@ class EventsPage extends React.Component {
     var locationIcon = require("../../assets/LocationIcon.svg");
     var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
+    var events = this.state.events;
+
+    var eventCards = events.map(function(event) {
+      return <EventCard event = {event} />
+    });
+
+
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
@@ -157,9 +178,18 @@ class EventsPage extends React.Component {
           <p>Within Budget</p>
         </div>
       </div>
+      {eventCards.length > 0 &&
       <div className = {styles.events}>
-
+        <InfiniteScroll
+            className = {styles.eventsTable}
+            pageStart={0}
+            loadMore={this.getEvents.bind(this)}
+            hasMore={this.state.loadMoreEvents}
+            loader={<div className="loader">Loading ...</div>}>
+            {eventCards}
+        </InfiniteScroll>
       </div>
+    }
 
     </div>
     );
