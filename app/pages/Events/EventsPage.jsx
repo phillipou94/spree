@@ -21,6 +21,7 @@ class EventsPage extends React.Component {
     this.state = {user:null,
                   events:[],
                   page:1,
+                  searchTerm:"",
                   loadMoreEvents:true,
                   featuredEvents:[],
                   balance: 0.00,
@@ -129,6 +130,23 @@ class EventsPage extends React.Component {
     });
   }
 
+  searchEvents(searchString) {
+    var that = this;
+    var events = [];
+    this.getLocation(function(coordinates){
+      EventServices.search(searchString,1,coordinates).then((res) => {
+        var moreEvents = events.concat(res.body);
+        console.log(moreEvents);
+        that.setState({events:moreEvents,
+                      loadMoreEvents:(events && events.length > 0),
+                      searchTerm:searchString,
+                      page:1,
+                      featuredEvents:[]});
+      });
+    });
+
+  }
+
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
@@ -137,12 +155,14 @@ class EventsPage extends React.Component {
     var featuredEvents = this.state.featuredEvents;
     var events = this.state.events;
     var balance = this.state.balance;
+    var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
 
     var eventCards = events.map(function(event) {
       return <EventCard event = {event} balance = {balance}/>
     });
 
-
+    var headerTitle = this.state.searchTerm && this.state.searchTerm.length > 0 ?
+                      "Search Results for "+this.state.searchTerm : "Find Events";
     return (
       <div>
         <NavbarAuthenticated balance = {this.state.balance}
@@ -167,7 +187,7 @@ class EventsPage extends React.Component {
       <div className = {styles.header}>
         <h1>Find Events</h1>
         <div className = {styles.searchbarContainer}>
-          <Searchbar placeholder = {"Find Events You Love"} />
+          <Searchbar placeholder = {"Find Events You Love"} onSubmit = {this.searchEvents.bind(this)}/>
         </div>
       </div>
       <div className = {styles.secondaryHeader}>
@@ -187,7 +207,7 @@ class EventsPage extends React.Component {
         <InfiniteScroll
             className = {styles.eventsTable}
             pageStart={0}
-            loadMore={this.getEvents.bind(this)}
+            loadMore={isSearching ? this.searchEvents.bind(this) : this.getEvents.bind(this)}
             hasMore={this.state.loadMoreEvents}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}

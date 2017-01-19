@@ -16,10 +16,12 @@ router.get('/lat=:lat&lng=:lng/page=:page', function(req, res) {
   });
 });
 
-router.get('/search/:searchTerm/:coordinates', function(req, res) {
+router.get('/search/search=:searchTerm/lat=:lat&lng=:lng/page=:page', function(req, res) {
   var searchTerm = req.params.searchTerm;
-  var coordinates = req.params.coordinates;
-  Event.getEvents(searchTerm, {latitude:coordinates.latitude,longitude: coordinates.longitude}, function(error, events) {
+  var latitude = req.params.lat;
+  var longitude = req.params.lng;
+  var page = req.params.page;
+  Event.searchEvents(searchTerm, {latitude:latitude,longitude:longitude, page:page}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {

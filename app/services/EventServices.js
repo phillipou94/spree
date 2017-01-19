@@ -19,6 +19,16 @@ export default {
     });
   },
 
+  search : (query,page,coordinates) => {
+    var lat = coordinates.latitude;
+    var lng = coordinates.longitude;
+    var uri = BASE_URL + '/search/search='+query+'/lat='+lat+'&lng='+lng+'/page='+page;
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+  },
   images : (events) => {
     return request({
       uri : BASE_URL+"/images",

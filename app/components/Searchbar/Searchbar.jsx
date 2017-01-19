@@ -5,10 +5,22 @@ import styles from "./Searchbar.css";
 
   class Searchbar extends Component {
 
+    constructor(props) {
+      super(props);
+      this.state = {searchText:""};
+    }
+
+    onChange(event) {
+      this.setState({searchText:event.target.value});
+      if (this.props.inputDidChange) {
+        this.props.inputDidChange(event);
+      }
+    }
+
     onSubmit(event) {
       event.preventDefault();
       if (this.props.onSubmit) {
-        this.props.onSubmit();
+        this.props.onSubmit(this.state.searchText);
       }
     }
 
@@ -24,7 +36,7 @@ import styles from "./Searchbar.css";
             <input className = {styles.input}
                    name='searchbar'
                    placeholder={placeholder}
-                   onChange={this.props.inputDidChange}
+                   onChange={this.onChange.bind(this)}
                    autoComplete={"off"}
             />
         </form>
