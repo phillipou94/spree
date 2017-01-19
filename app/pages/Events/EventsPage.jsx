@@ -20,6 +20,7 @@ class EventsPage extends React.Component {
     super(props);
     this.state = {user:null,
                   events:[],
+                  page:1,
                   loadMoreEvents:true,
                   featuredEvents:[],
                   balance: 0.00,
@@ -41,9 +42,9 @@ class EventsPage extends React.Component {
       }
     });
     this.getLocation(function(coordinates){
-      EventServices.events(coordinates).then((res) => {
+      EventServices.events(that.state.page, coordinates).then((res) => {
         var events = res.body;
-        that.setState({events:events,loadMoreEvents:true});
+        that.setState({events:events,loadMoreEvents:true, page:that.state.page+1});
         that.getFeaturedEvents(events);
       });
     });
@@ -51,13 +52,15 @@ class EventsPage extends React.Component {
 
   getEvents() {
     if (this.state.loadMoreEvents) {
+      console.log('GETTING MORE EVENTS!');
       var events = this.state.events;
       this.setState({loadMoreEvents:false});
       var that = this;
       this.getLocation(function(coordinates){
-        EventServices.events(coordinates).then((res) => {
+        EventServices.events(that.state.page,coordinates).then((res) => {
+          console.log(that.state.page)
           var moreEvents = events.concat(res.body);
-          that.setState({events:moreEvents, loadMoreEvents:true});
+          that.setState({events:moreEvents, loadMoreEvents:true,page:that.state.page+1});
         });
       });
     }
@@ -133,9 +136,10 @@ class EventsPage extends React.Component {
     var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
     var events = this.state.events;
+    var balance = this.state.balance;
 
     var eventCards = events.map(function(event) {
-      return <EventCard event = {event} />
+      return <EventCard event = {event} balance = {balance}/>
     });
 
 

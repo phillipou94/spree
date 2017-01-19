@@ -3,10 +3,11 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var Event = require('../models/Event.js');
 
-router.get('/lat=:lat&lng=:lng', function(req, res) {
+router.get('/lat=:lat&lng=:lng/page=:page', function(req, res) {
   var latitude = req.params.lat;
   var longitude = req.params.lng;
-  Event.getEvents({latitude:latitude,longitude:longitude}, function(error, events) {
+  var page = req.params.page;
+  Event.getEvents({latitude:latitude,longitude:longitude, page:page}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {
