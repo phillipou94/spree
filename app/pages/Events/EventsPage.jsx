@@ -43,7 +43,8 @@ class EventsPage extends React.Component {
       }
     });
     this.getLocation(function(coordinates){
-      EventServices.events(that.state.page, coordinates).then((res) => {
+      var options = {page:that.state.page, coordinates:coordinates};
+      EventServices.events(options).then((res) => {
         var events = res.body;
         that.setState({events:events,loadMoreEvents:(events && events.length > 0), page:that.state.page+1});
         that.getFeaturedEvents(events);
@@ -58,7 +59,8 @@ class EventsPage extends React.Component {
       this.setState({loadMoreEvents:false});
       var that = this;
       this.getLocation(function(coordinates){
-        EventServices.events(that.state.page,coordinates).then((res) => {
+        var options = {page:that.state.page, coordinates:coordinates};
+        EventServices.events(options).then((res) => {
           console.log(that.state.page)
           var moreEvents = events.concat(res.body);
           that.setState({events:moreEvents, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
@@ -132,13 +134,10 @@ class EventsPage extends React.Component {
 
   searchEvents(searchString) {
     var that = this;
-    var events = [];
     this.getLocation(function(coordinates){
-      EventServices.search(searchString,1,coordinates).then((res) => {
-        var moreEvents = events.concat(res.body);
-        console.log(moreEvents);
-        that.setState({events:moreEvents,
-                      loadMoreEvents:(events && events.length > 0),
+      EventServices.search(searchString,{page:1,coordinates:coordinates}).then((res) => {
+        that.setState({events:res.body,
+                      loadMoreEvents:false,
                       searchTerm:searchString,
                       page:1,
                       featuredEvents:[]});
@@ -207,8 +206,8 @@ class EventsPage extends React.Component {
         <InfiniteScroll
             className = {styles.eventsTable}
             pageStart={0}
-            loadMore={isSearching ? this.searchEvents.bind(this) : this.getEvents.bind(this)}
-            hasMore={this.state.loadMoreEvents}
+            loadMore={this.getEvents.bind(this)}
+            hasMore={!isSearching && this.state.loadMoreEvents}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}
         </InfiniteScroll>

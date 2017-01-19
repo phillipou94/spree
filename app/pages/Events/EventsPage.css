@@ -1,7 +1,7 @@
 .carouselHeader {
   height:350px;
   background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
-  background:#435061;
+  /*background:#435061;*/
 }
 
 .carouselContainer {
