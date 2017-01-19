@@ -1,6 +1,12 @@
-.carouselContainer {
+.carouselHeader {
   height:350px;
   background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
+  background:#435061;
+}
+
+.carouselContainer {
+  margin-left:110px;
+  margin-right:110px;
 }
 
 .leftArrow {
@@ -8,8 +14,6 @@
   width:30px;
   margin-top:125px;
   margin-left:70px;
-  z-index:99;
-  position:relative;
   float:left;
   cursor:pointer;
 }
@@ -19,8 +23,6 @@
   width:30px;
   margin-top:125px;
   margin-right:70px;
-  z-index:99;
-  position:relative;
   float:right;
   cursor:pointer;
 }
@@ -88,4 +90,10 @@
 
 .switch p {
   margin-right:5px;
+}
+
+.events {
+  width:100%;
+  padding:70px;
+  height:700px;
 }

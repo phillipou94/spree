@@ -1,36 +1,29 @@
-.leftFrame {
-  margin:0;
-  position:fixed;
+.info {
+  background:clear;
   height:350px;
-  z-index:2;
-  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
-}
-
-.rightFrame {
-  margin:0;
-  position:fixed;
-  height:350px;
-  z-index:2;
-  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
+  padding-top:20px;
+  margin-left:650px;
 }
 
 .thumbnails {
   height:100px;
-  position:absolute;
-  margin-left:50px;
-  bottom:30px;
+  width:450px;
+  margin-top:70px;
+  margin-left:-60px;
 }
 
 .eventInfo {
-  margin-top:50px;
-  margin-left:50px;
-
+  margin-left:-60px;
 }
 
 .eventInfo p, .eventInfo h1 {
   padding:0;
   margin:0;
   color:white;
+}
+
+.eventInfo h1 {
+  width:500px;
 }
 
 .eventTitle {
@@ -44,9 +37,9 @@
 }
 
 .EventCarousel button {
-  width:25%;
+  width:35%;
   height:35px;
-  margin-top:20px;
-  margin-left:50px;
+  margin-top:35px;
+  margin-left:-60px;
   font-size:15px;
 }

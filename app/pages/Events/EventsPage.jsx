@@ -125,16 +125,17 @@ class EventsPage extends React.Component {
                              currentPage = {"Events"}
         />
       {featuredEvents && featuredEvents.length > 0 &&
-      <div className = {styles.carouselContainer}>
+      <div className = {styles.carouselHeader}>
           <img className = {styles.leftArrow} src = {leftArrow} onClick = {this.previousPressed.bind(this)}/>
+          <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
+          <div className = {styles.carouselContainer}>
+            <EventCarousel displayIndex = {this.state.displayIndex}
+                           events = {featuredEvents}
+                           images = {this.state.images}
+                           transitionDirection = {this.state.transitionDirection}
+                           didClickThumbnail = {this.didClickThumbnail.bind(this)}/>
+          </div>
 
-
-        <EventCarousel displayIndex = {this.state.displayIndex}
-                       events = {featuredEvents}
-                       images = {this.state.images}
-                       transitionDirection = {this.state.transitionDirection}
-                       didClickThumbnail = {this.didClickThumbnail.bind(this)}/>
-        <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
 
         </div>
       }
@@ -155,6 +156,9 @@ class EventsPage extends React.Component {
           <p>{" | "}</p>
           <p>Within Budget</p>
         </div>
+      </div>
+      <div className = {styles.events}>
+
       </div>
 
     </div>

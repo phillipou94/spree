@@ -1,0 +1,14 @@
+.enter {
+  opacity: 0;
+}
+.enter.enterActive {
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+.leave {
+  opacity: 1;
+}
+.leave.leaveActive {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}

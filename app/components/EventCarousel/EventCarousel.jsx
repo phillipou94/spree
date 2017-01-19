@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
-import CarouselAnimationRight from "./CarouselAnimationRight.css";
-import CarouselAnimationLeft from "./CarouselAnimationLeft.css";
+import CrossFadeAnimation from "./CrossFadeAnimation.css";
 import styles from "./EventCarousel.css";
 import time from "../../utils/time.js";
 
@@ -12,11 +11,11 @@ import Button from "../Button/Button.jsx";
 class BackgroundImage extends React.Component {
   render() {
     const style = {
-      position: 'fixed',
       marginTop: "25px",
-      marginLeft:"40px",
+      marginLeft:"20px",
       width: '550px',
-      height: '300px'
+      height: '300px',
+      position:"absolute"
     };
    return <img src={this.props.image} style={style} />;
   }
@@ -30,7 +29,7 @@ class EventThumbnail extends React.Component {
     const style = {
       width: '100px',
       height: '100px',
-      marginRight:"20px"
+      marginRight:"10px"
     };
     if (this.props.displayIndex === this.props.index) {
       style["border"] = "2px solid #33AE8B";
@@ -47,8 +46,6 @@ class EventCarousel extends Component {
       var event = events[this.props.displayIndex];
       var image = event.featured_image ? event.featured_image : event.performers[0].image;
       var direction = this.props.transitionDirection;
-
-      var animation = direction === "RIGHT" ? CarouselAnimationRight : CarouselAnimationLeft;
       var that = this;
       var date = time.formattedDateString(new Date(event.date));
       var venueName = event.venue.name;
@@ -58,14 +55,15 @@ class EventCarousel extends Component {
 
         return (
           <div className = {styles.EventCarousel}>
-            <div className = {styles.leftFrame} style = {{width:"100px"}}></div>
              <ReactCSSTransitionGroup
-                transitionName={animation}
+                transitionName={CrossFadeAnimation}
                 transitionEnterTimeout={1000}
                 transitionLeaveTimeout={1000}>
-              <BackgroundImage image={image} key={image} />
+
+                <BackgroundImage image={image} key={image} />
+  
               </ReactCSSTransitionGroup>
-              <div className = {styles.rightFrame} style = {{width:"800px", marginLeft:"650px"}}>
+              <div className = {styles.info}>
                 <div className = {styles.eventInfo}>
                   <h1 className = {styles.eventTitle}>{event.title}</h1>
                   <p>{secondaryInfoText}</p>
@@ -80,7 +78,6 @@ class EventCarousel extends Component {
                                            didClickThumbnail = {that.props.didClickThumbnail}/>
                   })}
                 </div>
-
               </div>
 
           </div>
