@@ -7,7 +7,7 @@ var SeatGeek = function() {
   var today = new Date();
 
   var defaultParams = function() {
-    return "sort=score.desc&per_page=20&datetime_utc.gte="+today.toISOString();
+    return "sort=score.desc&per_page=50&datetime_utc.gte="+today.toISOString();
   }
 
   var parseOptions = function(options) {

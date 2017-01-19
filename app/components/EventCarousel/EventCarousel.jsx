@@ -13,7 +13,7 @@ class BackgroundImage extends React.Component {
     const style = {
       marginTop: "25px",
       marginLeft:"20px",
-      width: '550px',
+      width: '42%',
       height: '300px',
       position:"absolute"
     };
@@ -61,7 +61,7 @@ class EventCarousel extends Component {
                 transitionLeaveTimeout={1000}>
 
                 <BackgroundImage image={image} key={image} />
-  
+
               </ReactCSSTransitionGroup>
               <div className = {styles.info}>
                 <div className = {styles.eventInfo}>

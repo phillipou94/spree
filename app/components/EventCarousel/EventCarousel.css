@@ -2,7 +2,7 @@
   background:clear;
   height:350px;
   padding-top:20px;
-  margin-left:650px;
+  margin-left:63%;
 }
 
 .thumbnails {
@@ -37,7 +37,7 @@
 }
 
 .EventCarousel button {
-  width:35%;
+  width:150px;
   height:35px;
   margin-top:35px;
   margin-left:-60px;
