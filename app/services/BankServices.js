@@ -1,5 +1,5 @@
 var dev = 'http://localhost:3000/api/banks';
-var prod = '';
+var prod = 'https://git.heroku.com/enigmatic-mesa-53717/api/weeks';
 const BASE_URL =  dev;
 
 var request = require('request-promise-native');
