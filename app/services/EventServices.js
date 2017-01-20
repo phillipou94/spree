@@ -11,7 +11,7 @@ export default {
   events : (options) => {
     var lat = options.coordinates.latitude;
     var lng = options.coordinates.longitude;
-    var uri = BASE_URL + '/lat='+lat+'&lng='+lng+'/page='+options.page;
+    var uri = BASE_URL + '/lat='+lat+'&lng='+lng+'/page='+options.page+'/budget='+options.budget;
     return request({
       uri : uri,
       method: 'GET',
@@ -23,7 +23,7 @@ export default {
     var lat = options.coordinates.latitude;
     var lng = options.coordinates.longitude;
     var page = options.page;
-    var uri = BASE_URL + '/search/search='+query+'/lat='+lat+'&lng='+lng+'/page='+page;
+    var uri = BASE_URL + '/search/search='+query+'/lat='+lat+'&lng='+lng+'/page='+page+'/budget='+options.budget;
     return request({
       uri : uri,
       method: 'GET',

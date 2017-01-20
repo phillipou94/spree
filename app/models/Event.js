@@ -45,6 +45,7 @@ var Event = (function(EventModel) {
       if (error) {
         callback(error, []);
       } else {
+        console.log(options);
         var objects = JSON.parse(response.body).events;
         var events = objects.map(function(seatGeekObject) {
           return parse(seatGeekObject);
@@ -69,11 +70,7 @@ var Event = (function(EventModel) {
   }
 
   that.getTicketMasterImages = function(events, callback) {
-    console.log("hits model");
-    console.log(events);
     tm.getImagesForEvents(events).then((res) => {
-      console.log("res");
-      console.log(res);
       callback(null, res);
     });
   }

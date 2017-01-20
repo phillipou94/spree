@@ -25,7 +25,7 @@ var SeatGeek = function() {
       optionsString += "page="+options.page+"&";
     }
     if (options.budget && options.budget > 0) {
-      optionsString += "lowest_price.lte="+options.budget;
+      optionsString += "lowest_price.lte="+options.budget+"&";
     }
     return optionsString+defaultParams();
   }
@@ -35,6 +35,7 @@ var SeatGeek = function() {
   }
 
   var makeRequest = function(url, callback) {
+    console.log(url);
     request.get({
       url: url,
       headers: { 'Content-Type': 'application/json' },
@@ -56,7 +57,6 @@ var SeatGeek = function() {
     var optionsString = parseOptions(options);
     var searchString = searchTerm.replace(" ", "+");
     var reqURL = API_URL+"/events?q="+searchString+"&"+optionsString+authenticationString();
-    console.log(reqURL);
     makeRequest(reqURL, function(error, data){
       callback(error, data);
     });

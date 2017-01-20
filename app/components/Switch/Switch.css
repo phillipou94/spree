@@ -1,0 +1,9 @@
+.switch {
+  margin-left:30px;
+  display:inline-block;
+  cursor:pointer;
+}
+
+.switch p {
+  margin-right:5px;
+}

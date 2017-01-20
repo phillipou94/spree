@@ -3,11 +3,12 @@ var router = express.Router();
 var utils = require('../utils/utils');
 var Event = require('../models/Event.js');
 
-router.get('/lat=:lat&lng=:lng/page=:page', function(req, res) {
+router.get('/lat=:lat&lng=:lng/page=:page/budget=:budget', function(req, res) {
   var latitude = req.params.lat;
   var longitude = req.params.lng;
   var page = req.params.page;
-  Event.getEvents({latitude:latitude,longitude:longitude, page:page}, function(error, events) {
+  var budget = req.params.budget;
+  Event.getEvents({latitude:latitude,longitude:longitude, page:page, budget:budget}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {
@@ -16,12 +17,13 @@ router.get('/lat=:lat&lng=:lng/page=:page', function(req, res) {
   });
 });
 
-router.get('/search/search=:searchTerm/lat=:lat&lng=:lng/page=:page', function(req, res) {
+router.get('/search/search=:searchTerm/lat=:lat&lng=:lng/page=:page/budget=:budget', function(req, res) {
   var searchTerm = req.params.searchTerm;
   var latitude = req.params.lat;
   var longitude = req.params.lng;
   var page = req.params.page;
-  Event.searchEvents(searchTerm, {latitude:latitude,longitude:longitude, page:page}, function(error, events) {
+  var budget = req.params.budget;
+  Event.searchEvents(searchTerm, {latitude:latitude,longitude:longitude, page:page, budget:budget}, function(error, events) {
     if (!error) {
       utils.sendSuccessResponse(res,events);
     } else {
