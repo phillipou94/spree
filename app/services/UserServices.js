@@ -1,5 +1,5 @@
 var dev = 'http://localhost:3000/api/users';
-var prod = 'https://git.heroku.com/enigmatic-mesa-53717/api/users';
+var prod = 'https://enigmatic-mesa-53717.herokuapp.com/api/users';
 const BASE_URL =  prod;
 
 var request = require('request-promise-native');
