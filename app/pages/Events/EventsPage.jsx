@@ -57,13 +57,13 @@ class EventsPage extends Component {
 
   nextPressed() {
     var displayIndex = this.state.displayIndex;
-    displayIndex = (displayIndex + 1) % this.state.images.length;
+    displayIndex = (displayIndex + 1) % this.state.events.length;
     this.setState({displayIndex:displayIndex, transitionDirection:"RIGHT"});
   }
 
   previousPressed() {
     var displayIndex = this.state.displayIndex;
-    var length = this.state.images.length;
+    var length = this.state.events.length;
     var index = (displayIndex - 1) % length;
     if (index < 0) {
       index = length - Math.abs(index);

@@ -63,7 +63,7 @@
 
 .amountBar {
   position:relative;
-  background:#F6704F;
+  background:#33AE8B;
   height:10px;
   margin:0;
 }
@@ -71,7 +71,7 @@
 .amount {
   margin:0;
   padding:0;
-  color:#F6704F;
+  color:#33AE8B;
 }
 
 .totalBar {

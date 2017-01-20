@@ -41,7 +41,7 @@ class EventCard extends Component {
     };
 
     var priceContainerColor = {
-      background: event.low_price > Math.round(this.props.balance) ? "#313C4B" : "#F6704F"
+      background: event.low_price > Math.round(this.props.balance) ? "#313C4B" : "#33AE8B"
     }
 
     return (

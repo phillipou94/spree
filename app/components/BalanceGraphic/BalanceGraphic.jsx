@@ -36,20 +36,20 @@ class BalanceGraphic extends Component {
       <div className = {styles.BalanceGraphic}>
         <div className = {styles.WeeklyBalanceInfo}>
           <div className = {styles.infoContainer}>
+            <p className = {styles.title}>Spent this Week</p>
+            <p className = {styles.info} style = {{color:"#33AE8B"}}>{"$ "+spent}</p>
+          </div>
+          <div className = {styles.infoContainer}>
+            <p className = {styles.title}>Left in Budget</p>
+            <p className = {styles.info} style = {{color:"#33AE8B"}}>{"$ "+leftInBudgetRounded}</p>
+          </div>
+          <div className = {styles.infoContainer}>
             <p className = {styles.title}>Weekly Budget</p>
             <p className = {styles.info}>{"$ "+budget}</p>
           </div>
           <div className = {styles.infoContainer}>
             <p className = {styles.title}>Days Left this Week</p>
             <p className = {styles.info}>{daysLeft}</p>
-          </div>
-          <div className = {styles.infoContainer}>
-            <p className = {styles.title}>Spent this Week</p>
-            <p className = {styles.info}>{"$ "+spent}</p>
-          </div>
-          <div className = {styles.infoContainer}>
-            <p className = {styles.title}>Left in Budget</p>
-            <p className = {styles.info}>{"$ "+leftInBudgetRounded}</p>
           </div>
         </div>
         <div className = {styles.graphicContainer}>
