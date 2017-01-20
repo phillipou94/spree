@@ -14,6 +14,9 @@ var test = function() {
   // seatgeek.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
+  User.create("TEST USER", "TESTUSER@gmail.com", "TESTUSER", function(err, user) {
+    console.log(user);
+  }
   Event.getEvents({ latitude: '42.3520434', longitude: '-71.134188' }, function(error, events) {
     console.log(events);
   });
