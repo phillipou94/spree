@@ -1,6 +1,6 @@
 .BalanceGraphic {
   background:white;
-  border: 1px solid #313C4B;
+  /*border: 1px solid #313C4B;*/
   width:100%;
   display:flex;
   justify-content:flex-start;
@@ -63,7 +63,7 @@
 
 .amountBar {
   position:relative;
-  background:#33AE8B;
+  background:#AC9456;
   height:10px;
   margin:0;
 }
@@ -71,7 +71,7 @@
 .amount {
   margin:0;
   padding:0;
-  color:#33AE8B;
+  color:#AC9456;
 }
 
 .totalBar {

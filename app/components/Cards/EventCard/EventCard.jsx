@@ -32,16 +32,15 @@ class EventCard extends Component {
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
     var date = time.formattedDateString(new Date(event.date));
     var photoContainerStyle = {
-      "width":"90%",
-      "maxHeight":"175px",
-      "marginLeft":"5%",
-      "marginTop":'10px',
-      "height": "175px",
+      "width":"100%",
+      "height":"200px",
+      "maxHeight":"200px",
+      "height": "100%",
       "backgroundSize": "100% 100%",
     };
 
     var priceContainerColor = {
-      background: event.low_price > Math.round(this.props.balance) ? "#313C4B" : "#33AE8B"
+      background: event.low_price > Math.round(this.props.balance) ? "#313C4B" : "#AC9456"
     }
 
     return (
@@ -49,27 +48,21 @@ class EventCard extends Component {
            onClick = {this.props.onClick}
            onMouseEnter = {this.onMouseEnter.bind(this)}
            onMouseLeave = {this.onMouseLeave.bind(this)}>
-         <LazyLoad height = "175px">
+          <div></div>
+         <LazyLoad height = "200px">
          <div style = {photoContainerStyle}>
-           {this.state.showWishlistButton &&
-             <img src = {wishlist_icon} className = {styles.wishlistIcon} onClick = {this.didClickHeart.bind(this)}/>
-           }
-           <img style = {{height:"175px", width:"100%"}} src = {image}></img>
-         </div>
-         </LazyLoad>
 
-        <div className = {styles.secondaryInfo}>
-          <div className = {styles.priceContainer} style = {priceContainerColor}>
-            <p className = {styles.price}>{"$"+event.low_price}</p>
+          <div className = {styles.secondaryInfo}>
+
+            <p className = {styles.title}>{event.title}</p>
+
           </div>
-          <p className = {styles.title}>{event.title}</p>
-          <div className = {styles.venueDescription}>
-            <p>{date}</p>
-            <p>{event.venue.name}</p>
-            <p>{event.venue.display_location}</p>
-          </div>
+           <img src = {image} style = {{width:"100%", height:"100%",  position:"relative"} }/>
+
+
+           </div>
+          </LazyLoad>
         </div>
-      </div>
     )
   }
 }

@@ -1,17 +1,16 @@
 .EventCard {
   background:white;
-  width:24%;
+  width:30%;
   border: 1px solid #9199A3;
   border-radius:5px;
   cursor:pointer;
   text-align:center;
-  margin-bottom:20px;
+  margin-right:30px;
+  margin-bottom:30px;
   transition: all .2s ease-in-out;
 }
 
-.EventCard:hover {
-  transform: scale(1.05);
-}
+
 
 
 .wishlistIcon {
@@ -31,20 +30,26 @@
 .title {
   font-weight:400;
   font-size:20px;
-  color:#313C4B;
+  padding-top:50px;
+  color:white;
   padding:0;
   margin:0;
-  margin-top:5px;
-  margin-bottom:5px;
   line-height: 1em;
   height: 2em;       /* height is 2x line-height, so two lines will display */
   overflow: hidden;  /* prevents extra lines from being visible */
 }
 
 .secondaryInfo {
-  text-align:left;
-  padding:5%;
-  padding-top:2px;
+  position:absolute;
+  height:175px;
+  background-image: -webkit-gradient(
+  linear, left top, left bottom, from(rgba(0,0,0,0.5)),
+  to(rgba(0,0,0,0.1))
+);
+  width:22%;
+  z-index:5;
+  text-align:center;
+  float:right;
 }
 
 .venueDescription p {

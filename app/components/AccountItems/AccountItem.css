@@ -1,5 +1,5 @@
 .AccountItem {
-  border: 1px solid #9199A3;
+  border-bottom: 1px solid #9199A3;
   background:white;
   padding-top:0px;
   width:100%;
@@ -45,5 +45,5 @@
   margin-right:30px;
   float:right;
   display:inline-block;
-  color:#33AE8B;
+  color:#AC9456;
 }

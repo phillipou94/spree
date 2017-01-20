@@ -33,7 +33,7 @@ class EventThumbnail extends React.Component {
       transition: "all .2s ease-in-out"
     };
     if (this.props.displayIndex === this.props.index) {
-      style["border"] = "2px solid #33AE8B";
+      style["border"] = "2px solid #AC9456";
     }
     var event = this.props.event;
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
