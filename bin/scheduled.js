@@ -1,16 +1,12 @@
 #!/usr/bin/env node
-
-var bb = require('bluebird');
-var deferred = bb.defer();
-
 var mongoose = require('mongoose');
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/spree');
 
-var User = require('./app/models/User.js');
-var Bank = require('./app/models/Bank.js');
-var Week = require('./app/models/Week.js');
-var TransactionUtils = require('./app/utils/transactionUtils.js');
-var time = require('./app/utils/time.js');
+var User = require('../app/models/User.js');
+var Bank = require('../app/models/Bank.js');
+var Week = require('../app/models/Week.js');
+var TransactionUtils = require('../app/utils/transactionUtils.js');
+var time = require('../app/utils/time.js');
 
 
 var calculateAllUsersWeeklySpending = function(callback) {
