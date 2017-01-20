@@ -2,8 +2,8 @@
 
 var TicketMaster = require("./app/js/ticketmaster.js");
 
-var User = require("./app/models/User.js");
-var Event = require("./app/models/Event.js");
+var User = require("../app/models/User.js");
+var Event = require("../app/models/Event.js");
 const request = require('request');
 
 var test = function() {
