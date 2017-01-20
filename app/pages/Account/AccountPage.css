@@ -15,7 +15,7 @@
 
 .header {
   margin-left:70px;
-  color:#313C4B;
+  color:#000000;
 }
 
 .AccountItemsTable {
@@ -23,7 +23,7 @@
   margin-left:70px;
   margin-right:70px;
   margin-bottom:30px;
-  /*border: 1px solid #313C4B;*/
+  /*border: 1px solid #000000;*/
   min-height:100px;
 }
 
@@ -62,7 +62,7 @@
     background-image: none;
     -webkit-appearance: none;
     font-size:14px;
-    color:#313C4B;
+    color:#000000;
 }
 
 .dropdown select:focus {

@@ -1,6 +1,6 @@
 .header {
   padding-left:70px;
-  color:#313C4B;
+  color:#000000;
   padding-right:70px;
   padding-bottom:20px;
 }
@@ -42,7 +42,7 @@
   padding-left:50px;
   width:20%;
   height:100%;
-  border-left:2px solid #313C4B;
+  border-left:2px solid #000000;
 }
 
 .QA {

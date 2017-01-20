@@ -36,13 +36,13 @@
 
 input:focus {
   border: none;
-  border: 1px solid #313C4B;
+  border: 1px solid #000000;
   background: none;
 }
 
 
 p {
-  color:#313C4B
+  color:#000000
 }
 
 button {

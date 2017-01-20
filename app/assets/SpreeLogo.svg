@@ -11,7 +11,7 @@
     </defs>
     <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g>
-            <use id="Rectangle" stroke="#313C4B" mask="url(#mask-2)" stroke-width="16" fill="#FFFFFF" xlink:href="#path-1"></use>
+            <use id="Rectangle" stroke="#000000" mask="url(#mask-2)" stroke-width="16" fill="#FFFFFF" xlink:href="#path-1"></use>
             <polygon id="Rectangle-2" fill="#AC9456" points="7.557042 99.4230814 99.7722916 189.969788 83.9577641 189.969788 7.557042 114.537165"></polygon>
             <polygon id="Rectangle-2-Copy" fill="#AC9456" points="7.557042 76.4230814 121.299024 189.999382 105.332407 189.999382 7.557042 93.15578"></polygon>
         </g>

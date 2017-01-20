@@ -11,7 +11,7 @@ class NavbarAuthenticated extends Component {
   }
 
   getLinkStyle(link) {
-    return {color: this.isActiveLink(link) ? "#313C4B" : "#9199A3"};
+    return {color: this.isActiveLink(link) ? "#000000" : "#9199A3"};
   }
 
   render() {
