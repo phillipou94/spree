@@ -13,6 +13,10 @@
   cursor:pointer;
 }
 
+.thumbnail:hover {
+transform: scale(1.1);
+}
+
 .eventInfo {
   margin-left:-60px;
 }

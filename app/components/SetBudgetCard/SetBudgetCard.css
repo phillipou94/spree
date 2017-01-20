@@ -6,6 +6,11 @@
   width:325px;
   /*margin-right:50px;*/
   height:125px;
+  transition: all .2s ease-in-out;
+}
+
+.SetBudgetCard:hover {
+  transform: scale(1.1);
 }
 
 .iconContainer {

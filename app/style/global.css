@@ -19,6 +19,11 @@
 
 .Application button {
   border-style:none;
+  transition: all .2s ease-in-out;
+}
+
+.Application button:hover {
+  transform: scale(1.1);
 }
 
 .Application input {
