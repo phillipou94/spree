@@ -79,7 +79,7 @@ class BankPage extends React.Component {
           this.setState({popupType:"BANK_QUESTION", question:question, mfa_access_token:mfa_access_token});
         } else {
           //success
-          console.log(res);
+          this.props.router.push("/account");
           this.closePopup();
         }
       } else {
