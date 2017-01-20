@@ -1,6 +1,6 @@
 var dev = 'http://localhost:3000/api/banks';
-var prod = 'https://git.heroku.com/enigmatic-mesa-53717/api/banks';
-const BASE_URL =  process.env.MONGODB_URI ? prod : dev;
+var prod = 'https://enigmatic-mesa-53717.herokuapp.com/api/banks';
+const BASE_URL =  prod;
 
 var request = require('request-promise-native');
 

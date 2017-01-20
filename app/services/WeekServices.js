@@ -1,6 +1,7 @@
 var dev = 'http://localhost:3000/api/weeks';
-var prod = 'https://git.heroku.com/enigmatic-mesa-53717/api/weeks';
-const BASE_URL =  process.env.MONGODB_URI ? prod : dev;
+var prod = 'https://enigmatic-mesa-53717.herokuapp.com/api/weeks';
+
+const BASE_URL =  prod;
 
 var request = require('request-promise-native');
 

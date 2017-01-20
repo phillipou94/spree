@@ -75,6 +75,7 @@ class EventCarousel extends Component {
                   {events.map(function(event, index) {
                     return <EventThumbnail event = {event}
                                            displayIndex = {that.props.displayIndex}
+                                           key = {index}
                                            index = {index}
                                            didClickThumbnail = {that.props.didClickThumbnail}/>
                   })}

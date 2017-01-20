@@ -87,8 +87,12 @@ class EventsPage extends Component {
     var featuredEvents = events.slice(0,topEventRange);
     EventServices.images(featuredEvents).then((res) => {
       var images = res.body;
+      console.log("START DEBUGGIN.");
+      console.log(images);
       featuredEvents.map(function(event) {
+        console.log(event);
         var matched_images = images.filter(function(imageObject) {
+          console.log(imageObject);
           return imageObject.event_id === event._id;
         });
         if(matched_images.length > 0) {
@@ -188,8 +192,8 @@ class EventsPage extends Component {
     var balance = this.state.balance;
     var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
 
-    var eventCards = events.map(function(event) {
-      return <EventCard event = {event} balance = {balance}/>
+    var eventCards = events.map(function(event,index) {
+      return <EventCard key = {index} event = {event} balance = {balance}/>
     });
 
     var headerTitle = this.state.searchTerm && this.state.searchTerm.length > 0 ?
