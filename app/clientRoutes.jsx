@@ -13,9 +13,8 @@ import SignupPage from './pages/Auth/SignupPage.jsx';
 
 const authCheck = (nextState, replace, callback) => {
     UserServices.currentUser().then((response) => {
-      console.log(response);
         if (!response.body.authenticated){
-            replace('/');
+            replace('/landing');
         }
         callback();
     }).catch((err) => {
@@ -27,12 +26,12 @@ const authCheck = (nextState, replace, callback) => {
 export default(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={LandingPage} />
+      <IndexRoute component={EventsPage} onEnter={authCheck}/>
+      <Route path="landing" component={LandingPage} />
       <Route path="signup" component={SignupPage} />
       <Route path="login" component={LoginPage} />
       <Route path="bank" component={BankPage} onEnter={authCheck}/>
       <Route path="account" component={AccountPage} onEnter={authCheck}/>
-      <Route path="events" component={EventsPage} onEnter={authCheck}/>
     </Route>
   </Router>
 );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -9,18 +9,22 @@ var tm = new TicketMaster();
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
 
+import Tooltip from 'rc-tooltip';
+
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
 import Searchbar from '../../components/Searchbar/Searchbar.jsx';
+import Switch from '../../components/Switch/Switch.jsx';
 
 
-class EventsPage extends React.Component {
+class EventsPage extends Component {
   constructor(props) {
     super(props);
     this.state = {user:null,
                   events:[],
                   page:1,
+                  eventOption:"MOST_POPULAR",
                   searchTerm:"",
                   loadMoreEvents:true,
                   featuredEvents:[],
@@ -28,8 +32,7 @@ class EventsPage extends React.Component {
                   city:"No Location Provided",
                   displayIndex: 0,
                   coordinates: null,
-                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
-                  transitionDirection:"LEFT"}
+                  showTooltip: false}
 
   }
 
@@ -50,25 +53,6 @@ class EventsPage extends React.Component {
         that.getFeaturedEvents(events);
       });
     });
-  }
-
-  getEvents() {
-    if (this.state.loadMoreEvents) {
-      console.log('GETTING MORE EVENTS!');
-      var events = this.state.events;
-      this.setState({loadMoreEvents:false});
-      var that = this;
-      this.getLocation(function(coordinates){
-        var options = {page:that.state.page, coordinates:coordinates};
-        EventServices.events(options).then((res) => {
-          console.log(that.state.page)
-          var moreEvents = events.concat(res.body);
-          that.setState({events:moreEvents, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
-        });
-      });
-    }
-
-
   }
 
   nextPressed() {
@@ -132,10 +116,40 @@ class EventsPage extends React.Component {
     });
   }
 
-  searchEvents(searchString) {
+  getEvents(eventOption, resetPage) {
+    if (this.state.loadMoreEvents) {
+      var that = this;
+      var page = resetPage ? 1 : this.state.page;
+      this.getLocation(function(coordinates){
+        var options = {page:page, coordinates:coordinates};
+        if (eventOption === "WITHIN_BUDGET") {
+          options["budget"] = Math.floor(that.state.balance);
+        }
+        EventServices.events(options).then((res) => {
+          var events = that.state.events;
+          if (page > 1) {
+            events = events.concat(res.body);
+          } else {
+            events = res.body;
+          }
+          that.setState({events:events, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
+        });
+      });
+    }
+
+  }
+
+  searchEvents(searchString, eventOption, resetPage) {
     var that = this;
+    if (!eventOption) {
+      eventOption = this.state.eventOption;
+    }
     this.getLocation(function(coordinates){
-      EventServices.search(searchString,{page:1,coordinates:coordinates}).then((res) => {
+      var options = {page:1,coordinates:coordinates};
+      if (eventOption === "WITHIN_BUDGET") {
+        options["budget"] = Math.floor(that.state.balance);
+      }
+      EventServices.search(searchString,options).then((res) => {
         that.setState({events:res.body,
                       loadMoreEvents:false,
                       searchTerm:searchString,
@@ -143,7 +157,25 @@ class EventsPage extends React.Component {
                       featuredEvents:[]});
       });
     });
+  }
 
+  didSelectSwitch(side) {
+    if (side === "LEFT") {
+      var eventOption = "MOST_POPULAR";
+
+    } else {
+      var eventOption = "WITHIN_BUDGET";
+    }
+    this.setState({eventOption:eventOption});
+    if (this.state.searchTerm && this.state.searchTerm.length > 0) {
+      this.searchEvents(this.state.searchTerm, eventOption);
+    } else {
+      this.getEvents(eventOption, /*resetPage*/true);
+    }
+  }
+
+  showTooltip() {
+    this.setState({showTooltip:true});
   }
 
   render() {
@@ -190,16 +222,18 @@ class EventsPage extends React.Component {
         </div>
       </div>
       <div className = {styles.secondaryHeader}>
-        <div id = "locationButton" className = {styles.locationButton}>
-          <img className = {styles.locationIcon} src = {locationIcon} />
-          <p>{this.state.city}</p>
-          <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
-        </div>
-        <div className = {styles.switch}>
-          <p>Most Popular</p>
-          <p>{" | "}</p>
-          <p>Within Budget</p>
-        </div>
+        <Tooltip
+          trigger="click"
+          visible={this.state.showTooltip}
+          placement="bottom"
+          overlay={<span></span>}>
+          <div id = "locationButton" className = {styles.locationButton} onClick = {this.showTooltip.bind(this)}>
+            <img className = {styles.locationIcon} src = {locationIcon} />
+            <p>{this.state.city}</p>
+            <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+          </div>
+        </Tooltip>
+        <Switch didSelectSwitch = {this.didSelectSwitch.bind(this)}/>
       </div>
       {eventCards.length > 0 &&
       <div className = {styles.events}>

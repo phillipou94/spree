@@ -30,7 +30,7 @@ class LoginPage extends React.Component {
     const password = this.state.password;
     UserServices.login(email, password).then((res) => {
       var user = res.body.user;
-      var path = user.bank_id && user.bank_id.length > 0 ? "events" :  "bank";
+      var path = user.bank_id && user.bank_id.length > 0 ? "" :  "bank";
       this.props.router.push(path);
     }).catch((err) => {
       console.log(err);

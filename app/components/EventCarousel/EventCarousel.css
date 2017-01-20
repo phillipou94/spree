@@ -10,6 +10,11 @@
   width:450px;
   margin-top:70px;
   margin-left:-60px;
+  cursor:pointer;
+}
+
+.thumbnail:hover {
+transform: scale(1.1);
 }
 
 .eventInfo {
@@ -42,4 +47,5 @@
   margin-top:35px;
   margin-left:-60px;
   font-size:15px;
+  cursor:pointer;
 }

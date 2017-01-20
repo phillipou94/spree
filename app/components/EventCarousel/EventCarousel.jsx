@@ -29,14 +29,15 @@ class EventThumbnail extends React.Component {
     const style = {
       width: '100px',
       height: '100px',
-      marginRight:"10px"
+      marginRight:"10px",
+      transition: "all .2s ease-in-out"
     };
     if (this.props.displayIndex === this.props.index) {
       style["border"] = "2px solid #33AE8B";
     }
     var event = this.props.event;
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
-    return <img src={image} style={style} onClick = {this.didClick.bind(this)}/>;
+    return <img src={image} style={style} onClick = {this.didClick.bind(this)} className = {styles.thumbnail}/>;
   }
 }
 

@@ -40,15 +40,24 @@
 }
 
 .searchbarContainer {
-  float:right;
+  padding-top:0px;
+  margin:0;
   margin-left:30px;
-  margin-top:15px;
-  width:75%;
+  width:200px;
   display:inline-block;
 }
 
+.searchbarContainer input {
+    margin-top:-15px;
+    transition: all .4s ease-in-out;
+}
+
+.searchbarContainer input:focus {
+  width:475%;
+}
+
 .secondaryHeader {
-  margin-top:-40px;
+  margin-top:5px;
   padding-left:70px;
   display:flex;
   width:100%;
@@ -81,15 +90,6 @@
   width:9px;
   margin-left:5px;
   display:inline-block
-}
-
-.switch {
-  margin-left:30px;
-  display:inline-block;
-}
-
-.switch p {
-  margin-right:5px;
 }
 
 .events {
