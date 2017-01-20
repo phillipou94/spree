@@ -10,6 +10,7 @@ import EventsPage from './pages/Events/EventsPage.jsx';
 import LandingPage from './pages/Landing/LandingPage.jsx';
 import LoginPage from './pages/Auth/LoginPage.jsx';
 import SignupPage from './pages/Auth/SignupPage.jsx';
+import WishlistPage from './pages/Wishlist/WishlistPage.jsx';
 
 const authCheck = (nextState, replace, callback) => {
     UserServices.currentUser().then((response) => {
@@ -29,6 +30,7 @@ export default(
     <Route path="/" component={App}>
       <IndexRoute component={EventsPage} onEnter={authCheck}/>
       <Route path="landing" component={LandingPage} />
+      <Route path="wishlist" component={WishlistPage} />
       <Route path="signup" component={SignupPage} />
       <Route path="login" component={LoginPage} />
       <Route path="bank" component={BankPage} onEnter={authCheck}/>

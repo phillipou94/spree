@@ -1,0 +1,79 @@
+.header {
+  padding-left:70px;
+  padding-right:70px;
+  color:#313C4B;
+  display:block;
+  margin:0;
+}
+
+.header h1 {
+  display:inline-block;
+}
+
+.searchbarContainer {
+  padding-top:0px;
+  margin:0;
+  margin-left:30px;
+  width:200px;
+  display:inline-block;
+}
+
+.searchbarContainer input {
+    margin-top:-15px;
+    transition: all .4s ease-in-out;
+}
+
+.searchbarContainer input:focus {
+  width:475%;
+}
+
+.secondaryHeader {
+  margin-top:5px;
+  padding-left:70px;
+  display:flex;
+  width:100%;
+
+}
+
+.secondaryHeader p {
+  padding:0;
+  margin:0;
+}
+
+.locationButton {
+  display:inline-block;
+  cursor:pointer;
+}
+
+.secondaryHeader p {
+  display:inline-block;
+  color:#9199A3;
+}
+
+.locationIcon {
+  height:15px;
+  width:15px;
+  display:inline-block;
+}
+
+.dropdownIndicator {
+  height:12px;
+  width:9px;
+  margin-left:5px;
+  display:inline-block
+}
+
+.events {
+  width:100%;
+  padding:70px;
+  padding-top:20px;
+}
+
+.eventsTable {
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right:100px;
+
+}
