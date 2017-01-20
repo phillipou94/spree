@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var TicketMaster = require("./app/js/ticketmaster.js");
 
 var User = require("./app/models/User.js");
