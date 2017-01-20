@@ -9,6 +9,8 @@ var tm = new TicketMaster();
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
 
+import Tooltip from 'rc-tooltip';
+
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
@@ -30,8 +32,7 @@ class EventsPage extends Component {
                   city:"No Location Provided",
                   displayIndex: 0,
                   coordinates: null,
-                  images: ['http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png', 'http://i.imgur.com/kJXRAZH.jpg','http://i.imgur.com/TaA1gj9.png'],
-                  transitionDirection:"LEFT"}
+                  showTooltip: false}
 
   }
 
@@ -173,6 +174,10 @@ class EventsPage extends Component {
     }
   }
 
+  showTooltip() {
+    this.setState({showTooltip:true});
+  }
+
   render() {
     var leftArrow = require("../../assets/LeftArrow.svg");
     var rightArrow = require("../../assets/RightArrow.svg");
@@ -217,11 +222,17 @@ class EventsPage extends Component {
         </div>
       </div>
       <div className = {styles.secondaryHeader}>
-        <div id = "locationButton" className = {styles.locationButton}>
-          <img className = {styles.locationIcon} src = {locationIcon} />
-          <p>{this.state.city}</p>
-          <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
-        </div>
+        <Tooltip
+          trigger="click"
+          visible={this.state.showTooltip}
+          placement="bottom"
+          overlay={<span></span>}>
+          <div id = "locationButton" className = {styles.locationButton} onClick = {this.showTooltip.bind(this)}>
+            <img className = {styles.locationIcon} src = {locationIcon} />
+            <p>{this.state.city}</p>
+            <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+          </div>
+        </Tooltip>
         <Switch didSelectSwitch = {this.didSelectSwitch.bind(this)}/>
       </div>
       {eventCards.length > 0 &&
