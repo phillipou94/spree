@@ -16,7 +16,8 @@ a{
   margin-right:15px;
 }
 .header {
-  color:#33AE8B;
+  color:#313C4B;
+  font-size:30px;
   display: inline-block;
   padding:0px;
   margin-top:10px;
@@ -32,7 +33,7 @@ a{
 
 .links a {
   display: inline-block;
-  color:#435061;
+  color:#313C4B;
   margin-left:15px;
   font-weight:300;
 }

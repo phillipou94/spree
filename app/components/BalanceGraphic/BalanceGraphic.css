@@ -1,6 +1,6 @@
 .BalanceGraphic {
   background:white;
-  border: 1px solid #435061;
+  border: 1px solid #313C4B;
   width:100%;
   display:flex;
   justify-content:flex-start;
@@ -30,7 +30,7 @@
 
 .WeeklyBalanceInfo .info {
   font-size:25px;
-  color:#435061;
+  color:#313C4B;
 }
 
 .WeeklyBalanceInfo .infoContainer {
@@ -63,7 +63,7 @@
 
 .amountBar {
   position:relative;
-  background:#33AE8B;
+  background:#F6704F;
   height:10px;
   margin:0;
 }
@@ -71,17 +71,17 @@
 .amount {
   margin:0;
   padding:0;
-  color:#33AE8B;
+  color:#F6704F;
 }
 
 .totalBar {
-  background:#435061;
+  background:#313C4B;
   height:10px;
 }
 
 .total {
   margin:0;
   padding:0;
-  color:#435061;
+  color:#313C4B;
   float:right;
 }

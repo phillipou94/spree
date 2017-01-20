@@ -1,7 +1,7 @@
 .carouselHeader {
   height:350px;
-  background: -webkit-linear-gradient(bottom, white, white 20%, #435061 20%, #435061);
-  /*background:#435061;*/
+  background: -webkit-linear-gradient(bottom, #F6F6F6, #F6F6F6 20%, #313C4B 20%, #313C4B);
+  /*background:#313C4B;*/
 }
 
 .carouselContainer {
@@ -30,7 +30,7 @@
 .header {
   padding-left:70px;
   padding-right:70px;
-  color:#435061;
+  color:#313C4B;
   display:block;
   margin:0;
 }

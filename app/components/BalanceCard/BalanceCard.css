@@ -3,7 +3,7 @@
   overflow:auto;
   cursor:default;
   display:inline-block;
-  border: 1px solid #435061;
+  border: 1px solid #313C4B;
   height:123px;
   min-width:325px;
   max-width:325px;
@@ -32,6 +32,6 @@
   margin-top:15px;
   float:left;
   weight: 300;
-  color:#33AE8B;
+  color:#F6704F;
   margin-left:10px;
 }

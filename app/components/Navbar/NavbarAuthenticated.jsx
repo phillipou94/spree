@@ -11,7 +11,7 @@ class NavbarAuthenticated extends Component {
   }
 
   getLinkStyle(link) {
-    return {color: this.isActiveLink(link) ? "#435061" : "#9199A3"};
+    return {color: this.isActiveLink(link) ? "#313C4B" : "#9199A3"};
   }
 
   render() {
@@ -25,7 +25,7 @@ class NavbarAuthenticated extends Component {
         <a href ="/"><h1 className = {styles.header}>{title}</h1></a>
         {! this.props.hideLinks &&
           <div className = {styles.links}>
-            <a href ="/events" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
+            <a href ="/" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
             <a href ="/wishlist"><p style = {this.getLinkStyle("WishList")}>Wishlist</p></a>
             <a href ="/account"><p style = {this.getLinkStyle("Account")}>Account</p></a>
           </div>

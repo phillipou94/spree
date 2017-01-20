@@ -7,6 +7,7 @@
   margin: 0;
   max-width: 100%;
   overflow-x: hidden;
+  background:#F6F6F6;
 }
 
 .Application a, a:visited {
@@ -35,13 +36,13 @@
 
 input:focus {
   border: none;
-  border: 1px solid #435061;
+  border: 1px solid #313C4B;
   background: none;
 }
 
 
 p {
-  color:#435061
+  color:#313C4B
 }
 
 button {
