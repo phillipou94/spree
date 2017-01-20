@@ -54,30 +54,6 @@ class EventsPage extends Component {
     });
   }
 
-  getEvents(eventOption, resetPage) {
-    if (this.state.loadMoreEvents) {
-      var that = this;
-      var page = resetPage ? 1 : this.state.page;
-      this.getLocation(function(coordinates){
-        var options = {page:page, coordinates:coordinates};
-        if (eventOption === "WITHIN_BUDGET") {
-          options["budget"] = Math.floor(that.state.balance);
-        }
-        EventServices.events(options).then((res) => {
-          var events = that.state.events;
-          if (page > 1) {
-            events = events.concat(res.body);
-          } else {
-            events = res.body;
-          }
-          that.setState({events:events, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
-        });
-      });
-    }
-
-
-  }
-
   nextPressed() {
     var displayIndex = this.state.displayIndex;
     displayIndex = (displayIndex + 1) % this.state.images.length;
@@ -139,12 +115,38 @@ class EventsPage extends Component {
     });
   }
 
+  getEvents(eventOption, resetPage) {
+    if (this.state.loadMoreEvents) {
+      var that = this;
+      var page = resetPage ? 1 : this.state.page;
+      this.getLocation(function(coordinates){
+        var options = {page:page, coordinates:coordinates};
+        if (eventOption === "WITHIN_BUDGET") {
+          options["budget"] = Math.floor(that.state.balance);
+        }
+        EventServices.events(options).then((res) => {
+          var events = that.state.events;
+          if (page > 1) {
+            events = events.concat(res.body);
+          } else {
+            events = res.body;
+          }
+          that.setState({events:events, loadMoreEvents:(events && events.length > 0),page:that.state.page+1});
+        });
+      });
+    }
+
+  }
+
   searchEvents(searchString, eventOption, resetPage) {
     var that = this;
+    if (!eventOption) {
+      eventOption = this.state.eventOption;
+    }
     this.getLocation(function(coordinates){
       var options = {page:1,coordinates:coordinates};
       if (eventOption === "WITHIN_BUDGET") {
-        options["budget"] = Math.floor(this.state.balance);
+        options["budget"] = Math.floor(that.state.balance);
       }
       EventServices.search(searchString,options).then((res) => {
         that.setState({events:res.body,
@@ -163,6 +165,7 @@ class EventsPage extends Component {
     } else {
       var eventOption = "WITHIN_BUDGET";
     }
+    this.setState({eventOption:eventOption});
     if (this.state.searchTerm && this.state.searchTerm.length > 0) {
       this.searchEvents(this.state.searchTerm, eventOption);
     } else {
