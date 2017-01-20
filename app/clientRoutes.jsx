@@ -19,6 +19,7 @@ const authCheck = (nextState, replace, callback) => {
         callback();
     }).catch((err) => {
         console.log("Err on authCheck : ", err);
+        replace('/landing');
         callback();
     });
 };
