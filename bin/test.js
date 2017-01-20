@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-var TicketMaster = require("./app/js/ticketmaster.js");
+var TicketMaster = require("../app/js/ticketmaster.js");
 
 var User = require("../app/models/User.js");
 var Event = require("../app/models/Event.js");
@@ -18,7 +18,7 @@ var test = function() {
   // });
   User.create("TEST USER", "TESTUSER@gmail.com", "TESTUSER", function(err, user) {
     console.log(user);
-  }
+  });
   Event.getEvents({ latitude: '42.3520434', longitude: '-71.134188' }, function(error, events) {
     console.log(events);
   });
