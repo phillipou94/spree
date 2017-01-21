@@ -13,7 +13,7 @@ import Tooltip from 'rc-tooltip';
 
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
-import NavbarAuthenticated from '../../components/Navbar/NavbarAuthenticated.jsx';
+import TransparentNavbar from '../../components/Navbar/TransparentNavbar.jsx';
 import Searchbar from '../../components/Searchbar/Searchbar.jsx';
 import Switch from '../../components/Switch/Switch.jsx';
 
@@ -34,6 +34,27 @@ class EventsPage extends Component {
                   coordinates: null,
                   showTooltip: false}
 
+  }
+
+  componentDidMount() {
+      window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll(event) {
+    if (this) {
+      let scrollTop = event.srcElement.body.scrollTop;
+      this.setState({
+         scrollTop: scrollTop
+      });
+    }
+  }
+
+  onScroll(event) {
+    console.log("ON SCROLL!!");
   }
 
   componentWillMount() {
@@ -87,12 +108,8 @@ class EventsPage extends Component {
     var featuredEvents = events.slice(0,topEventRange);
     EventServices.images(featuredEvents).then((res) => {
       var images = res.body;
-      console.log("START DEBUGGIN.");
-      console.log(images);
       featuredEvents.map(function(event) {
-        console.log(event);
         var matched_images = images.filter(function(imageObject) {
-          console.log(imageObject);
           return imageObject.event_id === event._id;
         });
         if(matched_images.length > 0) {
@@ -183,14 +200,15 @@ class EventsPage extends Component {
   }
 
   render() {
-    var leftArrow = require("../../assets/LeftArrow.svg");
-    var rightArrow = require("../../assets/RightArrow.svg");
+    var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
     var locationIcon = require("../../assets/LocationIcon.svg");
     var dropdownIndicator = require("../../assets/DropdownIndicator(grey).svg");
     var featuredEvents = this.state.featuredEvents;
     var events = this.state.events;
     var balance = this.state.balance;
     var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
+
+    var navbarOpacity = Math.min(1,this.state.scrollTop/450);
 
     var eventCards = events.map(function(event,index) {
       return <EventCard key = {index} event = {event} balance = {balance}/>
@@ -200,44 +218,25 @@ class EventsPage extends Component {
                       "Search Results for "+this.state.searchTerm : "Find Events";
     return (
       <div>
-        <NavbarAuthenticated balance = {this.state.balance}
-                             showBalance = {true}
-                             currentPage = {"Events"}
-        />
-      {featuredEvents && featuredEvents.length > 0 &&
-      <div className = {styles.carouselHeader}>
-          <img className = {styles.leftArrow} src = {leftArrow} onClick = {this.previousPressed.bind(this)}/>
-          <img className = {styles.rightArrow} src = {rightArrow} onClick = {this.nextPressed.bind(this)}/>
-          <div className = {styles.carouselContainer}>
-            <EventCarousel displayIndex = {this.state.displayIndex}
-                           events = {featuredEvents}
-                           images = {this.state.images}
-                           transitionDirection = {this.state.transitionDirection}
-                           didClickThumbnail = {this.didClickThumbnail.bind(this)}/>
-          </div>
-
-
-        </div>
-      }
+      <TransparentNavbar   opacity = {navbarOpacity}
+                           balance = {this.state.balance}
+                           showBalance = {true}
+                           currentPage = {"Events"}
+      />
       <div className = {styles.header}>
-        <h1>Find Events</h1>
-        <div className = {styles.searchbarContainer}>
-          <Searchbar placeholder = {"Find Events You Love"} onSubmit = {this.searchEvents.bind(this)}/>
-        </div>
-      </div>
-      <div className = {styles.secondaryHeader}>
-        <Tooltip
-          trigger="click"
-          visible={this.state.showTooltip}
-          placement="bottom"
-          overlay={<span></span>}>
-          <div id = "locationButton" className = {styles.locationButton} onClick = {this.showTooltip.bind(this)}>
-            <img className = {styles.locationIcon} src = {locationIcon} />
-            <p>{this.state.city}</p>
-            <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+        <div className = {styles.headerInfo}>
+
+          <div className = {styles.headerTitleContainer}>
+            <h1>Discover and Book</h1>
+            <div>
+              <h1>{"Your Next Adventure in "} <span style = {{textDecoration: "underline", cursor:"pointer"}}>{this.state.city}</span></h1>
+              <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+            </div>
+
           </div>
-        </Tooltip>
-        <Switch didSelectSwitch = {this.didSelectSwitch.bind(this)}/>
+        </div>
+        <img className = {styles.headerImage} src = {headerImage} />
+
       </div>
       {eventCards.length > 0 &&
       <div className = {styles.events}>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
-import styles from "./Navbar.css";
+import styles from "./TransparentNavbar.css";
 import {Link} from 'react-scroll';
 
 class NavbarAuthenticated extends Component {
@@ -11,15 +11,20 @@ class NavbarAuthenticated extends Component {
   }
 
   getLinkStyle(link) {
-    return {textDecoration: this.isActiveLink(link) ? "underline" : "none"};
+    var opacity = this.props.opacity || 0;
+    var color = (opacity < 0.3) ? "white" : "#121212";
+    return {textDecoration: this.isActiveLink(link) ? "underline" : "none", color:color};
   }
 
   render() {
     const logo = require("../../assets/SpreeLogo.svg");
+    var opacity = this.props.opacity || 0;
+    var background = "rgba(255,255,255,"+opacity+")";
+    var color = (opacity < 0.3) ? "white" : "#121212";
     var title = this.props.showBalance ? "$ "+this.props.balance+" saved" : "Spree";
     return (
-      <div className = {styles.Navbar} >
-        <a href ="/"><p className = {styles.header}>{title}</p></a>
+      <div className = {styles.Navbar} style = {{background:background}}>
+        <a href ="/"><p className = {styles.header} style = {{color:color}}>{title}</p></a>
         {! this.props.hideLinks &&
           <div className = {styles.links}>
             <a href ="/" ><p style = {this.getLinkStyle("Events")}>Events</p></a>

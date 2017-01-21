@@ -4,20 +4,21 @@ a{
 }
 
 .Navbar {
+  position:fixed;
+  top:0;
   margin-top:0px;
   padding:0px;
   height:60px;
-  background:white;
+  width:100%;
+  z-index: 100;
 }
 
 .Navbar p {
-  color:#121212;
   padding-bottom:0;
 
 }
 
 .header {
-  color:white;
   font-size:30px;
   display: inline-block;
   padding:0px;
@@ -34,7 +35,7 @@ a{
 
 .links a {
   display: inline-block;
-  color:white;
+
   margin-left:15px;
   font-weight:400;
 }
