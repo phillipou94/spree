@@ -1,8 +1,6 @@
 .EventCard {
   background:white;
   width:30%;
-  border: 1px solid #9199A3;
-  border-radius:5px;
   cursor:pointer;
   text-align:center;
   margin-right:30px;
@@ -50,6 +48,10 @@
   z-index:5;
   text-align:center;
   float:right;
+}
+
+.secondaryInfo p {
+  weight:700;
 }
 
 .venueDescription p {

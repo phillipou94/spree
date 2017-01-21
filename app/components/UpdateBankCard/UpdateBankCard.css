@@ -2,8 +2,7 @@
   background:#AC9456;
   cursor:pointer;
   display:inline-block;
-  min-width:325px;
-  width:325px;
+  width:32%;
   height:125px;
   transition: all .2s ease-in-out;
 }

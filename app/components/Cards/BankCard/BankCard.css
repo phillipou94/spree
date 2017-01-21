@@ -1,7 +1,9 @@
 .BankCard {
-  width:24%;
+  width:23%;
   text-align:center;
-  border: 1px solid #9199A3;
+  margin-right:12px;
+  margin-bottom:12px;
+  background:white;
   cursor: pointer;
 }
 

@@ -1,9 +1,8 @@
 .SetBudgetCard {
-  background:#000000;
+  background:#121212;
   cursor:pointer;
   display:inline-block;
-  min-width:325px;
-  width:325px;
+  width:32%;
   /*margin-right:50px;*/
   height:125px;
   transition: all .2s ease-in-out;

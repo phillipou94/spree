@@ -29,6 +29,7 @@ class EventCard extends Component {
     var empty_heart = require("../../../assets/Heart.svg");
     var filled_heart = require("../../../assets/HeartFilled.svg");
     var wishlist_icon = this.state.onWishList ? filled_heart : empty_heart;
+    console.log(event);
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
     var date = time.formattedDateString(new Date(event.date));
     var photoContainerStyle = {
@@ -40,7 +41,7 @@ class EventCard extends Component {
     };
 
     var priceContainerColor = {
-      background: event.low_price > Math.round(this.props.balance) ? "#000000" : "#AC9456"
+      background: event.low_price > Math.round(this.props.balance) ? "#121212" : "#AC9456"
     }
 
     return (

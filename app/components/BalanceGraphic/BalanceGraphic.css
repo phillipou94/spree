@@ -1,6 +1,6 @@
 .BalanceGraphic {
   background:white;
-  /*border: 1px solid #000000;*/
+  /*border: 1px solid #121212;*/
   width:100%;
   display:flex;
   justify-content:flex-start;
@@ -30,7 +30,7 @@
 
 .WeeklyBalanceInfo .info {
   font-size:25px;
-  color:#000000;
+  color:#121212;
 }
 
 .WeeklyBalanceInfo .infoContainer {
@@ -75,13 +75,13 @@
 }
 
 .totalBar {
-  background:#000000;
+  background:#121212;
   height:10px;
 }
 
 .total {
   margin:0;
   padding:0;
-  color:#000000;
+  color:#121212;
   float:right;
 }
