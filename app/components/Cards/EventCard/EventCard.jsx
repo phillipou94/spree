@@ -29,16 +29,8 @@ class EventCard extends Component {
     var empty_heart = require("../../../assets/Heart.svg");
     var filled_heart = require("../../../assets/HeartFilled.svg");
     var wishlist_icon = this.state.onWishList ? filled_heart : empty_heart;
-    console.log(event);
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
     var date = time.formattedDateString(new Date(event.date));
-    var photoContainerStyle = {
-      "width":"100%",
-      "height":"200px",
-      "maxHeight":"200px",
-      "height": "100%",
-      "backgroundSize": "100% 100%",
-    };
 
     var priceContainerColor = {
       background: event.low_price > Math.round(this.props.balance) ? "#121212" : "#AC9456"
@@ -51,11 +43,15 @@ class EventCard extends Component {
            onMouseLeave = {this.onMouseLeave.bind(this)}>
           <div></div>
          <LazyLoad height = "200px">
-         <div style = {photoContainerStyle}>
+         <div className = {styles.photoContainer}>
 
-          <div className = {styles.secondaryInfo}>
-
+          <div className = {styles.info}>
+            <p className = {styles.price}>{"$"+event.low_price}</p>
             <p className = {styles.title}>{event.title}</p>
+            <div className = {styles.secondaryInfo}>
+              <p>{date}</p>
+              <p>{event.venue.name}</p>
+            </div>
 
           </div>
            <img src = {image} style = {{width:"100%", height:"100%",  position:"relative"} }/>
