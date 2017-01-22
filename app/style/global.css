@@ -21,6 +21,7 @@
 .Application button {
   border-style:none;
   transition: all .2s ease-in-out;
+  cursor:pointer;
 }
 
 .Application button:hover {

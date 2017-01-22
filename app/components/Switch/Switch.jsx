@@ -25,8 +25,8 @@ class Switch extends Component {
   }
 
   render() {
-    var leftStyle = {color:this.state.side === "LEFT" ? "#121212": "#9199A3"}
-    var rightStyle = {color:this.state.side === "RIGHT" ? "#121212": "#9199A3"}
+    var leftStyle = {fontWeight:this.state.side === "LEFT" ? "700": "400"}
+    var rightStyle = {fontWeight:this.state.side === "RIGHT" ? "700": "400"}
     return (
       <div className = {styles.switch}>
         <p style = {leftStyle} onClick = {this.selectedLeft.bind(this)}>Most Popular</p>

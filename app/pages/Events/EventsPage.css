@@ -1,3 +1,6 @@
+.EventsPage {
+  background:white;
+}
 .header {
   height:450px;
   background:#121212;
@@ -50,5 +53,151 @@
   flex-wrap: wrap;
   justify-content: space-between;
   padding-right:100px;
+}
 
+.secondaryHeader {
+  width:100%;
+  height:70px;
+  padding-left:70px;
+  padding-right:70px;
+  background:#F0F0F0;
+}
+
+.searchingHeader {
+  width:100%;
+  height:70px;
+  padding-left:70px;
+  padding-right:70px;
+  background:#F0F0F0;
+}
+
+.searchResultsHeader {
+  width:100%;
+  height:70px;
+  padding-left:70px;
+  padding-right:70px;
+  background:#F0F0F0;
+  display:flex;
+}
+
+.headerDescription {
+  margin:0;
+  margin-right:100px;
+  float:right;
+  margin-top:25px;
+
+}
+
+.secondaryHeader button {
+  background-color: white;
+  border: 1px solid #E0E0E0;
+  margin-top:15px;
+  height:40px;
+  border-radius:15px;
+  padding-left:20px;
+  padding-right:20px;
+}
+
+
+.searchResultsHeader button {
+  background-color: #AC9456;
+  color:white;
+  height:40px;
+  border-radius:15px;
+  padding-left:20px;
+  padding-right:20px;
+  margin-right:10px;
+  margin-top:15px;
+}
+
+.searchButton {
+  float:left;
+}
+
+.searchButton:hover {
+  background:transparent;
+}
+
+.searchButton img, .searchButton p, .searchResultsButton img, .searchResultsButton p {
+  display:inline-block;
+}
+
+.searchButton img, .searchResultsButton img {
+  float:left;
+  margin:0;
+  width:20px;
+  height:20px;
+  margin-right:10px;
+  margin-left:10px;
+}
+
+.searchButton p, .searchResultsButton p {
+  margin:0;
+  margin-right:10px;
+  color:#AC9456;
+  font-size:17px;
+  weight:700;
+}
+
+.searchResultsButton p {
+  color:white;
+}
+
+.switch {
+  float:left;
+  margin-top:12px;
+  margin-right:100px;
+}
+
+.searchbarContainer {
+  height:100%;
+  padding-top:15px;
+  width:50%;
+  display:inline-block;
+  float:left;
+}
+
+.submitSearchButton {
+  margin-top:10px;
+  height:40px;
+  width:250px;
+  float:right;
+  background:#AC9456;
+  color:white;
+  font-size:16px;
+  border-radius:20px;
+  margin-right:100px;
+  display:inline-block;
+
+}
+
+.searchTerm {
+  border: 1px solid #E0E0E0;
+  margin-top:0px;
+  margin-left:10px;
+  height:40px;
+  border-radius:15px;
+  padding-left:20px;
+  padding-right:20px;
+  color:#121212;
+  width:125px;
+  background:white;
+  margin-top:15px;
+
+}
+
+.searchTerm p{
+  margin:0;
+  margin-top:10px;
+  font-size:17px;
+  display:inline-block;
+}
+
+.exitIcon {
+  width:15px;
+  height:15px;
+  margin-top:12px;
+  display:inline-block;
+  float:right;
+  cursor:pointer;
 }
