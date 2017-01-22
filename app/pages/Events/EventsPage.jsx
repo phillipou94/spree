@@ -43,13 +43,7 @@ class EventsPage extends Component {
         this.setState({user:user, balance: balance});
       }
     });
-    this.getLocation(function(coordinates){
-      var options = {page:that.state.page, coordinates:coordinates};
-      EventServices.events(options).then((res) => {
-        var events = res.body;
-        that.setState({events:events});
-      });
-    });
+    this.getEvents();
   }
 
   componentDidMount() {
@@ -84,65 +78,56 @@ class EventsPage extends Component {
     });
   }
 
-  getEvents(eventOption, resetPage) {
-    var that = this;
-    var page = resetPage ? 1 : this.state.page;
-    if (this.state.isSearching) {
-      return;
-    }
-    if (this.state.loadMoreEvents) {
+  getEventOptions(callback, withinBudget, searchTerm, location) {
+    var options = {page : 1};
+    if (withinBudget) {
+      options["budget"] = Math.floor(this.state.balance);
 
     }
-    this.getLocation(function(coordinates){
-      var options = {page:page, coordinates:coordinates};
-      if (eventOption === "WITHIN_BUDGET") {
-        options["budget"] = Math.floor(that.state.balance);
-      }
-      EventServices.events(options).then((res) => {
-        var events = that.state.events;
-        if (page > 1) {
-          events = events.concat(res.body);
-        } else {
-          events = res.body;
-        }
-        that.setState({events:events,isSearching:false,searchTerm:"", eventOption:eventOption});
+    if (searchTerm && searchTerm.length) {
+      options["searchTerm"] = searchTerm;
+    }
+    if (!location) {
+      this.getLocation(function(coordinates){
+        options["coordinates"] = coordinates;
+
+        callback(options);
       });
-    });
-
-
+    } else {
+      options["coordinates"] = location;
+      callback(options);
+    }
   }
 
-  searchEvents(searchString, eventOption, resetPage) {
-    var that = this;
-    if (!eventOption) {
-      eventOption = this.state.eventOption;
-    }
-    this.getLocation(function(coordinates){
-      var options = {page:1,coordinates:coordinates};
-      if (eventOption === "WITHIN_BUDGET") {
-        options["budget"] = Math.floor(that.state.balance);
-      }
-      EventServices.search(searchString,options).then((res) => {
-        that.setState({events:res.body,
-                      searchTerm:searchString,
-                      isSearching:true,
-                      page:1});
+  getEvents(withinBudget, searchTerm, location) {
+    var self = this;
+    this.getEventOptions(function(options) {
+      if (options.searchTerm) {
+        EventServices.search(searchTerm,options).then((res) => {
+          self.setState({events:res.body,
+                        searchTerm:searchTerm,
+                        isSearching:true,
+                        page:1});
+        });
+      } else {
+        EventServices.events(options).then((res) => {
+          self.setState({events:res.body,isSearching:false,searchTerm:"", page:1});
       });
-    });
+    }
+  }, withinBudget, searchTerm, location);
+}
+
+
+  searchEvents(searchString) {
+    this.getEvents(false,searchString);
   }
 
   didSelectSwitch(side) {
-    if (side === "LEFT") {
-      var eventOption = "MOST_POPULAR";
-
-    } else {
-      var eventOption = "WITHIN_BUDGET";
-    }
-    this.setState({eventOption:eventOption});
+    var withinBudget = side === "RIGHT";
     if (this.state.searchTerm && this.state.searchTerm.length) {
-      this.searchEvents(this.state.searchTerm, eventOption);
+      this.getEvents(withinBudget,this.state.searchTerm);
     } else {
-      this.getEvents(eventOption, /*resetPage*/true);
+      this.getEvents(withinBudget);
     }
   }
 
@@ -177,8 +162,6 @@ class EventsPage extends Component {
     var events = this.state.events;
     var balance = this.state.balance;
     var isSearching = this.state.isSearching;
-
-    console.log("Should load more :"+!isSearching);
     var navbarOpacity = Math.min(1,this.state.scrollTop/450);
 
     var eventCards = events.map(function(event,index) {
@@ -256,9 +239,9 @@ class EventsPage extends Component {
       <div className = {styles.events}>
         <InfiniteScroll
             className = {styles.eventsTable}
-            pageStart={0}
+            pageStart={1}
             loadMore={this.getEvents.bind(this)}
-            hasMore={!isSearching}
+            hasMore={false}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}
         </InfiniteScroll>
