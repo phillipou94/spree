@@ -42,7 +42,6 @@ class EventCard extends Component {
            onMouseEnter = {this.onMouseEnter.bind(this)}
            onMouseLeave = {this.onMouseLeave.bind(this)}>
           <div></div>
-         <LazyLoad height = "200px">
          <div className = {styles.photoContainer}>
 
           <div className = {styles.info}>
@@ -58,7 +57,6 @@ class EventCard extends Component {
 
 
            </div>
-          </LazyLoad>
         </div>
     )
   }

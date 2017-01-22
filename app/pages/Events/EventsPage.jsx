@@ -30,9 +30,9 @@ class EventsPage extends Component {
     this.state = {user:null,
                   events:[],
                   page:1,
+                  eventsWithinBudget:false,
                   headerState: HeaderStateEnum.DEFAULT,
                   searchTerm:"",
-                  isSearching:false,
                   balance: 0.00,
                   city:"No Location Provided",
                   coordinates: null,
@@ -111,16 +111,50 @@ class EventsPage extends Component {
       if (options.searchTerm) {
         EventServices.search(searchTerm,options).then((res) => {
           self.setState({events:res.body,
+                        eventsWithinBudget:options.withinBudget,
+                        location:location,
                         searchTerm:searchTerm,
-                        isSearching:true,
                         page:1});
         });
       } else {
         EventServices.events(options).then((res) => {
-          self.setState({events:res.body,isSearching:false,searchTerm:"", page:1});
+          self.setState({events:res.body,
+                        searchTerm:"",
+                        eventsWithinBudget:options.withinBudget,
+                        location:location,
+                        page:1});
       });
     }
   }, withinBudget, searchTerm, location);
+}
+
+getMoreEvents() {
+  var self = this;
+  this.getEventOptions(function(options) {
+    var page = self.state.page + 1;
+    options.page = page;
+    var events = self.state.events;
+    if (options.searchTerm) {
+      EventServices.search(searchTerm,options).then((res) => {
+        events = events.concat(res.body);
+        self.setState({events:events,
+                      searchTerm:searchTerm,
+                      eventsWithinBudget:options.withinBudget,
+                      location:location,
+                      page:page});
+      });
+    } else {
+      EventServices.events(options).then((res) => {
+        events = events.concat(res.body);
+        self.setState({events:events,
+                       searchTerm:"",
+                       eventsWithinBudget:options.withinBudget,
+                       location:location,
+                       page:page});
+    });
+  }
+}, this.state.eventsWithinBudget, this.state.searchTerm, this.state.location);
+
 }
 
 
@@ -168,7 +202,6 @@ class EventsPage extends Component {
     var featuredEvents = this.state.featuredEvents;
     var events = this.state.events;
     var balance = this.state.balance;
-    var isSearching = this.state.isSearching;
     var navbarOpacity = Math.min(1,this.state.scrollTop/450);
 
     var eventCards = events.map(function(event,index) {
@@ -247,8 +280,8 @@ class EventsPage extends Component {
         <InfiniteScroll
             className = {styles.eventsTable}
             pageStart={1}
-            loadMore={this.getEvents.bind(this)}
-            hasMore={false}
+            loadMore={this.getMoreEvents.bind(this)}
+            hasMore={this.state.headerState === HeaderStateEnum.DEFAULT}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}
         </InfiniteScroll>
