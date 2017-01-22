@@ -17,6 +17,12 @@ import TransparentNavbar from '../../components/Navbar/TransparentNavbar.jsx';
 import TransparentSearchbar from '../../components/Searchbar/TransparentSearchbar.jsx';
 import Switch from '../../components/Switch/Switch.jsx';
 
+var HeaderStateEnum =  {
+  DEFAULT : 0,
+  SEARCHING : 1,
+  SEARCHRESULTS : 2
+}
+
 
 class EventsPage extends Component {
   constructor(props) {
@@ -24,7 +30,7 @@ class EventsPage extends Component {
     this.state = {user:null,
                   events:[],
                   page:1,
-                  eventOption:"MOST_POPULAR",
+                  headerState: HeaderStateEnum.DEFAULT,
                   searchTerm:"",
                   isSearching:false,
                   balance: 0.00,
@@ -119,6 +125,7 @@ class EventsPage extends Component {
 
 
   searchEvents(searchString) {
+    this.setState({headerState:HeaderStateEnum.SEARCHRESULTS});
     this.getEvents(false,searchString);
   }
 
@@ -136,12 +143,12 @@ class EventsPage extends Component {
   }
 
   isSearching() {
-    this.setState({isSearching:true, searchTerm:""});
+    this.setState({headerState:HeaderStateEnum.SEARCHING});
   }
 
   exitSearch() {
-    this.setState({isSearching:false, searchTerm:""});
-    this.getEvents("MOST_POPULAR", true);
+    this.setState({headerState:HeaderStateEnum.DEFAULT});
+    this.getEvents();
   }
 
   searchInputDidChange(event) {
@@ -191,7 +198,7 @@ class EventsPage extends Component {
         <img className = {styles.headerImage} src = {headerImage} />
 
       </div>
-      {this.state.isSearching && this.state.searchTerm && this.state.searchTerm.length &&
+      {this.state.headerState === HeaderStateEnum.SEARCHRESULTS &&
         <div className = {styles.searchResultsHeader}>
           <button className = {styles.searchResultsButton} onClick = {this.isSearching.bind(this)}>
             <img src = {searchIconWhite} />
@@ -209,7 +216,7 @@ class EventsPage extends Component {
           <p className = {styles.headerDescription}>{this.state.events.length+" results in "+this.state.city}</p>
         </div>
       }
-      {this.state.isSearching && (!this.state.searchTerm || this.state.searchTerm.length < 1) &&
+      {this.state.headerState === HeaderStateEnum.SEARCHING &&
         <div className = {styles.searchingHeader}>
           <div className = {styles.searchbarContainer}>
             <TransparentSearchbar placeholder = {"Find Events You Love"}
@@ -220,7 +227,7 @@ class EventsPage extends Component {
             <button className = {styles.submitSearchButton} onClick = {() => this.searchClicked()}>SEARCH</button>
         </div>
       }
-      {!this.state.isSearching &&
+      {this.state.headerState === HeaderStateEnum.DEFAULT &&
       <div className = {styles.secondaryHeader}>
           <button className = {styles.searchButton} onClick = {this.isSearching.bind(this)}>
             <img src = {searchIcon} />
