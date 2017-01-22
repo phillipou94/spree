@@ -5,6 +5,7 @@ var TicketMaster = require("../js/ticketmaster.js");
 var tm = new TicketMaster();
 
 var EventSchema = mongoose.Schema({
+  seatgeek_id:{type:String},
   title:{type:String},
   type: {type:String},
   low_price:{type:Number},
@@ -37,6 +38,7 @@ var Event = (function(EventModel) {
     event.url = seatGeekObject.url;
     event.venue = seatGeekObject.venue;
     event.performers = seatGeekObject.performers;
+    event.seatgeek_id = seatGeekObject.id;
     return event;
   }
 
@@ -45,15 +47,47 @@ var Event = (function(EventModel) {
       if (error) {
         callback(error, []);
       } else {
-        console.log(options);
         var objects = JSON.parse(response.body).events;
         var events = objects.map(function(seatGeekObject) {
+
           return parse(seatGeekObject);
         });
         callback(error,events);
       }
     });
   }
+
+  that.getEvent = function(seatgeek_id, callback) {
+    seatgeek.event(seatgeek_id, function(error, response) {
+      if (error) {
+        callback(error, []);
+      } else {
+        var event = JSON.parse(response.body);
+        callback(error,parse(event));
+      }
+    })
+  }
+
+  that.recommendations = function(seatgeek_id, options, callback) {
+    seatgeek.recommendations(seatgeek_id, options, function(error, response) {
+      if (error) {
+        callback(error, []);
+      } else {
+        var responseBody = JSON.parse(response.body);
+        if (responseBody.recommendations) {
+          var events = responseBody.recommendations.map(function(obj){
+            return parse(obj.event);
+          });
+          callback(error,events);
+        } else {
+          callback(error, []);
+        }
+
+      }
+    })
+  }
+
+
 
   that.searchEvents = function(query, options, callback) {
     seatgeek.searchEvents(query, options, function(error, response) {

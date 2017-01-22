@@ -19,6 +19,27 @@ export default {
     });
   },
 
+  event : (seatgeek_id) => {
+    var uri = BASE_URL + '/seatgeek_id='+seatgeek_id
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+  },
+
+  recommendations : (seatgeek_id, options) => {
+    var lat = options.coordinates.latitude;
+    var lng = options.coordinates.longitude;
+    var page = options.page;
+    var uri = BASE_URL + '/recommendations/'+seatgeek_id+'/lat='+lat+'&lng='+lng+'/page='+page+'/budget='+options.budget;
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+  },
+
   search : (query,options) => {
     var lat = options.coordinates.latitude;
     var lng = options.coordinates.longitude;

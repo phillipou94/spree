@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import styles from "./EventDetailsPage.css";
 var TicketMaster = require("../../js/ticketmaster.js");
 var tm = new TicketMaster();
+import time from "../../utils/time.js";
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
@@ -20,7 +21,7 @@ class EventDetailsPage extends Component {
     this.state = {user:null,
                   balance:0.00,
                   event:null,
-                  similarEvents:[],
+                  recommendations:[],
                   eventsWithinBudget:false,
                   }
 
@@ -36,7 +37,18 @@ class EventDetailsPage extends Component {
       }
     });
     var event_id = this.props.params.event_id;
-    this.getEvents();
+    EventServices.event(event_id).then((res) => {
+      var event = res.body;
+      EventServices.images([event]).then((res) => {
+        var images = res.body;
+        if (images && images.length) {
+          event.featured_image = images[0].image;
+        }
+        this.setState({event:event});
+      });
+
+    });
+    this.getRecommendations(event_id);
   }
 
   componentDidMount() {
@@ -96,26 +108,16 @@ class EventDetailsPage extends Component {
     }
   }
 
-  getEvents(withinBudget, searchTerm, location) {
+  getRecommendations(event_seatgeek_id, withinBudget, searchTerm, location) {
     var self = this;
     this.getEventOptions(function(options) {
-      if (options.searchTerm) {
-        EventServices.search(searchTerm,options).then((res) => {
-          self.setState({events:res.body,
-                        eventsWithinBudget:options.withinBudget,
-                        location:location,
-                        searchTerm:searchTerm,
-                        page:1});
-        });
-      } else {
-        EventServices.events(options).then((res) => {
-          self.setState({events:res.body,
+        EventServices.recommendations(event_seatgeek_id, options).then((res) => {
+          self.setState({recommendations:res.body,
                         searchTerm:"",
                         eventsWithinBudget:options.withinBudget,
                         location:location,
                         page:1});
       });
-    }
   }, withinBudget, searchTerm, location);
 }
 
@@ -129,15 +131,47 @@ class EventDetailsPage extends Component {
     }
   }
 
+  didClickEvent(e) {
+    var event = e;
+    this.getRecommendations(event.seatgeek_id);
+    EventServices.event(event.seatgeek_id).then((res) => {
+      var newEvent = res.body;
+      EventServices.images([newEvent]).then((response) => {
+        var images = response.body;
+        if (images && images.length) {
+          newEvent.featured_image = images[0].image;
+        }
+        this.setState({event:newEvent});
+      }).catch((err) => {
+        this.setState({event:newEvent});
+      });;
+
+    });
+  }
+
   render() {
-    var events = this.state.similarEvents;
+    var events = this.state.recommendations;
     var balance = this.props.balance;
     var navbarOpacity = Math.min(1,this.state.scrollTop/450);
-
+    var self = this;
     var eventCards = events.map(function(event,index) {
-      return <EventCard key = {index} event = {event} balance = {balance}/>
+      return <EventCard key = {index}
+                        event = {event}
+                        balance = {balance}
+                        onClick = {() => {self.didClickEvent(event);}}/>
     });
     var heartIcon = require("../../assets/Heart.svg");
+    if (this.state.event) {
+      var event = this.state.event;
+      var eventTime = time.timeString(new Date(event.date));
+      var date = time.formattedDateString(new Date(event.date));
+      var dateString = eventTime + " - "+date;
+      var venue = event.venue;
+      var venueName = venue.name;
+      var venueAddress = venue.address + ", "+venue.extended_address;
+      var featured_image = event.featured_image ? event.featured_image : event.performers[0].image;
+    }
+
 
     return (
       <div className = {styles.EventDetailsPage}>
@@ -146,23 +180,28 @@ class EventDetailsPage extends Component {
                            showBalance = {true}
                            currentPage = {"Events"}
       />
+    {this.state.event &&
       <div className = {styles.header}>
-        <img src = {"https://static.pexels.com/photos/29021/pexels-photo-29021.jpg"}
-             className = {styles.eventPhoto}/>
+
+          <img src = {featured_image}
+               className = {styles.eventPhoto}/>
         <div className = {styles.eventInfo}>
-          <h1>One Direction</h1>
-          <p>July 5, 2016</p>
-          <p>Staples Center</p>
-          <p>1111 S Figueroa St, Los Angeles, CA 90015</p>
+          <h1>{event.title}</h1>
+          <p>{dateString}</p>
+          <p>{venueName}</p>
+          <p>{venueAddress}</p>
+
        </div>
+
        <div className = {styles.headerButtonContainer}>
-         <button className = {styles.buyButton}>Buy $39</button>
+         <button className = {styles.buyButton}>{"Buy $"+event.low_price}</button>
          <div className = {styles.wishListButton}>
            <p>Add to wishlist</p>
            <img src = {heartIcon} className = {styles.heartIcon}/>
          </div>
        </div>
       </div>
+    }
       <div className = {styles.secondaryHeader}>
         <p className = {styles.headerDescription}>{"Similar Events"}</p>
         <div className = {styles.switch}>
@@ -176,7 +215,7 @@ class EventDetailsPage extends Component {
         <InfiniteScroll
             className = {styles.eventsTable}
             pageStart={1}
-            loadMore={this.getMoreEvents.bind(this)}
+            loadMore={this.getRecommendations.bind(this)}
             hasMore={false}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}

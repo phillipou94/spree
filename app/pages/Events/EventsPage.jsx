@@ -199,7 +199,7 @@ getMoreEvents() {
   }
 
   didClickEvent(event) {
-    this.props.router.push("/event/"+event._id);
+    this.props.router.push("/event/"+event.seatgeek_id);
   }
 
   render() {

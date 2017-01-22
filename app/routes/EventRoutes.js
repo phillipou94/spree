@@ -32,14 +32,31 @@ router.get('/search/search=:searchTerm/lat=:lat&lng=:lng/page=:page/budget=:budg
   });
 });
 
-router.get("/event/id=:id", function(req, res) {
-  Event.getEvent(req.params.id, function(error, event){
+router.get("/seatgeek_id=:seatgeek_id", function(req, res) {
+  Event.getEvent(req.params.seatgeek_id, function(error, event){
     if (!error) {
       utils.sendSuccessResponse(res,event);
     } else {
       utils.sendErrorResponse(res, 500, events);
     }
   });
+});
+
+router.get("/recommendations/:seatgeek_id/lat=:lat&lng=:lng/page=:page/budget=:budget", function(req,res) {
+  var latitude = req.params.lat;
+  var longitude = req.params.lng;
+  var page = req.params.page;
+  var budget = req.params.budget;
+  Event.recommendations(req.params.seatgeek_id,
+                        {latitude:latitude,longitude:longitude, page:page, budget:budget},
+                        function(error, events) {
+    if (!error) {
+      utils.sendSuccessResponse(res,events);
+    } else {
+      utils.sendErrorResponse(res, 500, events);
+    }
+  });
+
 });
 
 router.post('/images', function(req, res) {

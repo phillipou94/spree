@@ -4,6 +4,9 @@ var TicketMaster = require("../app/js/ticketmaster.js");
 
 var User = require("../app/models/User.js");
 var Event = require("../app/models/Event.js");
+var SeatGeek = require("../app/js/seatgeek.js");
+var seatgeek = SeatGeek();
+var EventServices = require("../app/services/EventServices.js");
 const request = require('request');
 
 var test = function() {
@@ -13,15 +16,15 @@ var test = function() {
   // Event.getTicketMasterImages(events, function(error, images) {
   //   console.log(images);
   // });
-  // seatgeek.getEvents({latitude:"42.36",longitude: "-71.06"}, function(error, data) {
-  //   console.log(data);
+
+
+  EventServices.recommendations("3646993",{latitude:"42.36",longitude: "-71.06"}).then((res) => {
+    console.log(res.body);
+  })
+  // Event.getEvent("3627266", function(error, event) {
+  //   console.log(event);
   // });
-  User.create("TEST USER", "TESTUSER@gmail.com", "TESTUSER", function(err, user) {
-    console.log(user);
-  });
-  Event.getEvents({ latitude: '42.3520434', longitude: '-71.134188' }, function(error, events) {
-    console.log(events);
-  });
+
 
   // Event.searchEvents("red sox",{page:5}, function(error, events) {
   //   console.log(events);
