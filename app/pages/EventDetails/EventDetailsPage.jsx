@@ -35,15 +35,20 @@ class EventDetailsPage extends Component {
         this.setState({user:user, balance: balance});
       }
     });
+    var event_id = this.props.params.event_id;
     this.getEvents();
   }
 
   componentDidMount() {
+    if (this && window) {
       window.addEventListener('scroll', this.handleScroll.bind(this));
+    }
   }
 
   componentWillUnmount() {
+    if(this && window) {
       window.removeEventListener('scroll', this.handleScroll.bind(this));
+    }
   }
 
   handleScroll(event) {

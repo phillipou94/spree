@@ -32,6 +32,16 @@ router.get('/search/search=:searchTerm/lat=:lat&lng=:lng/page=:page/budget=:budg
   });
 });
 
+router.get("/event/id=:id", function(req, res) {
+  Event.getEvent(req.params.id, function(error, event){
+    if (!error) {
+      utils.sendSuccessResponse(res,event);
+    } else {
+      utils.sendErrorResponse(res, 500, events);
+    }
+  });
+});
+
 router.post('/images', function(req, res) {
   var events = req.body.events;
 

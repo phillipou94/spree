@@ -52,15 +52,21 @@ class EventsPage extends Component {
   }
 
   componentDidMount() {
+    if (this && window) {
+      this._mounted = true;
       window.addEventListener('scroll', this.handleScroll.bind(this));
+    }
   }
 
   componentWillUnmount() {
+    if(this && window) {
+      this._mounted = false;
       window.removeEventListener('scroll', this.handleScroll.bind(this));
+    }
   }
 
   handleScroll(event) {
-    if (this) {
+    if (this._mounted) {
       let scrollTop = event.srcElement.body.scrollTop;
       this.setState({
          scrollTop: scrollTop
@@ -192,6 +198,10 @@ getMoreEvents() {
     console.log(this.state);
   }
 
+  didClickEvent(event) {
+    this.props.router.push("/event/"+event._id);
+  }
+
   render() {
     var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
     var searchIcon = require("../../assets/Search.svg");
@@ -202,9 +212,12 @@ getMoreEvents() {
     var events = this.state.events;
     var balance = this.state.balance;
     var navbarOpacity = Math.min(1,this.state.scrollTop/450);
-
+    var self = this;
     var eventCards = events.map(function(event,index) {
-      return <EventCard key = {index} event = {event} balance = {balance}/>
+      return <EventCard key = {index}
+                        event = {event}
+                        balance = {balance}
+                        onClick = {() => {self.didClickEvent(event);}}/>
     });
 
     var headerTitle = this.state.searchTerm && this.state.searchTerm.length > 0 ?

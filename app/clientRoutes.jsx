@@ -30,7 +30,7 @@ export default(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={EventsPage} onEnter={authCheck}/>
-      <Route path = "event_details" component = {EventDetailsPage} onEnter={authCheck} />
+      <Route path = "/event/:event_id" component = {EventDetailsPage} onEnter={authCheck} />
       <Route path="landing" component={LandingPage} />
       <Route path="wishlist" component={WishlistPage} />
       <Route path="signup" component={SignupPage} />
