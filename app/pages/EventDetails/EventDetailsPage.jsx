@@ -45,8 +45,9 @@ class EventDetailsPage extends Component {
           event.featured_image = images[0].image;
         }
         this.setState({event:event});
+      }).catch((err) => {
+        this.setState({event:event});
       });
-
     });
     this.getRecommendations(event_id);
   }
@@ -144,8 +145,7 @@ class EventDetailsPage extends Component {
         this.setState({event:newEvent});
       }).catch((err) => {
         this.setState({event:newEvent});
-      });;
-
+      });
     });
   }
 

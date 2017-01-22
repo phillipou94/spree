@@ -191,11 +191,12 @@ getMoreEvents() {
   }
 
   searchInputDidChange(event) {
-    this.setState({currenSearchTerm:event.target.value})
+    this.setState({searchTerm:event.target.value})
   }
 
   searchClicked() {
-    console.log(this.state);
+    var searchString = this.state.searchTerm;
+    this.searchEvents(searchString);
   }
 
   didClickEvent(event) {
