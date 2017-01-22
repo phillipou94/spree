@@ -7,6 +7,7 @@ import UserServices from "./services/UserServices.js";
 import AccountPage from './pages/Account/AccountPage.jsx';
 import BankPage from './pages/Bank/BankPage.jsx';
 import EventsPage from './pages/Events/EventsPage.jsx';
+import EventDetailsPage from './pages/EventDetails/EventDetailsPage.jsx';
 import LandingPage from './pages/Landing/LandingPage.jsx';
 import LoginPage from './pages/Auth/LoginPage.jsx';
 import SignupPage from './pages/Auth/SignupPage.jsx';
@@ -29,6 +30,7 @@ export default(
   <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={EventsPage} onEnter={authCheck}/>
+      <Route path = "event_details" component = {EventDetailsPage} onEnter={authCheck} />
       <Route path="landing" component={LandingPage} />
       <Route path="wishlist" component={WishlistPage} />
       <Route path="signup" component={SignupPage} />

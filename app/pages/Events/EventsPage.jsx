@@ -41,7 +41,6 @@ class EventsPage extends Component {
   }
 
   componentWillMount() {
-    var that = this;
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
