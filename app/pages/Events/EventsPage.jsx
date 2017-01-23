@@ -47,7 +47,6 @@ class EventsPage extends Component {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
       if (user) {
-
         this.setState({user:user, balance: balance,pending_ticket_id:user.pending_ticket_id});
       }
     });
@@ -219,7 +218,10 @@ getMoreEvents() {
     this.setState({pending_ticket_id:null});
     var balance = this.state.balance;
     TicketServices.confirmPurchase(ticket, balance).then((res) => {
-      console.log(res);
+      var user = res.body.user;
+      var ticket = res.body.ticket;
+      var newBalance = Math.max(0,this.state.balance - ticket.price);
+      this.setState({user:user, balance:new Number(newBalance).toFixed(2)});
     });
   }
 

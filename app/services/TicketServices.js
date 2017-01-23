@@ -31,6 +31,8 @@ export default {
 
   confirmPurchase : (ticket) => {
     var uri = BASE_URL + '/confirm/'+ticket._id;
+    console.log("Services!!");
+    console.log(ticket.price);
     return request({
       uri : uri,
       body : {ticketPrice : ticket.price},

@@ -166,9 +166,10 @@ var User = (function(UserModel) {
       if (err) callback(err, user);
       if (!user) callback(err, null);
       user.pending_ticket_id = null;
-
-      user.ticket_purchase_amount =  user.ticket_purchase_amount + ticket_price;
+      var ticket_purchase_amount = user.ticket_purchase_amount || 0;
+      user.ticket_purchase_amount =  ticket_purchase_amount + ticket_price;
       user.balance = user.balance - ticket_price;
+      console.log(user);
       callback(null, user);
     });
   }

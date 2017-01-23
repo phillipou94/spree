@@ -4,7 +4,7 @@ var TicketSchema = mongoose.Schema({
   bought_by:{type: mongoose.Schema.Types.ObjectId,ref: 'User'},
   event:{type: mongoose.Schema.Types.ObjectId,ref: 'Event'},
   seatgeek_id:{type:String},
-  purchase_price:{type:Number},
+  price:{type:Number, default: 0},
   title:{type:String}
 }, { timestamps: true });
 
@@ -47,7 +47,9 @@ var Ticket = (function(TicketModel) {
   }
 
   that.updatePrice = function(ticket_id, price, callback) {
-    TicketModel.findByIdAndUpdate(ticket_id,{price:price}, function(err, ticket) {
+    console.log("UPDATE PRICE!!");
+    console.log(price);
+    TicketModel.findByIdAndUpdate(ticket_id, {price:price}, function(err, ticket) {
       if (err) callback({ msg: err });
       ticket.price = price;
       callback(null, ticket);
