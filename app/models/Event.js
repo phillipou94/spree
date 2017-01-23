@@ -109,17 +109,19 @@ var Event = (function(EventModel) {
 
   that.saveToWishlist = function(user_id, eventObject, callback) {
     var event = new EventModel();
+    console.log("EVENT OBJECT");
+    console.log(eventObject);
     event.title = eventObject.title;
     event.type = eventObject.type;
     event.low_price = eventObject.low_price;
     event.high_price = eventObject.high_price ;
     event.time_tbd = eventObject.time_tbd;
     event.date_tbd = eventObject.date_tbd;
-    event.date = eventObject.datetime_local;
+    event.date = eventObject.date;
     event.url = eventObject.url;
     event.venue = eventObject.venue;
     event.performers = eventObject.performers;
-    event.seatgeek_id = eventObject.id;
+    event.seatgeek_id = eventObject.seatgeek_id;
     event.user_id = user_id;
     event.save(function(err, user) {
     if (err) callback({ msg: err });

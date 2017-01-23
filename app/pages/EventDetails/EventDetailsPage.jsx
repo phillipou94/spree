@@ -159,6 +159,11 @@ class EventDetailsPage extends Component {
     // window.location.href = url;
   }
 
+  saveToWishlist() {
+    var event = this.state.event;
+    EventServices.saveToWishlist(event);
+  }
+
   render() {
     var events = this.state.recommendations;
     var balance = this.props.balance;
@@ -208,7 +213,7 @@ class EventDetailsPage extends Component {
          <button className = {styles.buyButton}
                  onClick= {this.buyTicket.bind(this)}>
                  {"Buy $"+event.low_price}</button>
-         <div className = {styles.wishListButton}>
+               <div className = {styles.wishListButton} onClick= {this.saveToWishlist.bind(this)}>
            <p>Add to wishlist</p>
            <img src = {heartIcon} className = {styles.heartIcon}/>
          </div>

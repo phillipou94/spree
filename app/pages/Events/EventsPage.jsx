@@ -131,10 +131,7 @@ class EventsPage extends Component {
                         page:1});
         });
       } else {
-        console.log("get events!");
-        console.log(options);
         EventServices.events(options).then((res) => {
-          console.log(res);
           self.setState({events:res.body,
                         searchTerm:"",
                         eventsWithinBudget:options.withinBudget,
