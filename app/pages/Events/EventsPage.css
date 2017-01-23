@@ -75,7 +75,6 @@
   padding-left:70px;
   padding-right:70px;
   background:#F0F0F0;
-  display:flex;
 }
 
 .headerDescription {
@@ -83,7 +82,6 @@
   margin-right:100px;
   float:right;
   margin-top:25px;
-
 }
 
 .secondaryHeader button {
@@ -137,14 +135,18 @@
   weight:700;
 }
 
+.searchResultsButton {
+  float:left;
+}
+
 .searchResultsButton p {
   color:white;
 }
 
 .switch {
   float:left;
+  display:inline-block;
   margin-top:12px;
-  margin-right:100px;
 }
 
 .searchbarContainer {
@@ -181,6 +183,8 @@
   width:125px;
   background:white;
   margin-top:15px;
+  display:inline-block;
+  float:left;
 
 }
 
