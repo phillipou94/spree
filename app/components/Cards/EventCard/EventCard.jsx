@@ -28,14 +28,13 @@ class EventCard extends Component {
     const { event } = this.props;
     var empty_heart = require("../../../assets/Heart.svg");
     var filled_heart = require("../../../assets/HeartFilled.svg");
+    var shopping_bag = require("../../../assets/ShoppingBag.svg")
     var wishlist_icon = this.state.onWishList ? filled_heart : empty_heart;
     var image = event.featured_image ? event.featured_image : event.performers[0].image;
     var eventDate = event.date;
     var date = time.formattedDateString(new Date(eventDate));
 
-    var priceContainerColor = {
-      background: event.low_price > Math.round(this.props.balance) ? "#121212" : "#AC9456"
-    }
+    var buyable = event.low_price < Math.round(this.props.balance);
 
     return (
       <div className = {styles.EventCard}
@@ -44,9 +43,11 @@ class EventCard extends Component {
            onMouseLeave = {this.onMouseLeave.bind(this)}>
           <div></div>
          <div className = {styles.photoContainer}>
-
           <div className = {styles.info}>
             <p className = {styles.price}>{"$"+event.low_price}</p>
+            {buyable &&
+              <img src = {shopping_bag} className = {styles.buyableIndicator}/>
+            }
             <p className = {styles.title}>{event.title}</p>
             <div className = {styles.secondaryInfo}>
               <p>{date}</p>

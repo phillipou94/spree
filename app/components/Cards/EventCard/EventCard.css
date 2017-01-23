@@ -82,6 +82,14 @@ transform: scale(1.05);
   color:grey;
 }
 
+.buyableIndicator {
+  margin-top:10px;
+  margin-right:2px;
+  float:right;
+  width:20px;
+  height:25px;
+}
+
 .price {
   float:right;
   color:white;
