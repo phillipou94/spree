@@ -220,7 +220,6 @@ getMoreEvents() {
   }
 
   denyTicketPurchase() {
-
     this.setState({pending_ticket_id:null});
   }
 
