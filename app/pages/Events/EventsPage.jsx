@@ -214,9 +214,16 @@ getMoreEvents() {
     this.props.router.push("/event/"+event.seatgeek_id);
   }
 
-  closePopup(event) {
-
+  confirmTicketPurchase(ticketPrice) {
+    this.setState({pending_ticket_id:null});
+    console.log(ticketPrice);
   }
+
+  denyTicketPurchase() {
+
+    this.setState({pending_ticket_id:null});
+  }
+
 
   render() {
     var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
@@ -242,8 +249,9 @@ getMoreEvents() {
       <div className = {styles.EventsPage}>
         {this.state.pending_ticket_id &&
           <PopupConductor type = {"TICKET"}
-                          closePressed = {this.closePopup.bind(this)}
                           ticket_id = {this.state.pending_ticket_id}
+                          confirmTicketPurchase = {this.confirmTicketPurchase.bind(this)}
+                          denyTicketPurchase = {this.denyTicketPurchase.bind(this)}
                           />
         }
       <TransparentNavbarAuthenticated   opacity = {navbarOpacity}

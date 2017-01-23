@@ -14,7 +14,7 @@ import Button from "../../Button/Button.jsx";
 class TicketConfirmationPopup extends Component {
   constructor(props) {
     super(props);
-    this.state = {event:null}
+    this.state = {event:null, ticketPrice:0}
   }
 
   componentWillMount() {
@@ -24,21 +24,35 @@ class TicketConfirmationPopup extends Component {
       var seatgeek_id = ticket.seatgeek_id;
       EventServices.event(seatgeek_id).then((res) => {
         var event = res.body;
+        var ticketPrice = "$ "+new Number(event.low_price).toFixed(2)
         EventServices.images([event]).then((res) => {
           var images = res.body;
           if (images && images.length) {
             event.featured_image = images[0].image;
           }
-          this.setState({event:event});
+          this.setState({event:event, ticketPrice:ticketPrice});
         }).catch((err) => {
-          this.setState({event:event});
+          this.setState({event:event, ticketPrice:ticketPrice});
         });
       });
     })
   }
 
-  priceInputValue(value) {
-    console.log(value);
+  priceInputValueChanged(value) {
+    var amount = value;
+    amount = amount.replace("$", "");
+    amount = amount.replace(" ","");
+    this.setState({ticketPrice:amount});
+  }
+
+  confirmTicketPurchase() {
+    var ticketPrice = this.state.ticketPrice.replace("$", "");
+    ticketPrice = ticketPrice.replace(" ","");
+    this.props.confirmTicketPurchase(ticketPrice);
+  }
+
+  denyTicketPurchase() {
+    this.props.denyTicketPurchase();
   }
 
   render() {
@@ -49,7 +63,6 @@ class TicketConfirmationPopup extends Component {
     var venueAddress = "VENUE ADDRESS";
     var showTime = "SHOW TIME";
     var eventDate = "EVENT DATE";
-    var eventPrice = 0;
     if (event) {
       image = event.featured_image ? event.featured_image : event.performers[0].image;
       eventName = event.title;
@@ -59,7 +72,6 @@ class TicketConfirmationPopup extends Component {
       var date = new Date(event.date);
       eventDate = time.formattedDateString(date);
       showTime = time.timeString(date);
-      eventPrice = event.low_price*100;
     }
 
     return (
@@ -96,13 +108,15 @@ class TicketConfirmationPopup extends Component {
             <p className = {styles.category}>Price</p>
               <CurrencyInput  className = {styles.priceInput}
                               prefix="$"
-                              onChange = {this.priceInputValue.bind(this)}
-                              value = {eventPrice}/>
+                              onChange = {this.priceInputValueChanged.bind(this)}
+                              value = {this.state.ticketPrice}/>
           </div>
         </div>
         <div className = {styles.infoRow}>
-          <button className = {styles.yesButton}>Yes, I bought this ticket</button>
-          <button className = {styles.noButton}>No, I did not buy this ticket</button>
+          <button className = {styles.yesButton}
+                  onClick = {this.confirmTicketPurchase.bind(this)}>Yes, I bought this ticket</button>
+          <button className = {styles.noButton}
+                  onClick = {this.denyTicketPurchase.bind(this)}>No, I did not buy this ticket</button>
         </div>
       </div>
     );
