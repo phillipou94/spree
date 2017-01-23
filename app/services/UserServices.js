@@ -52,13 +52,25 @@ export default {
   },
 
   currentCity : () => {
-    var uri = BASE_URL + '/city';
+    var uri = BASE_URL + '/city/cached';
     return request({
       uri : uri,
       method: 'GET',
       json : true
     });
+  },
 
+  updateCity : (coordinates) => {
+    var uri = BASE_URL + '/city';
+    return request({
+      uri : uri,
+      body : {
+        latitude:coordinates.latitude,
+        longitude:coordinates.longitude
+      },
+      method: 'POST',
+      json : true
+    });
   },
 
   updateBudget : (newBudget) => {

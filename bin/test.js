@@ -6,7 +6,6 @@ var User = require("../app/models/User.js");
 var Event = require("../app/models/Event.js");
 var SeatGeek = require("../app/js/seatgeek.js");
 var seatgeek = SeatGeek();
-var EventServices = require("../app/services/EventServices.js");
 const request = require('request');
 
 var test = function() {
@@ -17,10 +16,9 @@ var test = function() {
   //   console.log(images);
   // });
 
-
-  EventServices.recommendations("3646993",{latitude:"42.36",longitude: "-71.06"}).then((res) => {
-    console.log(res.body);
-  })
+  // EventServices.recommendations("3646993",{latitude:"42.36",longitude: "-71.06"}).then((res) => {
+  //   console.log(res.body);
+  // })
   // Event.getEvent("3627266", function(error, event) {
   //   console.log(event);
   // });

@@ -10,9 +10,6 @@ class Navbar extends Component {
     const logo = require("../../assets/SpreeLogo.svg");
     return (
       <div className = {styles.Navbar}>
-        <a href ="/">
-          <img src = {logo} className = {styles.logo} />
-        </a>
         <a href ="/"><h1 className = {styles.header}>Spree</h1></a>
         {! this.props.hideLinks &&
           <div className = {styles.links}>

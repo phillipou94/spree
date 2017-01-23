@@ -13,7 +13,7 @@ import Tooltip from 'rc-tooltip';
 
 import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
-import TransparentNavbar from '../../components/Navbar/TransparentNavbar.jsx';
+import TransparentNavbarAuthenticated from '../../components/Navbar/TransparentNavbarAuthenticated.jsx';
 import TransparentSearchbar from '../../components/Searchbar/TransparentSearchbar.jsx';
 import Switch from '../../components/Switch/Switch.jsx';
 
@@ -75,17 +75,27 @@ class EventsPage extends Component {
   }
 
   getLocation(callback) {
+    var that = this;
     UserServices.currentCity().then((res) => {
       if (res.body && res.body.location) {
         var city = res.body.location;
         var coordinates = res.body.coordinates;
         this.setState({city:city, coordinates:coordinates});
         callback(coordinates);
+      } else if (navigator && navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var latitude = position.coords.latitude;
+            var longitude = position.coords.longitude;
+            var coordinates = {latitude:latitude, longitude:longitude};
+            UserServices.updateCity(coordinates).then((res) => {
+              var city = res.body.location;
+              that.setState({city:city, coordinates:res.body.coordinates});
+            });
+            callback(coordinates);
+          });
       } else {
-
-        callback(null);
-      }
-
+          callback();
+        }
     });
   }
 
@@ -101,7 +111,6 @@ class EventsPage extends Component {
     if (!location) {
       this.getLocation(function(coordinates){
         options["coordinates"] = coordinates;
-
         callback(options);
       });
     } else {
@@ -122,7 +131,10 @@ class EventsPage extends Component {
                         page:1});
         });
       } else {
+        console.log("get events!");
+        console.log(options);
         EventServices.events(options).then((res) => {
+          console.log(res);
           self.setState({events:res.body,
                         searchTerm:"",
                         eventsWithinBudget:options.withinBudget,
@@ -225,7 +237,7 @@ getMoreEvents() {
                       "Search Results for "+this.state.searchTerm : "Find Events";
     return (
       <div className = {styles.EventsPage}>
-      <TransparentNavbar   opacity = {navbarOpacity}
+      <TransparentNavbarAuthenticated   opacity = {navbarOpacity}
                            balance = {this.state.balance}
                            showBalance = {true}
                            currentPage = {"Events"}

@@ -13,9 +13,11 @@ a{
   z-index: 100;
 }
 
+
+
 .Navbar p {
   padding-bottom:0;
-
+  color:white;
 }
 
 .header {

@@ -128,31 +128,29 @@ router.put('/budget', function(req,res) {
   });
 });
 
-router.get("/city", function(req,resp) {
+router.get("/city/cached", function(req, resp) {
+  console.log(req.session);
   if (req.session.location) {
     var location = req.session.location;
     var coordinates = req.session.coordinates;
     utils.sendSuccessResponse(resp, {location:location, coordinates:coordinates});
-    return;
+  } else {
+    utils.sendSuccessResponse(resp, {location:"Boston, MA", coordinates: {latitude:42.3601, longitude:-71.0589}});
   }
-  request.get({
-    url: 'http://ipinfo.io',
-    headers: { 'Content-Type': 'application/json' },
-    withCredentials: true,
-  }, function apiSuccess(err, data, res) {
-    var response = JSON.parse(data.body);
-    var coord = response.loc.split(',');
-    var latitude = coord[0];
-    var longitude = coord[1];
-    User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
-      req.session.location = location;
-      req.session.coordinates = { latitude: latitude, longitude: longitude };
-      if (error) {
-        utils.sendErrorResponse(resp, 500, 'Could not find user location');
-      } else {
-        utils.sendSuccessResponse(resp, {location:location, coordinates:{ latitude: latitude, longitude: longitude }});
-      }
-    });
+});
+
+router.post("/city", function(req,resp) {
+  var latitude = req.body.latitude;
+  var longitude = req.body.longitude;
+  var coordinates = {latitude:latitude, longitude:longitude};
+  User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
+    req.session.location = location;
+    req.session.coordinates = { latitude: latitude, longitude: longitude };
+    if (error) {
+      utils.sendErrorResponse(resp, 500, 'Could not find user location');
+    } else {
+      utils.sendSuccessResponse(resp, {location:location, coordinates:{ latitude: latitude, longitude: longitude }});
+    }
   });
 
 });

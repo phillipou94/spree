@@ -11,7 +11,7 @@ import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
 
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
-import TransparentNavbar from '../../components/Navbar/TransparentNavbar.jsx';
+import TransparentNavbarAuthenticated from '../../components/Navbar/TransparentNavbarAuthenticated.jsx';
 import TransparentSearchbar from '../../components/Searchbar/TransparentSearchbar.jsx';
 import Switch from '../../components/Switch/Switch.jsx';
 
@@ -175,7 +175,8 @@ class EventDetailsPage extends Component {
 
     return (
       <div className = {styles.EventDetailsPage}>
-      <TransparentNavbar   opacity = {navbarOpacity}
+      <TransparentNavbarAuthenticated
+                          opacity = {navbarOpacity}
                            balance = {this.state.balance}
                            showBalance = {true}
                            currentPage = {"Events"}

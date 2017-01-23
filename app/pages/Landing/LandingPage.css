@@ -1,8 +1,58 @@
+.header {
+  width:100%;
+  height:90%;
+  background:#121212;
+  color:white;
+  position:relative;
+  overflow:hidden;
+}
+
+.header img {
+  width:100%;
+  height:100%;
+}
+
+.headerInfo {
+  height:100%;
+  width:100%;
+  background:rgba(0,0,0,0.7);
+  position:absolute;
+
+  text-align:center;
+}
+
+.headerInfo h1 {
+  margin:0;
+  margin-top:12%;
+  color:white;
+  font-size:45px;
+}
+
+.headerInfo p {
+  margin:0;
+  padding-left:20%;
+  padding-right:20%;
+  font-size:30px;
+  color:white
+}
+
+.headerInfo button {
+  color:#AC9456;
+  background:white;
+  width:200px;
+  font-weight:700;
+  padding-top:15px;
+  padding-bottom:15px;
+  font-size:18px;
+  margin-top:20px;
+  border-radius:20px;
+
+}
 
 .introSection {
   padding-left:70px;
-  padding-top:80px;
-  height:80%;
+  padding-top:70px;
+  padding-bottom:70px;
 }
 
 .logo {
@@ -20,22 +70,16 @@
 
 .introSection h1 {
   color:#121212;
-  font-size: 45px;
+  font-size: 40px;
   margin-bottom:0px;
 }
 
 .introSection p {
-  color:#9199A3;
+  color:#121212;
   margin-top:10px;
   font-weight:300;
-  font-size: 35px;
+  font-size: 32px;
   width:60%;
-}
-
-.introSection button {
-  padding:10px 40px;
-  font-size:20px;
-  box-shadow: 3px 3px 3px #888888;
 }
 
 .howItWorksSection {
