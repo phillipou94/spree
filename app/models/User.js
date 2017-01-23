@@ -129,6 +129,13 @@ var User = (function(UserModel) {
     });
   }
 
+  that.indicateTicketPurchase = function(user_id, ticket_id, callback) {
+    UserModel.findByIdAndUpdate(user_id,{pending_ticket_id:ticket_id}, function(err, user) {
+      if (err) callback({ msg: err });
+      callback(null, user);
+    });
+  }
+
   that.getLocationCoordinates = function(addressString, callback) {
     mapquest.geocode(addressString, function(error, coordinates) {
       if (error) callback({ msg: error });

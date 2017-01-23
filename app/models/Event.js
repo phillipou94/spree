@@ -109,8 +109,24 @@ var Event = (function(EventModel) {
     });
   }
 
-  that.buy = function(event, callback) {
-
+  that.saveToWishlist = function(user_id, eventObject, callback) {
+    var event = new EventModel();
+    event.title = eventObject.title;
+    event.type = eventObject.type;
+    event.low_price = eventObject.low_price;
+    event.high_price = eventObject.high_price ;
+    event.time_tbd = eventObject.time_tbd;
+    event.date_tbd = eventObject.date_tbd;
+    event.date = eventObject.datetime_local;
+    event.url = eventObject.url;
+    event.venue = eventObject.venue;
+    event.performers = eventObject.performers;
+    event.seatgeek_id = eventObject.id;
+    event.user_id = user_id;
+    event.save(function(err, user) {
+    if (err) callback({ msg: err });
+      callback(null, user);
+    });
   }
 
   that.save = function(event) {

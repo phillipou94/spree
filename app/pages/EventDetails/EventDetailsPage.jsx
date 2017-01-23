@@ -9,6 +9,7 @@ import time from "../../utils/time.js";
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
+import TicketServices from "../../services/TicketServices.js";
 
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import TransparentNavbarAuthenticated from '../../components/Navbar/TransparentNavbarAuthenticated.jsx';
@@ -149,6 +150,15 @@ class EventDetailsPage extends Component {
     });
   }
 
+  buyTicket() {
+    var event = this.state.event;
+    var url = event.url;
+    TicketServices.buy(event).then((res) => {
+      console.log(res);
+    })
+    // window.location.href = url;
+  }
+
   render() {
     var events = this.state.recommendations;
     var balance = this.props.balance;
@@ -195,7 +205,9 @@ class EventDetailsPage extends Component {
        </div>
 
        <div className = {styles.headerButtonContainer}>
-         <button className = {styles.buyButton}>{"Buy $"+event.low_price}</button>
+         <button className = {styles.buyButton}
+                 onClick= {this.buyTicket.bind(this)}>
+                 {"Buy $"+event.low_price}</button>
          <div className = {styles.wishListButton}>
            <p>Add to wishlist</p>
            <img src = {heartIcon} className = {styles.heartIcon}/>

@@ -59,6 +59,18 @@ router.get("/recommendations/:seatgeek_id/lat=:lat&lng=:lng/page=:page/budget=:b
 
 });
 
+router.post('/wishlist', function(req, res) {
+  var event = req.body.event;
+  var user_id = req.session.user._id;
+  Event.saveToWishlist(user_id, event, function(error, images){
+    if (!error) {
+      utils.sendSuccessResponse(res,images);
+    } else {
+      utils.sendErrorResponse(res, 500, images);
+    }
+  });
+});
+
 router.post('/images', function(req, res) {
   var events = req.body.events;
 
@@ -72,6 +84,17 @@ router.post('/images', function(req, res) {
       utils.sendErrorResponse(res, 500, images);
     }
   });
+});
+
+router.post('/wishlist', function(req, res) {
+  var event = req.body.event;
+  Event.saveToWishlist(event, function(error, event) {
+    if (!error) {
+      utils.sendSuccessResponse(res,event);
+    } else {
+      utils.sendErrorResponse(res, 500, event);
+    }
+  })
 });
 
 module.exports = router;

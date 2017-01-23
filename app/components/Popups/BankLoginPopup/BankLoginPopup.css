@@ -1,13 +1,13 @@
 .BankLoginPopup {
   background:white;
-  width:250px;
+  width:350px;
   border-radius:10px;
   text-align:center;
 }
 
 
 .BankLoginPopup button {
-  width:65%;
+  width:70%;
   height:35px;
   margin-top:20px;
   font-size:15px;
@@ -52,7 +52,7 @@
   height: 35px;
   font-weight: 300;
   font-size:15px;
-  width:90%;
+  width:80%;
   padding-left:5px;
   margin-top:5px;
 }

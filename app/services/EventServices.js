@@ -51,6 +51,16 @@ export default {
       json : true
     });
   },
+  saveToWishlist : (event) => {
+    return request({
+      uri : BASE_URL+"/wishlist",
+      method: 'POST',
+      json : true,
+      body : {
+        event: event
+      }
+    });
+  },
   images : (events) => {
     return request({
       uri : BASE_URL+"/images",

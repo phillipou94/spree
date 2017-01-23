@@ -17,6 +17,11 @@ const authCheck = (nextState, replace, callback) => {
     UserServices.currentUser().then((response) => {
         if (!response.body.authenticated){
             replace('/landing');
+        } else {
+          var user = response.body.user;
+          if (user.pending_ticket_id) {
+            // replace('/event/'+user.pending_ticket_id);
+          }
         }
         callback();
     }).catch((err) => {
