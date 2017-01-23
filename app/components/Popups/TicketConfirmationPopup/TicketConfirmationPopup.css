@@ -1,0 +1,88 @@
+.TicketConfirmationPopup {
+  background:white;
+  width:40%;
+  height:450px;
+  border-radius:15px;
+  margin:30%;
+  margin-top:70px;
+  overflow:hidden;
+}
+
+.header {
+  width:100%;
+  height:225px;
+  background:#121212;
+  position:relative;
+}
+
+.headerText {
+  position:absolute;
+  bottom:20px;
+  left:30px;
+}
+
+.headerText h1 {
+  font-size:28px;
+}
+
+.headerText h1, .headerText p {
+  margin:0;
+  color:white;
+}
+
+.headerInfo {
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.6);
+  position:absolute;
+}
+
+.header img {
+  width:100%;
+  height:100%;
+}
+
+.infoRow {
+  margin-top:10px;
+  padding-left:30px;
+  width:100%;
+  display:flex;
+}
+
+.infoRow p {
+  margin:0;
+}
+
+.info {
+  width:30%;
+  margin-right:10px;
+}
+
+.category {
+  color:#9B9B9B;
+}
+
+.priceInput {
+  font-size:15px;
+  padding-top:0;
+  color:#121212;
+  width:80%;
+  border: 1px solid #9B9B9B;
+}
+
+.yesButton {
+  margin-top:10px;
+  background:#AC9456;
+  color:white;
+  width:150px;
+  padding-top:12px;
+  padding-bottom:12px;
+  border-radius:10px;
+  margin-right:10px;
+}
+
+.noButton {
+  margin-top:8px;
+  background:transparent;
+  color:#9B9B9B;
+}

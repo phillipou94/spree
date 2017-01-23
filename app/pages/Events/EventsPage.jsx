@@ -11,7 +11,7 @@ import EventServices from "../../services/EventServices.js";
 
 import Tooltip from 'rc-tooltip';
 
-import EventCarousel from "../../components/EventCarousel/EventCarousel.jsx";
+import PopupConductor from '../../components/Popups/PopupConductor.jsx';
 import EventCard from "../../components/Cards/EventCard/EventCard.jsx";
 import TransparentNavbarAuthenticated from '../../components/Navbar/TransparentNavbarAuthenticated.jsx';
 import TransparentSearchbar from '../../components/Searchbar/TransparentSearchbar.jsx';
@@ -212,6 +212,10 @@ getMoreEvents() {
     this.props.router.push("/event/"+event.seatgeek_id);
   }
 
+  closePopup(event) {
+
+  }
+
   render() {
     var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
     var searchIcon = require("../../assets/Search.svg");
@@ -234,6 +238,11 @@ getMoreEvents() {
                       "Search Results for "+this.state.searchTerm : "Find Events";
     return (
       <div className = {styles.EventsPage}>
+        {true &&
+          <PopupConductor type = {"TICKET"}
+                          closePressed = {this.closePopup.bind(this)}
+                          />
+        }
       <TransparentNavbarAuthenticated   opacity = {navbarOpacity}
                            balance = {this.state.balance}
                            showBalance = {true}

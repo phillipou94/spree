@@ -6,10 +6,12 @@ import styles from "./PopupConductor.css";
 import BankLoginPopup from "./BankLoginPopup/BankLoginPopup.jsx"
 import BankQuestionPopup from "./BankQuestionPopup/BankQuestionPopup.jsx"
 import SetBudgetPopup from "./SetBudgetPopup/SetBudgetPopup.jsx"
+import TicketConfirmationPopup from "./TicketConfirmationPopup/TicketConfirmationPopup.jsx"
 
 class PopupConductor extends Component {
 
   getPopup(type) {
+    console.log(type);
     switch (type) {
        case 'BANK_LOGIN':
          return <BankLoginPopup {...this.props}/>;  //pass all props
@@ -17,6 +19,8 @@ class PopupConductor extends Component {
          return <BankQuestionPopup {...this.props}/>;
         case 'BUDGET':
          return <SetBudgetPopup {...this.props}/>;
+        case 'TICKET':
+          return <TicketConfirmationPopup {...this.props}/>;
        default:
          return null;
      }

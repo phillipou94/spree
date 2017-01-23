@@ -154,9 +154,10 @@ class EventDetailsPage extends Component {
     var event = this.state.event;
     var url = event.url;
     TicketServices.buy(event).then((res) => {
-      console.log(res);
+      this.props.router.push("/")
+      window.location.href = url;
     })
-    // window.location.href = url;
+
   }
 
   saveToWishlist() {
