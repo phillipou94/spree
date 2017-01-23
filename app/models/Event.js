@@ -48,11 +48,16 @@ var Event = (function(EventModel) {
         callback(error, []);
       } else {
         var objects = JSON.parse(response.body).events;
-        var events = objects.map(function(seatGeekObject) {
+        if (objects) {
+          var events = objects.map(function(seatGeekObject) {
 
-          return parse(seatGeekObject);
-        });
-        callback(error,events);
+            return parse(seatGeekObject);
+          });
+          callback(error,events);
+        } else {
+          callback(error, []);
+        }
+
       }
     });
   }

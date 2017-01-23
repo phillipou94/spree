@@ -157,7 +157,7 @@ getMoreEvents() {
         self.setState({events:events,
                       searchTerm:searchTerm,
                       eventsWithinBudget:options.withinBudget,
-                      location:location,
+                      location:options.coordinates,
                       page:page});
       });
     } else {
@@ -170,7 +170,7 @@ getMoreEvents() {
                        page:page});
     });
   }
-}, this.state.eventsWithinBudget, this.state.searchTerm, this.state.location);
+}, this.state.eventsWithinBudget, this.state.searchTerm, this.state.coordinates);
 
 }
 
@@ -217,13 +217,16 @@ getMoreEvents() {
 
   confirmTicketPurchase(ticket) {
     this.setState({pending_ticket_id:null});
-    console.log(ticket);
+    var balance = this.state.balance;
+    TicketServices.confirmPurchase(ticket, balance).then((res) => {
+      console.log(res);
+    });
   }
 
   denyTicketPurchase(ticket) {
     this.setState({pending_ticket_id:null});
     TicketServices.denyPurchase(ticket).then((res) => {
-      console.log("SUCCESSFULLY DELETED TICKET!");
+
     });
   }
 

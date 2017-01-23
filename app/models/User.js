@@ -15,6 +15,7 @@ var UserSchema = mongoose.Schema({
   budget:{type:Number},
   total_balance:{type:Number},
   current_week_spent:{type:Number},
+  ticket_purchase_amount:{type:Number},
   events_saved:[{type: mongoose.Schema.Types.ObjectId,ref: 'Event'}],
   events_purchased:[{type: mongoose.Schema.Types.ObjectId,ref: 'Event'}],
   bank_name:{type: String, default: null},
@@ -160,10 +161,13 @@ var User = (function(UserModel) {
 
   that.confirmTicketPurchase = function(user_id, ticket_price, callback) {
     UserModel.findByIdAndUpdate(user_id,
-                                {pending_ticket_id:null, $dec : { balance : ticket_price }},
+                                {pending_ticket_id:null, $inc : {ticket_purchase_amount : ticket_price }},
                                 function(err, user) {
-      if (err) callback({ msg: err });
+      if (err) callback(err, user);
+      if (!user) callback(err, null);
       user.pending_ticket_id = null;
+
+      user.ticket_purchase_amount =  user.ticket_purchase_amount + ticket_price;
       user.balance = user.balance - ticket_price;
       callback(null, user);
     });

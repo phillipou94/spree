@@ -75,7 +75,7 @@ router.post('/login', function(req, res) {
           utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0, weeks:[] });
         } else {
           //calculate how much under budget you are total
-          var balance = calculateTotalBalance(weeks);
+          var balance = calculateTotalBalance(user, weeks);
           req.session.user.balance = balance;
           var sessionInfo = { authenticated: true, user: user, balance:balance, weeks:weeks };
           utils.sendSuccessResponse(res, sessionInfo)
@@ -98,7 +98,7 @@ router.get('/current', function(req, res) {
                 utils.sendSuccessResponse(res, { authenticated: true, user: user, balance:0, weeks:[] });
               } else {
                 //calculate how much under budget you are total
-                var balance = calculateTotalBalance(weeks);
+                var balance = calculateTotalBalance(user, weeks);
                 req.session.user.balance = balance;
                 var sessionInfo = { authenticated: true, user: user, balance:balance, weeks:weeks };
                 utils.sendSuccessResponse(res, sessionInfo)
@@ -129,7 +129,6 @@ router.put('/budget', function(req,res) {
 });
 
 router.get("/city/cached", function(req, resp) {
-  console.log(req.session);
   if (req.session.location) {
     var location = req.session.location;
     var coordinates = req.session.coordinates;
@@ -155,13 +154,14 @@ router.post("/city", function(req,resp) {
 
 });
 
-var calculateTotalBalance = function(weeks) {
+var calculateTotalBalance = function(user, weeks) {
   var balance = weeks.reduce(function(current,week){
     var weekly_budget = week.budget ? week.budget : 0;
     var weekly_balance = Math.max(0,weekly_budget - week.spent);
     return current+weekly_balance;
   },0);
-  return balance;
+  var ticket_purchase_amount = user.ticket_purchase_amount || 0;
+  return balance - ticket_purchase_amount;
 }
 
 // router.put('/logout', function(req, res) {
