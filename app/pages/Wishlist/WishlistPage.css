@@ -1,13 +1,14 @@
-.header {
+.titleHeader {
+  margin-top:30px;
   padding-left:70px;
-  padding-right:70px;
-  color:#121212;
-  display:block;
+}
+
+.titleHeader p, .titleHeader h1 {
   margin:0;
 }
 
-.header h1 {
-  display:inline-block;
+.wishlistTitle {
+  margin-left:70px;
 }
 
 .searchbarContainer {

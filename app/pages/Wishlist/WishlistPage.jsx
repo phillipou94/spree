@@ -49,10 +49,18 @@ class WishlistPage extends Component {
 
 
   render() {
+    var user = this.state.user;
     var events = this.state.events;
     var balance = this.state.balance;
     var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
     var self = this;
+    var itemsCanBuy = events.reduce(function(current, event) {
+      if (balance > event.low_price) {
+        return current + 1;
+      } else {
+        return current;
+      }
+    },0);
     var eventCards = events.map(function(event,index) {
       return <EventCard key = {index}
                         event = {event}
@@ -62,6 +70,16 @@ class WishlistPage extends Component {
 
     return (
       <div>
+        <NavbarAuthenticated currentPage = {"Wishlist"}
+                             balance = {balance}
+                             showBalance = {true}
+        />
+      {user &&
+        <div className = {styles.titleHeader}>
+          <h1 className = {styles.wishlistTitle}>{user.name + "'s Wishlist"}</h1>
+          <p>{"You can afford "+itemsCanBuy+" events"}</p>
+        </div>
+      }
       {eventCards.length > 0 &&
       <div className = {styles.events}>
         <InfiniteScroll

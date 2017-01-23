@@ -23,7 +23,7 @@ class NavbarAuthenticated extends Component {
         {! this.props.hideLinks &&
           <div className = {styles.links}>
             <a href ="/" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
-            <a href ="/wishlist"><p style = {this.getLinkStyle("WishList")}>Wishlist</p></a>
+            <a href ="/wishlist"><p style = {this.getLinkStyle("Wishlist")}>Wishlist</p></a>
             <a href ="/account"><p style = {this.getLinkStyle("Account")}>Account</p></a>
           </div>
         }
