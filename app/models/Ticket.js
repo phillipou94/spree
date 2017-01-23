@@ -25,6 +25,17 @@ var Ticket = (function(TicketModel) {
     });
   }
 
+  that.findById = function(_id, callback) {
+    TicketModel.findById(_id, function(err, ticket) {
+        if (err) callback({ msg: err });
+        if (ticket !== null) {
+            callback(null, ticket);
+        } else {
+            callback({ msg: 'This ticket does not exist!' });
+        }
+    });
+  };
+
   Object.freeze(that);
   return that;
 

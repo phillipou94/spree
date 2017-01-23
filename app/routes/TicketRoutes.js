@@ -11,7 +11,7 @@ router.post('/buy', function(req, res) {
     if (!error) {
       User.indicateTicketPurchase(user_id, ticket._id, function(error, user) {
         if (error) {
-          utils.sendErrorResponse(res, 500, 'Could not update user with purchsed ticket');
+          utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
         } else {
           req.session.user.pending_ticket_id = ticket._id;
           utils.sendSuccessResponse(res, user);
@@ -19,6 +19,17 @@ router.post('/buy', function(req, res) {
       });
     } else {
       utils.sendErrorResponse(res, 500, ticket);
+    }
+  });
+});
+
+router.get('/ticket/:ticket_id', function(req,res) {
+  var ticket_id = req.params.ticket_id;
+  Ticket.findById(ticket_id, function(error, ticket) {
+    if (error) {
+      utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
+    } else {
+      utils.sendSuccessResponse(res, ticket);
     }
   });
 });

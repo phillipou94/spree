@@ -20,4 +20,13 @@ export default {
     });
   },
 
+  getTicket : (ticket_id) => {
+    var uri = BASE_URL + '/ticket/'+ticket_id;
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+  }
+
 }

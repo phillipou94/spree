@@ -36,7 +36,8 @@ class EventsPage extends Component {
                   balance: 0.00,
                   city:"No Location Provided",
                   coordinates: null,
-                  showTooltip: false}
+                  showTooltip: false,
+                  pending_ticket_id:null}
 
   }
 
@@ -45,7 +46,8 @@ class EventsPage extends Component {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
       if (user) {
-        this.setState({user:user, balance: balance});
+
+        this.setState({user:user, balance: balance,pending_ticket_id:user.pending_ticket_id});
       }
     });
     this.getEvents();
@@ -238,9 +240,10 @@ getMoreEvents() {
                       "Search Results for "+this.state.searchTerm : "Find Events";
     return (
       <div className = {styles.EventsPage}>
-        {true &&
+        {this.state.pending_ticket_id &&
           <PopupConductor type = {"TICKET"}
                           closePressed = {this.closePopup.bind(this)}
+                          ticket_id = {this.state.pending_ticket_id}
                           />
         }
       <TransparentNavbarAuthenticated   opacity = {navbarOpacity}

@@ -42,7 +42,7 @@ var time = (function() {
   that.timeString = function(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'pm' : 'am';
+    var ampm = hours >= 12 ? 'PM' : 'AM';
     hours = hours % 12;
     hours = hours ? hours : 12; // the hour '0' should be '12'
     minutes = minutes < 10 ? '0'+minutes : minutes;
@@ -50,7 +50,16 @@ var time = (function() {
   }
 
   that.formattedDateString = function(date) {
-    return dateFormat(date, "mmm dd, yyyy");
+    var weekday = new Array(7);
+    weekday[0] =  "Sun";
+    weekday[1] = "Mon";
+    weekday[2] = "Tue";
+    weekday[3] = "Wed";
+    weekday[4] = "Thu";
+    weekday[5] = "Fri";
+    weekday[6] = "Sat";
+    var day = weekday[date.getDay()];
+    return day + ". "+ dateFormat(date, "mmm dd, yyyy");
   }
 
   that.formattedMonthDayString = function(date) {

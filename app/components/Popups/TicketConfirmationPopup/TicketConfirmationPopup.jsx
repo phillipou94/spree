@@ -4,11 +4,37 @@ import CSSModules from 'react-css-modules';
 import styles from "./TicketConfirmationPopup.css";
 import CurrencyInput from 'react-currency-input';
 
+import TicketServices from "../../../services/TicketServices.js";
+import EventServices from "../../../services/EventServices.js";
+
+import time from "../../../utils/time.js";
+
 import Button from "../../Button/Button.jsx";
 
 class TicketConfirmationPopup extends Component {
   constructor(props) {
     super(props);
+    this.state = {event:null}
+  }
+
+  componentWillMount() {
+    var ticket_id = this.props.ticket_id;
+    TicketServices.getTicket(ticket_id).then((res) => {
+      var ticket = res.body;
+      var seatgeek_id = ticket.seatgeek_id;
+      EventServices.event(seatgeek_id).then((res) => {
+        var event = res.body;
+        EventServices.images([event]).then((res) => {
+          var images = res.body;
+          if (images && images.length) {
+            event.featured_image = images[0].image;
+          }
+          this.setState({event:event});
+        }).catch((err) => {
+          this.setState({event:event});
+        });
+      });
+    })
   }
 
   priceInputValue(value) {
@@ -16,13 +42,32 @@ class TicketConfirmationPopup extends Component {
   }
 
   render() {
-    var image = "http://i3.mirror.co.uk/incoming/article3656831.ece/ALTERNATES/s1200/One-Direction.jpg";
+    var image = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
+    var event = this.state.event;
+    var eventName = "EVENT NAME";
+    var venueName = "VENUE NAME";
+    var venueAddress = "VENUE ADDRESS";
+    var showTime = "SHOW TIME";
+    var eventDate = "EVENT DATE";
+    var eventPrice = 0;
+    if (event) {
+      image = event.featured_image ? event.featured_image : event.performers[0].image;
+      eventName = event.title;
+      var venue = event.venue;
+      venueName = venue.name;
+      venueAddress = venue.address + ", "+venue.extended_address;
+      var date = new Date(event.date);
+      eventDate = time.formattedDateString(date);
+      showTime = time.timeString(date);
+      eventPrice = event.low_price*100;
+    }
+
     return (
       <div className = {styles.TicketConfirmationPopup}>
         <div className = {styles.header}>
           <div className = {styles.headerInfo}>
             <div className = {styles.headerText}>
-              <h1>{"One Direction"}</h1>
+              <h1>{eventName}</h1>
               <p>{"Did you buy this ticket?"}</p>
             </div>
           </div>
@@ -31,28 +76,28 @@ class TicketConfirmationPopup extends Component {
         <div className = {styles.infoRow}>
           <div className = {styles.info}>
             <p className = {styles.category}>Venue</p>
-            <p>{"Staples Center"}</p>
+            <p>{venueName}</p>
           </div>
           <div className = {styles.info}>
             <p className = {styles.category}>Address</p>
-            <p>{"1111 S. Figueroa,  Los Angeles, CA 91770 "}</p>
+            <p>{venueAddress}</p>
           </div>
         </div>
         <div className = {styles.infoRow}>
           <div className = {styles.info}>
             <p className = {styles.category}>Date</p>
-            <p>{"Wed.Sept 9, 2017"}</p>
+            <p>{eventDate}</p>
           </div>
           <div className = {styles.info}>
             <p className = {styles.category}>Showtime</p>
-            <p>{"9:30 PM"}</p>
+            <p>{showTime}</p>
           </div>
           <div className = {styles.info}>
             <p className = {styles.category}>Price</p>
               <CurrencyInput  className = {styles.priceInput}
                               prefix="$"
                               onChange = {this.priceInputValue.bind(this)}
-                              value = {12900}/>
+                              value = {eventPrice}/>
           </div>
         </div>
         <div className = {styles.infoRow}>
