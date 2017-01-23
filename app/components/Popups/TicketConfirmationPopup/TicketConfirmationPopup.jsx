@@ -30,9 +30,9 @@ class TicketConfirmationPopup extends Component {
           if (images && images.length) {
             event.featured_image = images[0].image;
           }
-          this.setState({event:event, ticketPrice:ticketPrice});
+          this.setState({ticket:ticket, event:event, ticketPrice:ticketPrice});
         }).catch((err) => {
-          this.setState({event:event, ticketPrice:ticketPrice});
+          this.setState({ticket: ticket, event:event, ticketPrice:ticketPrice});
         });
       });
     })
@@ -46,13 +46,15 @@ class TicketConfirmationPopup extends Component {
   }
 
   confirmTicketPurchase() {
+    var ticket = this.state.ticket;
     var ticketPrice = this.state.ticketPrice.replace("$", "");
     ticketPrice = ticketPrice.replace(" ","");
-    this.props.confirmTicketPurchase(ticketPrice);
+    ticket.price = ticketPrice;
+    this.props.confirmTicketPurchase(ticket);
   }
 
   denyTicketPurchase() {
-    this.props.denyTicketPurchase();
+    this.props.denyTicketPurchase(this.state.ticket);
   }
 
   render() {

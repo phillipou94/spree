@@ -36,6 +36,24 @@ var Ticket = (function(TicketModel) {
     });
   };
 
+  that.delete = function(_id, callback) {
+    TicketModel.remove({ _id: _id}, function(err) {
+      if (err) {
+        callback({ msg: err });
+      } else {
+          callback({ msg: 'Ticket Deleted!' });
+      }
+    });
+  }
+
+  that.updatePrice = function(ticket_id, price, callback) {
+    TicketModel.findByIdAndUpdate(ticket_id,{price:price}, function(err, ticket) {
+      if (err) callback({ msg: err });
+      ticket.price = price;
+      callback(null, ticket);
+    });
+  }
+
   Object.freeze(that);
   return that;
 

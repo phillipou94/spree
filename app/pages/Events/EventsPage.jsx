@@ -8,6 +8,7 @@ var tm = new TicketMaster();
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
+import TicketServices from "../../services/TicketServices.js";
 
 import Tooltip from 'rc-tooltip';
 
@@ -214,13 +215,16 @@ getMoreEvents() {
     this.props.router.push("/event/"+event.seatgeek_id);
   }
 
-  confirmTicketPurchase(ticketPrice) {
+  confirmTicketPurchase(ticket) {
     this.setState({pending_ticket_id:null});
-    console.log(ticketPrice);
+    console.log(ticket);
   }
 
-  denyTicketPurchase() {
+  denyTicketPurchase(ticket) {
     this.setState({pending_ticket_id:null});
+    TicketServices.denyTicketPurchase(ticket).then((res) => {
+      console.log("SUCCESSFULLY DELETED TICKET!");
+    });
   }
 
 

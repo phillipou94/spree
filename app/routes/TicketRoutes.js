@@ -23,7 +23,7 @@ router.post('/buy', function(req, res) {
   });
 });
 
-router.get('/ticket/:ticket_id', function(req,res) {
+router.get('/:ticket_id', function(req,res) {
   var ticket_id = req.params.ticket_id;
   Ticket.findById(ticket_id, function(error, ticket) {
     if (error) {
@@ -32,6 +32,36 @@ router.get('/ticket/:ticket_id', function(req,res) {
       utils.sendSuccessResponse(res, ticket);
     }
   });
+});
+
+router.post('/confirm/:ticket_id', function(req,res) {
+  var ticket_id = req.params.ticket_id;
+  var ticketPrice = req.body.ticketPrice;
+  User.confirmTicketPurchase(req.session.user._id, ticketPrice, function(error, user) {
+    req.session.user = user;
+    Ticket.updatePrice(ticket_id, ticketPrice,function(error, user) {
+      if (error) {
+        utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
+      } else {
+        utils.sendSuccessResponse(res, ticket);
+      }
+    });
+  });
+});
+
+router.post('/deny/:ticket_id', function(req,res) {
+  var ticket_id = req.params.ticket_id;
+  User.denyTicketPurchase(req.session.user._id, ticket_id, function(error, user) {
+    req.session.user = user;
+    Ticket.delete(ticket_id, function(error, ticket) {
+      if (error) {
+        utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
+      } else {
+        utils.sendSuccessResponse(res, ticket);
+      }
+    });
+  });
+
 });
 
 module.exports = router;

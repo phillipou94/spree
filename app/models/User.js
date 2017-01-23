@@ -150,6 +150,25 @@ var User = (function(UserModel) {
     });
   }
 
+  that.denyTicketPurchase = function(user_id, ticket_id, callback) {
+    UserModel.findByIdAndUpdate(user_id,{pending_ticket_id:null}, function(err, user) {
+      if (err) callback({ msg: err });
+      user.pending_ticket_id = null;
+      callback(null, user);
+    });
+  }
+
+  that.confirmTicketPurchase = function(user_id, ticket_price, callback) {
+    UserModel.findByIdAndUpdate(user_id,
+                                {pending_ticket_id:null, $dec : { balance : ticket_price }},
+                                function(err, user) {
+      if (err) callback({ msg: err });
+      user.pending_ticket_id = null;
+      user.balance = user.balance - ticket_price;
+      callback(null, user);
+    });
+  }
+
   Object.freeze(that);
   return that;
 

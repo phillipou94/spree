@@ -21,10 +21,29 @@ export default {
   },
 
   getTicket : (ticket_id) => {
-    var uri = BASE_URL + '/ticket/'+ticket_id;
+    var uri = BASE_URL + '/'+ticket_id;
     return request({
       uri : uri,
       method: 'GET',
+      json : true
+    });
+  },
+
+  confirmPurchase : (ticket) => {
+    var uri = BASE_URL + '/confirm/'+ticket._id;
+    return request({
+      uri : uri,
+      body : {ticketPrice : ticket.price},
+      method: 'POST',
+      json : true
+    });
+  },
+
+  denyPurchase : (ticket) => {
+    var uri = BASE_URL + '/deny/'+ticket._id;
+    return request({
+      uri : uri,
+      method: 'POST',
       json : true
     });
   }
