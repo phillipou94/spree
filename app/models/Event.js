@@ -16,9 +16,9 @@ var EventSchema = mongoose.Schema({
   date:{type: Date},
   date_tbd:{type:Boolean},
   time_tbd:{type:Boolean},
+  user_id : {type: mongoose.Schema.Types.ObjectId,ref: 'User'},
   venue: {},
   performers:[],
-  favorited_by:{type: mongoose.Schema.Types.ObjectId,ref: 'User'}
 }, { timestamps: true });
 
 var EventModel = mongoose.model('Event', EventSchema);
@@ -87,8 +87,6 @@ var Event = (function(EventModel) {
     })
   }
 
-
-
   that.searchEvents = function(query, options, callback) {
     seatgeek.searchEvents(query, options, function(error, response) {
       if (error) {
@@ -129,8 +127,16 @@ var Event = (function(EventModel) {
     });
   }
 
-  that.save = function(event) {
 
+  that.getWishlist = function(user_id, callback) {
+    EventModel.find({user_id:user_id}).exec(function(err, weeks) {
+      console.log(weeks);
+        if(!err) {
+          callback(null, weeks);
+        } else {
+          callback(err, null);
+        }
+    });
   }
 
   Object.freeze(that);

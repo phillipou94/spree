@@ -212,10 +212,7 @@ getMoreEvents() {
   }
 
   didClickEvent(event) {
-    EventServices.saveToWishlist(event).then((res) => {
-      console.log(res);
-    });
-    // this.props.router.push("/event/"+event.seatgeek_id);
+    this.props.router.push("/event/"+event.seatgeek_id);
   }
 
   render() {

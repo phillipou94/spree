@@ -71,6 +71,16 @@ router.post('/wishlist', function(req, res) {
   });
 });
 
+router.get("/wishlist", function(req, res) {
+  Event.getWishlist(req.session.user._id, function(error, events){
+    if (!error) {
+      utils.sendSuccessResponse(res,events);
+    } else {
+      utils.sendErrorResponse(res, 500, events);
+    }
+  });
+});
+
 router.post('/images', function(req, res) {
   var events = req.body.events;
 

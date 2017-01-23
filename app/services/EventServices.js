@@ -61,6 +61,15 @@ export default {
       }
     });
   },
+
+  wishlist : () => {
+    return request({
+      uri : BASE_URL+"/wishlist",
+      method: 'GET',
+      json : true
+    });
+  },
+
   images : (events) => {
     return request({
       uri : BASE_URL+"/images",

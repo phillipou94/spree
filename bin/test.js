@@ -10,7 +10,9 @@ const request = require('request');
 
 var test = function() {
 
-
+  User.findById("587b96388667101c4400df1d", function(err, events) {
+    console.log(events);
+  });
   var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
   // Event.getTicketMasterImages(events, function(error, images) {
   //   console.log(images);
