@@ -51,10 +51,15 @@ router.post('/confirm/:ticket_id', function(req,res) {
 
 router.post('/deny/:ticket_id', function(req,res) {
   var ticket_id = req.params.ticket_id;
+  console.log("DENY TICKET");
+  console.log(ticket_id);
+  console.log(req.session.user._id);
   User.denyTicketPurchase(req.session.user._id, ticket_id, function(error, user) {
     req.session.user = user;
+    console.log(req.session.user);
     Ticket.delete(ticket_id, function(error, ticket) {
       if (error) {
+        console.log(error);
         utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
       } else {
         utils.sendSuccessResponse(res, ticket);

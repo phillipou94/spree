@@ -222,7 +222,7 @@ getMoreEvents() {
 
   denyTicketPurchase(ticket) {
     this.setState({pending_ticket_id:null});
-    TicketServices.denyTicketPurchase(ticket).then((res) => {
+    TicketServices.denyPurchase(ticket).then((res) => {
       console.log("SUCCESSFULLY DELETED TICKET!");
     });
   }

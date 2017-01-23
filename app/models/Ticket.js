@@ -37,11 +37,11 @@ var Ticket = (function(TicketModel) {
   };
 
   that.delete = function(_id, callback) {
-    TicketModel.remove({ _id: _id}, function(err) {
+    TicketModel.remove({ _id: _id}, function(err, ticket) {
       if (err) {
-        callback({ msg: err });
+        callback(error, ticket);
       } else {
-          callback({ msg: 'Ticket Deleted!' });
+        callback(null, ticket);
       }
     });
   }
