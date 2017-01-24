@@ -1,20 +1,20 @@
 .BankLoginPopup {
   background:white;
-  width:350px;
+  width:450px;
   border-radius:10px;
-  text-align:center;
-  margin-left:40%;
+  margin-left:30%;
   margin-top:70px;
 }
 
 
 .BankLoginPopup button {
-  width:70%;
+  width:80%;
   height:35px;
   margin-top:20px;
   font-size:15px;
   box-shadow: 1px 1px 1px #888888;
   margin-bottom:20px;
+  margin-left:10%;
 }
 
 .exitButton {
@@ -28,21 +28,23 @@
 }
 
 
-.title {
+.BankLoginPopup h1 {
   font-weight:400;
   font-size:20px;
   margin-bottom:0px;
-  padding-top:50px;
-  text-align: center;
+  display:inline-block;
+  margin-left:11px;
+  margin-top:50px;
+
 }
 
 .logo {
-  margin-top:5px;
-  margin-bottom:20px;
+  float:left;
+  margin-top:50px;
   border-radius:50%;
   width:90px;
   height:90px;
-  margin-right:5px;
+  margin-left:20px;
 }
 
 .inputs {
@@ -54,7 +56,9 @@
   height: 35px;
   font-weight: 300;
   font-size:15px;
-  width:80%;
+  width:60%;
   padding-left:5px;
-  margin-top:5px;
+  margin-left:15px;
+  margin-top:10px;
+  text-align:left;
 }

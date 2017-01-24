@@ -41,8 +41,8 @@ class BankLoginPopup extends Component {
     return (
       <div className = {styles.BankLoginPopup}>
         <div className = {styles.exitButton} onClick = {this.props.closePressed}>x</div>
-        <h1 className = {styles.title}>{bank.name}</h1>
         <img src = {bank.logo_url} className = {styles.logo}/>
+        <h1>{bank.name}</h1>
         <input className = {styles.input}
                  name='username'
                  placeholder={bank.credentials.username}
