@@ -6,6 +6,7 @@ import UserServices from "./services/UserServices.js";
 
 import AccountPage from './pages/Account/AccountPage.jsx';
 import BankPage from './pages/Bank/BankPage.jsx';
+import ErrorPage from './pages/ErrorPage/ErrorPage.jsx';
 import EventsPage from './pages/Events/EventsPage.jsx';
 import EventDetailsPage from './pages/EventDetails/EventDetailsPage.jsx';
 import LandingPage from './pages/Landing/LandingPage.jsx';
@@ -42,6 +43,7 @@ export default(
       <Route path="login" component={LoginPage} />
       <Route path="bank" component={BankPage} onEnter={authCheck}/>
       <Route path="account" component={AccountPage} onEnter={authCheck}/>
+      <Route path="*" component={ErrorPage} />
     </Route>
   </Router>
 );

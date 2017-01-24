@@ -1,0 +1,34 @@
+.ErrorPage {
+  width:100%;
+  height:100%;
+  background:#F0F0F0;
+  text-align:center
+}
+
+.textContainer {
+  padding-top:120px;
+}
+
+.textContainer h2 {
+  margin:0;
+  color:#121212;
+  weight:700;
+}
+
+.textContainer h1{
+  margin:20px;
+  font-size:120px;
+  weight:700;
+  color:#121212;
+
+}
+
+.textContainer a {
+  color:#121212;
+  text-decoration: underline;
+}
+
+.textContainer p{
+  color:#121212;
+  margin:0;
+}
