@@ -38,3 +38,13 @@ a{
   margin-left:15px;
   font-weight:400;
 }
+
+.Navbar button {
+  border: 1px solid #121212;
+}
+
+.logoutButton {
+  background:white;
+  font-size: 12px;
+  margin-left:20px;
+}

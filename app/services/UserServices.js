@@ -33,6 +33,14 @@ export default {
     });
   },
 
+  logout : () => {
+    return request({
+      uri : BASE_URL + '/logout',
+      method: 'POST',
+      json : true
+    });
+  },
+
   currentUser : () => {
     return request({
       uri : BASE_URL + '/current',

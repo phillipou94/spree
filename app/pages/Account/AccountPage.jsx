@@ -181,6 +181,12 @@ class AccountPage extends React.Component {
     });
   }
 
+  logout() {
+    UserServices.logout().then((res) => {
+      this.props.router.push("/landing");
+    });
+  }
+
   render() {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
     var accountCompleted = this.state.accountCompleted;
@@ -195,7 +201,7 @@ class AccountPage extends React.Component {
                           closePressed = {this.closePopup.bind(this)}
                           />
         }
-        <NavbarAuthenticated currentPage = {"Account"}/>
+        <NavbarAuthenticated currentPage = {"Account"} logout = {this.logout.bind(this)}/>
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
           {!accountCompleted &&

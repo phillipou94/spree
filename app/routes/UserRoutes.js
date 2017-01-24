@@ -19,11 +19,6 @@ var requireAuthentication = function(req, res, next) {
     }
 };
 
-/**
- * Logs a user out
- */
-router.post('/logout', requireAuthentication);
-
 /*
  For both login and create user, we want to send an error code if the user
  is logged in, or if the client did not provide a username and password
@@ -111,6 +106,11 @@ router.get('/current', function(req, res) {
   } else {
       utils.sendSuccessResponse(res, { authenticated: false });
   }
+});
+
+router.post('/logout', function(req, res) {
+  req.session.destroy();
+  utils.sendSuccessResponse(res);
 });
 
 router.get('/cached', function(req, res) {

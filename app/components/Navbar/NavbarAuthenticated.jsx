@@ -25,6 +25,10 @@ class NavbarAuthenticated extends Component {
             <a href ="/" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
             <a href ="/wishlist"><p style = {this.getLinkStyle("Wishlist")}>Wishlist</p></a>
             <a href ="/account"><p style = {this.getLinkStyle("Account")}>Account</p></a>
+            {this.props.logout &&
+              <button className = {styles.logoutButton}
+                      onClick = {this.props.logout}>Logout</button>
+            }
           </div>
         }
       </div>
