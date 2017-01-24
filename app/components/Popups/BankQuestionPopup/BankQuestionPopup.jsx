@@ -25,9 +25,11 @@ class BankQuestionPopup extends Component {
 
 
   render() {
+    const bank = this.props.bank;
     return (
       <div className = {styles.BankQuestionPopup}>
         <div className = {styles.exitButton} onClick = {this.props.closePressed}>x</div>
+        <img src = {bank.logo_url} className = {styles.logo}/>
         <h1 className = {styles.title}>Security Question</h1>
         <p>{this.props.question}</p>
         <input className = {styles.input}

@@ -1,25 +1,27 @@
 .BankQuestionPopup {
   background:white;
-  width:250px;
+  width:450px;
   border-radius:10px;
-  padding-left:15px;
-  margin-left:40%;
+  margin-left:30%;
   margin-top:70px;
 }
 
 .BankQuestionPopup button {
-  width:65%;
+  width:80%;
   height:35px;
   margin-top:20px;
   font-size:15px;
   box-shadow: 1px 1px 1px #888888;
   margin-bottom:20px;
-  margin-left:12%;
+  margin-left:10%;
 }
 
 .BankQuestionPopup p {
   color:#9199A3;
   margin-top:5px;
+  display:inline-block;
+  margin-left:12px;
+  padding:0;
 }
 
 .exitButton {
@@ -32,14 +34,23 @@
   margin:10px;
 }
 
-.title {
+.BankQuestionPopup h1 {
   font-weight:400;
   font-size:20px;
   margin-bottom:0px;
-  padding-top:50px;
-  text-align: left;
+  display:inline-block;
+  margin-left:11px;
+  margin-top:50px;
 }
 
+.logo {
+  float:left;
+  margin-top:50px;
+  border-radius:50%;
+  width:90px;
+  height:90px;
+  margin-left:20px;
+}
 .inputs {
   display: block;
 }
@@ -49,7 +60,9 @@
   height: 35px;
   font-weight: 300;
   font-size:15px;
-  width:90%;
+  width:60%;
   padding-left:5px;
-  margin-top:5px;
+  text-align:left;
+  margin:0;
+  margin-left:12px;
 }
