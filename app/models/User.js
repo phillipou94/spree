@@ -82,6 +82,10 @@ var User = (function(UserModel) {
         callback({ msg: 'A user has already signed up with this email' });
       } else if (password.length < 5) {
         callback({ msg: 'Please select a longer password!' });
+      } else if (!name || name.length < 1) {
+        callback({ msg: 'Please provide a name' });
+      } else if (!email || email.length < 1) {
+        callback({ msg: 'Please provide an email' });
       } else {
         var user = new UserModel();
         user.name = name;

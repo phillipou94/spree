@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from "./BankLoginPopup.css";
 
 import Button from "../../Button/Button.jsx";
+import Error from "../../Error/Error.jsx";
 
 class BankLoginPopup extends Component {
   constructor(props) {
@@ -38,8 +39,14 @@ class BankLoginPopup extends Component {
 
   render() {
     const bank = this.props.bank;
+    const errorMessage = this.props.errorMessage;
     return (
       <div className = {styles.BankLoginPopup}>
+        {errorMessage &&
+          <div className = {styles.errorMessage}>
+            <p>{errorMessage}</p>
+          </div>
+        }
         <div className = {styles.exitButton} onClick = {this.props.closePressed}>x</div>
         <img src = {bank.logo_url} className = {styles.logo}/>
         <h1>{bank.name}</h1>

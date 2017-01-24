@@ -10,18 +10,18 @@
 }
 
 .logo {
-  width:40px;
   height:40px;
   display:inline-block;
   float:left;
-  margin-top:20px;
+  margin-top:45px;
   margin-right:10px;
 }
 .header {
-  color:#AC9456;
+  color:#121212;
   display: inline-block;
   padding:0px;
-  margin-bottom:20px;
+  margin-bottom:10px;
+  font-size:40px;
 }
 
 .inputs {

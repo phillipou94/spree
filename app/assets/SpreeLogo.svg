@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="198px" height="198px" viewBox="0 0 198 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="257px" height="186px" viewBox="0 0 257 186" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
-    <title>Logo</title>
+    <title>Untitled</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <rect id="path-1" x="0" y="0" width="198" height="198" rx="16"></rect>
-        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="198" height="198" fill="white">
-            <use xlink:href="#path-1"></use>
-        </mask>
+        <rect id="path-1" x="0" y="0" width="257" height="186" rx="16"></rect>
     </defs>
-    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g>
-            <use id="Rectangle" stroke="#121212" mask="url(#mask-2)" stroke-width="16" fill="#FFFFFF" xlink:href="#path-1"></use>
-            <polygon id="Rectangle-2" fill="#AC9456" points="7.557042 99.4230814 99.7722916 189.969788 83.9577641 189.969788 7.557042 114.537165"></polygon>
-            <polygon id="Rectangle-2-Copy" fill="#AC9456" points="7.557042 76.4230814 121.299024 189.999382 105.332407 189.999382 7.557042 93.15578"></polygon>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="SpreeLogo">
+            <g id="Logo">
+                <g id="Group">
+                    <g id="Rectangle-Clipped">
+                        <mask id="mask-2" fill="white">
+                            <use xlink:href="#path-1"></use>
+                        </mask>
+                        <g id="path-1"></g>
+                        <g id="Rectangle" mask="url(#mask-2)" stroke="#121212" stroke-width="16" fill="#FFFFFF">
+                            <rect id="path-1" x="0" y="0" width="257" height="186" rx="16"></rect>
+                        </g>
+                    </g>
+                    <polygon id="Rectangle-2" fill="#AC9456" points="8.10037027 93.4895784 129.502419 178.456468 108.975482 178.456468 8.10037027 107.660597"></polygon>
+                    <polygon id="Rectangle-2-Copy" fill="#AC9456" points="8.21366423 72.1596721 157.443683 178.484268 136.719336 178.484268 8.21366423 88.0772719"></polygon>
+                </g>
+            </g>
         </g>
     </g>
 </svg>

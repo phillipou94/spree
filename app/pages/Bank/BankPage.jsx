@@ -19,7 +19,8 @@ class BankPage extends React.Component {
                   showPopup:false,
                   popupType : "BANK_LOGIN",
                   question:"",
-                  mfa_access_token:""};
+                  mfa_access_token:"",
+                  errorMessage:null};
   }
 
   componentWillMount() {
@@ -82,9 +83,10 @@ class BankPage extends React.Component {
           this.props.router.push("/account");
           this.closePopup();
         }
-      } else {
-        console.log("ERROR HANDLING");
       }
+    }).catch((errorResponse) => {
+      var errorMessage = errorResponse.error.message.message;
+      this.setState({errorMessage:errorMessage})
     });
   }
 
@@ -109,12 +111,12 @@ class BankPage extends React.Component {
           this.setState({popupType:"BANK_QUESTION", question:question});
         } else {
           //success
-          console.log(res);
           this.closePopup();
         }
-      } else {
-        console.log("ERROR HANDLING");
       }
+    }).catch((errorResponse) => {
+      var errorMessage = errorResponse.error.message.message;
+      this.setState({errorMessage:errorMessage})
     });
   }
 
@@ -131,7 +133,8 @@ class BankPage extends React.Component {
                           closePressed = {this.closePopup.bind(this)}
                           bankLoginSubmitted = {this.bankLoginSubmitted.bind(this)}
                           answerSubmitted = {this.answerSubmitted.bind(this)}
-                          question = {this.state.question}/>
+                          question = {this.state.question}
+                          errorMessage = {this.state.errorMessage}/>
         }
           <div className = {styles.header}>
             <a href = {skipToPage} className = {styles.skipButton}>skip > </a>

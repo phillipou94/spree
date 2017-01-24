@@ -16,7 +16,7 @@ var utils = (function() {
   _utils.sendErrorResponse = function(res, errorCode, error) {
     res.status(errorCode).json({
       success: false,
-      err: error
+      message: error
     }).end();
   };
 

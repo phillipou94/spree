@@ -4,6 +4,7 @@ import CSSModules from 'react-css-modules';
 import styles from "./Auth.css";
 
 import Button from "../../components/Button/Button.jsx";
+import Error from "../../components/Error/Error.jsx";
 
 import UserServices from "../../services/UserServices.js";
 
@@ -12,7 +13,8 @@ class LoginPage extends React.Component {
     super(props);
     this.state = {
       email:"",
-      password:""
+      password:"",
+      errorMessage:null,
     }
   }
 
@@ -32,8 +34,9 @@ class LoginPage extends React.Component {
       var user = res.body.user;
       var path = user.bank_id && user.bank_id.length > 0 ? "" :  "bank";
       this.props.router.push(path);
-    }).catch((err) => {
-      console.log(err);
+    }).catch((errorResponse) => {
+      var errorMessage = errorResponse.error.message;
+      this.setState({errorMessage:errorMessage})
     });
   }
 
@@ -41,10 +44,13 @@ class LoginPage extends React.Component {
     const logo = require("../../assets/SpreeLogo.svg");
     return (
       <div>
+        {this.state.errorMessage &&
+          <Error message ={this.state.errorMessage} />
+        }
         <div className = {styles.authContainer}>
           <a href ="/"><div className = {styles.titleContainer}>
             <img src = {logo} className = {styles.logo} />
-            <h1 className = {styles.header}>Spree</h1>
+            <p className = {styles.header}>Spree</p>
           </div>
           </a>
           <div className = {styles.inputs}>
