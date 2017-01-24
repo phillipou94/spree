@@ -180,7 +180,7 @@ class EventDetailsPage extends Component {
     if (this.state.event) {
       var event = this.state.event;
       var eventTime = time.timeString(new Date(event.date));
-      var date = time.formattedDateString(new Date(event.date));
+      var date = time.fullFormattedDateString(new Date(event.date));
       var dateString = eventTime + " - "+date;
       var venue = event.venue;
       var venueName = venue.name;

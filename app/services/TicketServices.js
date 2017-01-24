@@ -21,7 +21,17 @@ export default {
   },
 
   getTicket : (ticket_id) => {
-    var uri = BASE_URL + '/'+ticket_id;
+    var uri = BASE_URL + '/ticket/'+ticket_id;
+    return request({
+      uri : uri,
+      method: 'GET',
+      json : true
+    });
+  },
+
+  purchased : () => {
+    console.log("CALLING SERVICES!");
+    var uri = BASE_URL + '/purchased';
     return request({
       uri : uri,
       method: 'GET',
@@ -31,8 +41,6 @@ export default {
 
   confirmPurchase : (ticket) => {
     var uri = BASE_URL + '/confirm/'+ticket._id;
-    console.log("Services!!");
-    console.log(ticket.price);
     return request({
       uri : uri,
       body : {ticketPrice : ticket.price},

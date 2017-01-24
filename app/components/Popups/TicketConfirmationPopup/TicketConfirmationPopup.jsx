@@ -72,7 +72,7 @@ class TicketConfirmationPopup extends Component {
       venueName = venue.name;
       venueAddress = venue.address + ", "+venue.extended_address;
       var date = new Date(event.date);
-      eventDate = time.formattedDateString(date);
+      eventDate = time.fullFormattedDateString(date);
       showTime = time.timeString(date);
     }
 

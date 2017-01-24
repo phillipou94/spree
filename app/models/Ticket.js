@@ -5,6 +5,7 @@ var TicketSchema = mongoose.Schema({
   event:{type: mongoose.Schema.Types.ObjectId,ref: 'Event'},
   seatgeek_id:{type:String},
   price:{type:Number, default: 0},
+  purchased:{type:Boolean, default: false},
   title:{type:String}
 }, { timestamps: true });
 
@@ -27,14 +28,26 @@ var Ticket = (function(TicketModel) {
 
   that.findById = function(_id, callback) {
     TicketModel.findById(_id, function(err, ticket) {
-        if (err) callback({ msg: err });
+        if (err) {
+          callback(err, ticket);
+        }
         if (ticket !== null) {
             callback(null, ticket);
         } else {
-            callback({ msg: 'This ticket does not exist!' });
+            callback(err, ticket);
         }
     });
   };
+
+  that.findTicketsFromUser = function(user_id, callback) {
+    TicketModel.find({bought_by:user_id, purchased: true}).sort({updatedAt: -1}).exec(function(error, tickets) {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, tickets);
+      }
+    });
+  }
 
   that.delete = function(_id, callback) {
     TicketModel.remove({ _id: _id}, function(err, ticket) {
@@ -46,10 +59,8 @@ var Ticket = (function(TicketModel) {
     });
   }
 
-  that.updatePrice = function(ticket_id, price, callback) {
-    console.log("UPDATE PRICE!!");
-    console.log(price);
-    TicketModel.findByIdAndUpdate(ticket_id, {price:price}, function(err, ticket) {
+  that.purchase = function(ticket_id, price, callback) {
+    TicketModel.findByIdAndUpdate(ticket_id, {price:price, purchased:true}, function(err, ticket) {
       if (err) callback({ msg: err });
       ticket.price = price;
       callback(null, ticket);

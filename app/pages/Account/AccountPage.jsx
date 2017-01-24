@@ -6,6 +6,7 @@ import time from "../../utils/time.js";
 import TransactionUtils from "../../utils/transactionUtils.js";
 
 import BankServices from "../../services/BankServices.js";
+import TicketServices from "../../services/TicketServices.js";
 import UserServices from "../../services/UserServices.js";
 import WeekServices from "../../services/WeekServices.js";
 
@@ -52,7 +53,6 @@ class AccountPage extends React.Component {
       this.getTransactions();
       this.getPreviousWeeks(user);
     });
-
   }
 
   didSelectDropdown(event) {
@@ -61,7 +61,7 @@ class AccountPage extends React.Component {
     if (option === this.state.dropDownOptions[0]) {
       this.getTransactions();
     } else if (option === this.state.dropDownOptions[1]) {
-
+      this.getTickets();
     }else {
       // we've already retrieved previous weeks
     }
@@ -102,7 +102,17 @@ class AccountPage extends React.Component {
         var amountBelowBudget = Math.max(0, budget - week.spent);
         return total + amountBelowBudget;
       }, 0);
+      if (user.ticket_purchase_amount) {
+        totalBalance -= user.ticket_purchase_amount;
+      }
       this.setState({weeks:weeks, balance: totalBalance});
+    });
+  }
+
+  getTickets() {
+    TicketServices.purchased().then((res) => {
+      var tickets = res.body;
+      this.setState({tickets:tickets});
     });
   }
 
@@ -128,7 +138,7 @@ class AccountPage extends React.Component {
   }
 
   ticketItems(tickets) {
-    return tickets.map(function(index, ticket){
+    return tickets.map(function(ticket,index){
       return (
         <div key = {index}>
           <TicketItem ticket = {ticket}/>

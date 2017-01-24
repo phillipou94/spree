@@ -50,6 +50,10 @@ var time = (function() {
   }
 
   that.formattedDateString = function(date) {
+    return dateFormat(date, "mmm dd, yyyy");
+  }
+
+  that.fullFormattedDateString = function(date) {
     var weekday = new Array(7);
     weekday[0] =  "Sun";
     weekday[1] = "Mon";
@@ -59,7 +63,7 @@ var time = (function() {
     weekday[5] = "Fri";
     weekday[6] = "Sat";
     var day = weekday[date.getDay()];
-    return day + ". "+ dateFormat(date, "mmm dd, yyyy");
+    return day + ". "+ this.formattedDateString(date);
   }
 
   that.formattedMonthDayString = function(date) {

@@ -23,7 +23,7 @@ router.post('/buy', function(req, res) {
   });
 });
 
-router.get('/:ticket_id', function(req,res) {
+router.get('/ticket/:ticket_id', function(req,res) {
   var ticket_id = req.params.ticket_id;
   Ticket.findById(ticket_id, function(error, ticket) {
     if (error) {
@@ -34,13 +34,26 @@ router.get('/:ticket_id', function(req,res) {
   });
 });
 
+router.get('/purchased', function(req,res) {
+  console.log("HITS ROUTER!");
+  console.log(req.session.user._id);
+  Ticket.findTicketsFromUser(req.session.user._id, function(error, tickets) {
+    if (error) {
+      console.log(error);
+      utils.sendErrorResponse(res, 500, 'Could not get tickets');
+    } else {
+      console.log(tickets);
+      utils.sendSuccessResponse(res, tickets);
+    }
+  });
+});
+
 router.post('/confirm/:ticket_id', function(req,res) {
   var ticket_id = req.params.ticket_id;
   var ticketPrice = req.body.ticketPrice;
-  console.log(ticketPrice);
   User.confirmTicketPurchase(req.session.user._id, ticketPrice, function(error, user) {
     req.session.user = user;
-    Ticket.updatePrice(ticket_id, ticketPrice,function(error, ticket) {
+    Ticket.purchase(ticket_id, ticketPrice,function(error, ticket) {
       if (error) {
         utils.sendErrorResponse(res, 500, 'Could not update user with purchased ticket');
       } else {
