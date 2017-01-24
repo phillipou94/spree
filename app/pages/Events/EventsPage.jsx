@@ -125,7 +125,7 @@ class EventsPage extends Component {
     var self = this;
     this.getEventOptions(function(options) {
       if (options.searchTerm) {
-        EventServices.search(searchTerm,options).then((res) => {
+        EventServices.search(options.searchTerm,options).then((res) => {
           self.setState({events:res.body,
                         eventsWithinBudget:options.withinBudget,
                         location:location,
@@ -151,7 +151,7 @@ getMoreEvents() {
     options.page = page;
     var events = self.state.events;
     if (options.searchTerm) {
-      EventServices.search(searchTerm,options).then((res) => {
+      EventServices.search(options.searchTerm,options).then((res) => {
         events = events.concat(res.body);
         self.setState({events:events,
                       searchTerm:searchTerm,
