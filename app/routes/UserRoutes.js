@@ -143,8 +143,6 @@ router.post("/city", function(req,resp) {
   var longitude = req.body.longitude;
   var coordinates = {latitude:latitude, longitude:longitude};
   User.getCurrentCity({ latitude: latitude, longitude: longitude }, function(error, location){
-    console.log("LOCATION!!");
-    console.log(location);
     req.session.location = location;
     req.session.coordinates = { latitude: latitude, longitude: longitude };
     if (error) {
@@ -154,6 +152,17 @@ router.post("/city", function(req,resp) {
     }
   });
 
+});
+
+router.post("/address", function(req, resp) {
+  var address = req.body.address;
+  User.getLocationCoordinates(address, function(error, coordinates) {
+    if (error) {
+      utils.sendErrorResponse(resp, 500, 'Could not find user location');
+    } else {
+      utils.sendSuccessResponse(resp, coordinates);
+    }
+  });
 });
 
 var calculateTotalBalance = function(user, weeks) {

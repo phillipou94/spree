@@ -143,8 +143,12 @@ var User = (function(UserModel) {
 
   that.getLocationCoordinates = function(addressString, callback) {
     mapquest.geocode(addressString, function(error, coordinates) {
-      if (error) callback({ msg: error });
-      callback(null, coordinates);
+      if (error) {
+        callback({ msg: error });
+      } else {
+        callback(null, coordinates);
+      }
+
     });
   }
 

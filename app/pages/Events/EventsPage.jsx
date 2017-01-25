@@ -258,6 +258,27 @@ getMoreEvents() {
     this.getEvents(this.state.eventsWithinBudget, this.state.searchTerm,coordinates);
   }
 
+  didEnterAddress(address) {
+    this.setState({loading:true,showLocationPopup:false});
+    var self = this;
+    UserServices.coordinatesFromAddress(address).then((res) => {
+      var coordinates = res.body;
+      UserServices.updateCity(coordinates).then((res) => {
+        console.log(res);
+        var city = res.body.location;
+        self.getEvents(self.state.withinBudget, self.state.searchTerm, coordinates);
+        self.setState({city:city, coordinates:coordinates, loading:false});
+      }).catch((error) => {
+        console.log(error);
+        this.setState({loading:false});
+      });
+    }).catch((errorResponse) => {
+      console.log(errorResponse);
+      this.setState({loading:false})
+    });
+
+  }
+
   render() {
     var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
     var searchIcon = require("../../assets/Search.svg");
@@ -290,7 +311,8 @@ getMoreEvents() {
         {this.state.showLocationPopup &&
           <PopupConductor type = {"LOCATION"}
                           closePressed = {this.closeLocationPopup.bind(this)}
-                          didSelectLocation = {this.didSelectLocation.bind(this)}/>
+                          didSelectLocation = {this.didSelectLocation.bind(this)}
+                          didEnterAddress = {this.didEnterAddress.bind(this)}/>
         }
       <TransparentNavbarAuthenticated   opacity = {navbarOpacity}
                            balance = {this.state.balance}

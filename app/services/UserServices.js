@@ -81,6 +81,18 @@ export default {
     });
   },
 
+  coordinatesFromAddress : (address) => {
+    var uri = BASE_URL + '/address';
+    return request({
+      uri : uri,
+      body : {
+        address:address
+      },
+      method: 'POST',
+      json : true
+    });
+  },
+
   updateBudget : (newBudget) => {
     return request({
       uri : BASE_URL + '/budget',
