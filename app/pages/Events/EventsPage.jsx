@@ -162,7 +162,7 @@ getMoreEvents() {
       EventServices.search(options.searchTerm,options).then((res) => {
         events = events.concat(res.body);
         self.setState({events:events,
-                      searchTerm:searchTerm,
+                      searchTerm:options.searchTerm,
                       eventsWithinBudget:options.withinBudget,
                       location:options.coordinates,
                       page:page});
