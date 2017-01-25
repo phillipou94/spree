@@ -111,6 +111,7 @@ class BankPage extends React.Component {
           this.setState({popupType:"BANK_QUESTION", question:question});
         } else {
           //success
+          this.props.router.push("/account");
           this.closePopup();
         }
       }
