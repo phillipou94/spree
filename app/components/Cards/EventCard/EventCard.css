@@ -29,6 +29,18 @@ transform: scale(1.05);
   float:right;
 }
 
+.deleteButton {
+  position:absolute;
+  z-index:5;
+  float:left;
+  top:-25;
+  left:5;
+  color:white;
+  font-size:20px;
+  padding:10px;
+  cursor:pointer;
+}
+
 .photo {
   text-align:center;
   width:100%;

@@ -24,6 +24,11 @@ class EventCard extends Component {
     this.setState({showWishlistButton:false})
   }
 
+  removeFromWishList(e) {
+    this.props.removeFromWishList(this.props.index);
+    e.stopPropagation();
+  }
+
   render() {
     const { event } = this.props;
     var empty_heart = require("../../../assets/Heart.svg");
@@ -44,6 +49,9 @@ class EventCard extends Component {
           <div></div>
          <div className = {styles.photoContainer}>
           <div className = {styles.info}>
+            {this.props.removeFromWishList &&
+              <p className = {styles.deleteButton} onClick = {this.removeFromWishList.bind(this)}>x</p>
+            }
             <p className = {styles.price}>{"$"+event.low_price}</p>
             {buyable &&
               <img src = {shopping_bag} className = {styles.buyableIndicator}/>

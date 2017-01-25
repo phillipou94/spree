@@ -47,10 +47,22 @@ class WishlistPage extends Component {
     this.props.router.push("/event/"+event.seatgeek_id);
   }
 
+  removeFromWishList(indexToRemove) {
+    console.log(indexToRemove);
+    var event = this.state.events[indexToRemove];
+    var events = this.state.events;
+    var newWishlist = events.filter(function(_,index) {
+	     return index !== indexToRemove;
+     });
+    this.setState({events:newWishlist});
+  }
+
 
   render() {
     var user = this.state.user;
     var events = this.state.events;
+    console.log("RENDER!!");
+    console.log(events);
     var balance = this.state.balance;
     var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
     var self = this;
@@ -63,8 +75,10 @@ class WishlistPage extends Component {
     },0);
     var eventCards = events.map(function(event,index) {
       return <EventCard key = {index}
+                        index = {index}
                         event = {event}
                         balance = {balance}
+                        removeFromWishList = {self.removeFromWishList.bind(self)}
                         onClick = {() => {self.didClickEvent(event);}}/>
     });
 

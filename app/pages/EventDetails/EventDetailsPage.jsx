@@ -41,7 +41,6 @@ class EventDetailsPage extends Component {
     });
     var event_id = this.props.params.event_id;
     EventServices.event(event_id).then((res) => {
-      console.log(res);
       var event = res.body;
       EventServices.images([event]).then((res) => {
         var images = res.body;
