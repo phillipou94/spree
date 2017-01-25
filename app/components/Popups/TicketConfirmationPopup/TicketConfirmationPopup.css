@@ -8,6 +8,18 @@
   overflow:hidden;
 }
 
+.loadingHeader {
+  width:100%;
+  text-align:center;
+  height:225px;
+  background:#121212;
+  position:relative;
+}
+
+.loaderContainer {
+  padding-top:30px;
+}
+
 .header {
   width:100%;
   height:225px;

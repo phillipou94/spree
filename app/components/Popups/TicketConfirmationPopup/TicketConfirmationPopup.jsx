@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./TicketConfirmationPopup.css";
 import CurrencyInput from 'react-currency-input';
+var Loader = require('halogen/ClipLoader');
 
 import TicketServices from "../../../services/TicketServices.js";
 import EventServices from "../../../services/EventServices.js";
@@ -14,10 +15,10 @@ import Button from "../../Button/Button.jsx";
 class TicketConfirmationPopup extends Component {
   constructor(props) {
     super(props);
-    this.state = {event:null, ticketPrice:0}
+    this.state = {event:null, ticketPrice:0, loading:true}
   }
 
-  componentWillMount() {
+  componentDidMount() {
     var ticket_id = this.props.ticket_id;
     TicketServices.getTicket(ticket_id).then((res) => {
       var ticket = res.body;
@@ -30,9 +31,9 @@ class TicketConfirmationPopup extends Component {
           if (images && images.length) {
             event.featured_image = images[0].image;
           }
-          this.setState({ticket:ticket, event:event, ticketPrice:ticketPrice});
+          this.setState({ticket:ticket, event:event, ticketPrice:ticketPrice, loading:false});
         }).catch((err) => {
-          this.setState({ticket: ticket, event:event, ticketPrice:ticketPrice});
+          this.setState({ticket: ticket, event:event, ticketPrice:ticketPrice, loading:false});
         });
       });
     })
@@ -78,6 +79,14 @@ class TicketConfirmationPopup extends Component {
 
     return (
       <div className = {styles.TicketConfirmationPopup}>
+        {this.state.loading &&
+        <div className = {styles.loadingHeader}>
+          <div className = {styles.loaderContainer}>
+            <Loader color={"white"} size="80px" margin="40px"/>
+          </div>
+        </div>
+        }
+        {!this.state.loading &&
         <div className = {styles.header}>
           <div className = {styles.headerInfo}>
             <div className = {styles.headerText}>
@@ -87,6 +96,7 @@ class TicketConfirmationPopup extends Component {
           </div>
           <img src = {image} />
         </div>
+        }
         <div className = {styles.infoRow}>
           <div className = {styles.info}>
             <p className = {styles.category}>Venue</p>
