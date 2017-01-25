@@ -41,6 +41,8 @@ router.post('/authenticate', function(req, res) {
     } else if (mfaResponse) {
       utils.sendStepResponse(res, mfaResponse);
     } else {
+      req.session.user = response;
+      console.log(req.session.user);
       utils.sendSuccessResponse(res,response);
     }
   });
@@ -55,6 +57,8 @@ router.post('/answer', function(req, res) {
     } else if (mfaResponse) {
       utils.sendStepResponse(res, mfaResponse);
     } else {
+      req.session.user = response;
+      console.log(req.session.user);
       utils.sendSuccessResponse(res,response);
     }
   });

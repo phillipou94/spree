@@ -72,6 +72,9 @@ Bank.authenticate = function(user, body, callback) {
         plaid_access_token : response.access_token
       }
       User.updateBankInformation(user._id, bankInfo, function(err, user) {
+        user.bank_name = bankInfo.bank_name;
+        user.bank_id = bankInfo.bank_id;
+        user.plaid_access_token = bankInfo.plaid_access_token;
         callback(err,null, user);
       });
     }
@@ -94,6 +97,9 @@ Bank.answerSecurityQuestion = function(user, body, callback) {
         plaid_access_token : response.access_token
       }
       User.updateBankInformation(user._id, bankInfo, function(err, user) {
+        user.bank_name = bankInfo.bank_name;
+        user.bank_id = bankInfo.bank_id;
+        user.plaid_access_token = bankInfo.plaid_access_token;
         callback(err,null, user);
       });
     }

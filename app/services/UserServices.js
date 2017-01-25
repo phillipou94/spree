@@ -1,6 +1,6 @@
 var dev = 'http://localhost:3000/api/users';
 var prod = 'https://enigmatic-mesa-53717.herokuapp.com/api/users';
-const BASE_URL =  prod;
+const BASE_URL =  dev;
 
 var request = require('request-promise-native');
 

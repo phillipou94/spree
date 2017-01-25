@@ -7,6 +7,7 @@ class AccountChecklistCard extends Component {
   render() {
     var completedIcon = require("../../assets/CompletedOval.svg");
     var unfinishedIcon = require("../../assets/EmptyOval.svg");
+    var user = this.props.user;
     return (
       <div className = {styles.AccountChecklistCard}>
         <div className = {styles.item}>
@@ -14,11 +15,11 @@ class AccountChecklistCard extends Component {
           <p>Signed Up</p>
         </div>
         <div className = {styles.item}>
-          <img src = {unfinishedIcon} />
+          <img src = {user && user.plaid_access_token ? completedIcon : unfinishedIcon} />
           <p>Set Up Bank Information</p>
         </div>
         <div className = {styles.item}>
-          <img src = {unfinishedIcon} />
+          <img src = {user && user.budget ? completedIcon : unfinishedIcon} />
           <p>Set Up Weekly Budget</p>
         </div>
       </div>

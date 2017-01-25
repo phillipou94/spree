@@ -205,7 +205,7 @@ class AccountPage extends React.Component {
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
           {!accountCompleted &&
-            <AccountChecklistCard />
+            <AccountChecklistCard user = {this.state.user}/>
           }
           {accountCompleted &&
           <BalanceCard balance = {this.state.balance}
