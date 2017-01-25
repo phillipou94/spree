@@ -55,6 +55,13 @@
   padding-top:0px;
 }
 
+.loaderContainer {
+  margin-top:20px;
+  margin-left:70px;
+  width:65%;
+  text-align:center;
+}
+
 .banksContainer{
   margin-top:20px;
   margin-left:70px;

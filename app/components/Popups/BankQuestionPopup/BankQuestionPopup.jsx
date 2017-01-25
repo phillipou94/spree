@@ -43,7 +43,10 @@ class BankQuestionPopup extends Component {
                  placeholder={"Answer"}
                  onChange={this.updateInputValue.bind(this)}
         />
-        <Button title = {"Submit"} onClick = {this.submitClicked.bind(this)}/>
+        <Button title = {"Submit"}
+                onClick = {this.submitClicked.bind(this)}
+                loading = {this.props.loading}
+                loadingColor = {"white"}/>
       </div>
     );
   }

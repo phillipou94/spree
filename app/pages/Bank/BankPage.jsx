@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router';
 import CSSModules from 'react-css-modules';
 import styles from "./BankPage.css";
+var Loader = require('halogen/ClipLoader');
 
 import BankServices from "../../services/BankServices.js";
 
@@ -20,14 +21,17 @@ class BankPage extends React.Component {
                   popupType : "BANK_LOGIN",
                   question:"",
                   mfa_access_token:"",
-                  errorMessage:null};
+                  errorMessage:null,
+                  buttonLoading:false,
+                  banksLoading: true};
   }
 
   componentWillMount() {
     BankServices.all().then((res) => {
       const banks = res.body;
-      this.setState({banks:banks});
+      this.setState({banks:banks, banksLoading:false});
     }).catch((err) => {
+      this.setState({banks:[], banksLoading:false});
       console.log(err);
     });
   }
@@ -41,16 +45,17 @@ class BankPage extends React.Component {
     if (searchTerm && searchTerm.length > 0) {
       BankServices.search(searchTerm).then((res) => {
         const banks = res.body;
-        console.log(banks);
-        this.setState({banks:banks});
+        this.setState({banks:banks, banksLoading:false});
       }).catch((err) => {
+        this.setState({banks:[], banksLoading:false});
         console.log(err);
       });
     } else {
       BankServices.all().then((res) => {
         const banks = res.body;
-        this.setState({banks:banks});
+        this.setState({banks:banks, banksLoading:false});
       }).catch((err) => {
+        this.setState({banks:[], banksLoading:false});
         console.log(err);
       });
     }
@@ -65,6 +70,7 @@ class BankPage extends React.Component {
   }
 
   bankLoginSubmitted(authInfo) {
+    this.setState({buttonLoading:true});
     BankServices.authenticate(authInfo).then((res) => {
       if (res.success) {
         if (res.additionalSteps) {
@@ -77,20 +83,26 @@ class BankPage extends React.Component {
           } else if (mfa.length >= 1) {
             question = mfa[0].question;
           }
-          this.setState({popupType:"BANK_QUESTION", question:question, mfa_access_token:mfa_access_token});
+          this.setState({buttonLoading:false,
+                         popupType:"BANK_QUESTION",
+                         question:question,
+                         mfa_access_token:mfa_access_token});
         } else {
           //success
+          this.setState({buttonLoading:false});
           this.props.router.push("/account");
           this.closePopup();
         }
       }
     }).catch((errorResponse) => {
       var errorMessage = errorResponse.error.message.message;
-      this.setState({errorMessage:errorMessage})
+      this.setState({errorMessage:errorMessage, buttonLoading:false,})
     });
+
   }
 
   answerSubmitted(answer, bank) {
+    this.setState({buttonLoading:true});
     var req = {answer:answer,
                access_token:this.state.mfa_access_token,
                bank_name:bank.name,
@@ -108,16 +120,17 @@ class BankPage extends React.Component {
           } else if (mfa.length >= 1) {
             question = mfa[0].question;
           }
-          this.setState({popupType:"BANK_QUESTION", question:question});
+          this.setState({popupType:"BANK_QUESTION", question:question, buttonLoading:false,});
         } else {
           //success
+          this.setState({buttonLoading:false});
           this.props.router.push("/account");
           this.closePopup();
         }
       }
     }).catch((errorResponse) => {
       var errorMessage = errorResponse.error.message.message;
-      this.setState({errorMessage:errorMessage})
+      this.setState({errorMessage:errorMessage, buttonLoading:false})
     });
   }
 
@@ -135,7 +148,8 @@ class BankPage extends React.Component {
                           bankLoginSubmitted = {this.bankLoginSubmitted.bind(this)}
                           answerSubmitted = {this.answerSubmitted.bind(this)}
                           question = {this.state.question}
-                          errorMessage = {this.state.errorMessage}/>
+                          errorMessage = {this.state.errorMessage}
+                          loading = {this.state.buttonLoading}/>
         }
           <div className = {styles.header}>
             <a href = {skipToPage} className = {styles.skipButton}>skip > </a>
@@ -160,7 +174,12 @@ class BankPage extends React.Component {
             <p>No. Spree only monitors your transactions to determine how much you’ve spent.</p>
           </div>
         </div>
-
+        {this.state.banksLoading &&
+          <div className = {styles.loaderContainer}>
+            <Loader  color={"#AC9456"} size="100px" margin="90px"/>
+          </div>
+        }
+        {!this.state.banksLoading &&
         <div className = {styles.banksContainer}>
           {banks.map((bank, index) => {
             return (
@@ -174,6 +193,7 @@ class BankPage extends React.Component {
           })}
 
         </div>
+      }
 
       </div>
     );
