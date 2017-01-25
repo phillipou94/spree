@@ -105,6 +105,7 @@ class AccountPage extends React.Component {
       if (user.ticket_purchase_amount) {
         totalBalance -= user.ticket_purchase_amount;
       }
+      weeks.reverse();
       this.setState({weeks:weeks, balance: totalBalance});
     });
   }
