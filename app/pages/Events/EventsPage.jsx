@@ -32,13 +32,14 @@ class EventsPage extends Component {
     this.state = {user:null,
                   events:[],
                   page:1,
-                  eventsWithinBudget:false,
+                  withinBudget:false,
                   headerState: HeaderStateEnum.DEFAULT,
                   searchTerm:"",
                   balance: 0.00,
                   city:"No Location Provided",
                   coordinates: null,
                   showLocationPopup: false,
+                  loadMore : true,
                   pending_ticket_id:null,
                   loading:true}
 
@@ -105,7 +106,7 @@ class EventsPage extends Component {
 
   getEventOptions(callback, withinBudget, searchTerm, location) {
     var options = {page : 1};
-    if (withinBudget) {
+    if (withinBudget || this.state.withinBudget) {
       options["budget"] = Math.floor(this.state.balance);
     }
     if (searchTerm && searchTerm.length) {
@@ -133,20 +134,20 @@ class EventsPage extends Component {
       if (options.searchTerm) {
         EventServices.search(options.searchTerm,options).then((res) => {
           self.setState({events:res.body,
-                        eventsWithinBudget:options.withinBudget,
                         location:location,
                         searchTerm:searchTerm,
                         page:1,
-                        loading:false});
+                        loading:false,
+                        loadMore:res.body.length > 0});
         });
       } else {
         EventServices.events(options).then((res) => {
           self.setState({events:res.body,
                         searchTerm:"",
-                        eventsWithinBudget:options.withinBudget,
                         location:location,
                         page:1,
-                        loading:false});
+                        loading:false,
+                        loadMore:res.body.length > 0});
       });
     }
   }, withinBudget, searchTerm, location);
@@ -163,21 +164,23 @@ getMoreEvents() {
         events = events.concat(res.body);
         self.setState({events:events,
                       searchTerm:options.searchTerm,
-                      eventsWithinBudget:options.withinBudget,
                       location:options.coordinates,
-                      page:page});
+                      page:page,
+                      loadMore:res.body.length > 0});
       });
     } else {
       EventServices.events(options).then((res) => {
         events = events.concat(res.body);
+        console.log(res.body.length)
+        console.log(res.body.length > 0)
         self.setState({events:events,
                        searchTerm:"",
-                       eventsWithinBudget:options.withinBudget,
                        location:location,
-                       page:page});
+                       page:page,
+                       loadMore:res.body.length > 0});
     });
   }
-}, this.state.eventsWithinBudget, this.state.searchTerm, this.state.coordinates);
+}, this.state.withinBudget, this.state.searchTerm, this.state.coordinates);
 
 }
 
@@ -189,11 +192,14 @@ getMoreEvents() {
 
   didSelectSwitch(side) {
     var withinBudget = side === "RIGHT";
-    if (this.state.searchTerm && this.state.searchTerm.length) {
-      this.getEvents(withinBudget,this.state.searchTerm);
-    } else {
-      this.getEvents(withinBudget);
-    }
+    var self = this;
+    this.setState({withinBudget:withinBudget}, () => {
+      if (this.state.searchTerm && this.state.searchTerm.length) {
+        this.getEvents(withinBudget,this.state.searchTerm);
+      } else {
+        this.getEvents(withinBudget);
+      }
+    });
   }
 
   showTooltip() {
@@ -255,7 +261,7 @@ getMoreEvents() {
       var city = res.body.location;
       self.setState({city:city, coordinates:coordinates});
     });
-    this.getEvents(this.state.eventsWithinBudget, this.state.searchTerm,coordinates);
+    this.getEvents(this.state.withinBudget, this.state.searchTerm,coordinates);
   }
 
   didEnterAddress(address) {
@@ -394,7 +400,7 @@ getMoreEvents() {
             className = {styles.eventsTable}
             pageStart={1}
             loadMore={this.getMoreEvents.bind(this)}
-            hasMore={this.state.headerState === HeaderStateEnum.DEFAULT}
+            hasMore={(this.state.headerState === HeaderStateEnum.DEFAULT && this.state.loadMore)}
             loader={<div className="loader">Loading ...</div>}>
             {eventCards}
         </InfiniteScroll>
