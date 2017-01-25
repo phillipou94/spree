@@ -8,6 +8,18 @@
   overflow:hidden;
 }
 
+.loadingHeader {
+  height:450px;
+  background:#121212;
+  position:relative;
+  overflow:hidden;
+  text-align: center;
+}
+
+.loaderContainer {
+  margin-top:120px;
+}
+
 .eventPhoto {
   width:640px;
   height:360px;

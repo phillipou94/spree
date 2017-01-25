@@ -16,6 +16,7 @@ class SignpPage extends React.Component {
       email:"",
       password:"",
       errorMessage:null,
+      loading:false,
     }
   }
 
@@ -32,11 +33,12 @@ class SignpPage extends React.Component {
     const name = this.state.name;
     const email = this.state.email;
     const password = this.state.password;
+    this.setState({loading:true});
     UserServices.signup(name, email, password).then((res) => {
       this.props.router.push("bank");
     }).catch((errorResponse) => {
       var errorMessage = errorResponse.error.message;
-      this.setState({errorMessage:errorMessage})
+      this.setState({errorMessage:errorMessage, loading:false});
     });
   }
 
@@ -57,7 +59,10 @@ class SignpPage extends React.Component {
             <input className = {styles.input} name='name' placeholder='Name' onChange={this.updateInputValue.bind(this)}/>
             <input className = {styles.input} name='email' placeholder='Email' onChange={this.updateInputValue.bind(this)}/>
             <input className = {styles.input} name='password' placeholder='Password' type='password' onChange={this.updateInputValue.bind(this)}/>
-            <Button title = {"Create an Account"} onClick = {this.signup.bind(this)}/>
+            <Button title = {"Create an Account"}
+                    onClick = {this.signup.bind(this)}
+                    loading = {this.state.loading}
+                    loadingColor = {"white"}/>
             <p>Already have an account? <a href = "/login"> Log in </a> </p>
           </div>
         </div>

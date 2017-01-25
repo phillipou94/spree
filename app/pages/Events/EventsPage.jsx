@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import styles from "./EventsPage.css";
 var TicketMaster = require("../../js/ticketmaster.js");
 var tm = new TicketMaster();
+var Loader = require('halogen/ClipLoader');
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
@@ -38,7 +39,8 @@ class EventsPage extends Component {
                   city:"No Location Provided",
                   coordinates: null,
                   showTooltip: false,
-                  pending_ticket_id:null}
+                  pending_ticket_id:null,
+                  loading:true}
 
   }
 
@@ -130,7 +132,8 @@ class EventsPage extends Component {
                         eventsWithinBudget:options.withinBudget,
                         location:location,
                         searchTerm:searchTerm,
-                        page:1});
+                        page:1,
+                        loading:false});
         });
       } else {
         EventServices.events(options).then((res) => {
@@ -138,7 +141,8 @@ class EventsPage extends Component {
                         searchTerm:"",
                         eventsWithinBudget:options.withinBudget,
                         location:location,
-                        page:1});
+                        page:1,
+                        loading:false});
       });
     }
   }, withinBudget, searchTerm, location);
@@ -266,16 +270,23 @@ getMoreEvents() {
                            balance = {this.state.balance}
                            showBalance = {true}
                            currentPage = {"Events"}
+                           loading = {this.state.loading}
       />
       <div className = {styles.header}>
         <div className = {styles.headerInfo}>
           <div className = {styles.headerTitleContainer}>
-            <h1>Discover and Book</h1>
+            {this.state.loading &&
+              <Loader color={"white"} size="100px" margin="90px"/>
+            }
+            {!this.state.loading &&
             <div>
-              <h1>{"Your Next Adventure in "} <span style = {{textDecoration: "underline", cursor:"pointer"}}>{this.state.city}</span></h1>
-              <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+              <h1>Discover and Book</h1>
+              <div>
+                <h1>{"Your Next Adventure in "} <span style = {{textDecoration: "underline", cursor:"pointer"}}>{this.state.city}</span></h1>
+                <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+              </div>
             </div>
-
+            }
           </div>
         </div>
         <img className = {styles.headerImage} src = {headerImage} />

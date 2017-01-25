@@ -30,13 +30,14 @@ class LoginPage extends React.Component {
   login() {
     const email = this.state.email;
     const password = this.state.password;
+    this.setState({loading:true})
     UserServices.login(email, password).then((res) => {
       var user = res.body.user;
       var path = user.bank_id && user.bank_id.length > 0 ? "" :  "bank";
       this.props.router.push(path);
     }).catch((errorResponse) => {
       var errorMessage = errorResponse.error.message;
-      this.setState({errorMessage:errorMessage})
+      this.setState({errorMessage:errorMessage, loading:false})
     });
   }
 
@@ -65,7 +66,10 @@ class LoginPage extends React.Component {
                    type='password'
                    onChange={this.updateInputValue.bind(this)}
             />
-            <Button title = {"Sign In"} onClick = {this.login.bind(this)}/>
+            <Button title = {"Sign In"}
+                    onClick = {this.login.bind(this)}
+                    loading = {this.state.loading}
+                    loadingColor = {"white"}/>
             <p>Don't have an account? <a href = "/signup"> Sign Up </a> </p>
           </div>
         </div>

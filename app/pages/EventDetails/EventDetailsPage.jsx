@@ -6,6 +6,7 @@ import styles from "./EventDetailsPage.css";
 var TicketMaster = require("../../js/ticketmaster.js");
 var tm = new TicketMaster();
 import time from "../../utils/time.js";
+var Loader = require('halogen/ClipLoader');
 
 import UserServices from "../../services/UserServices.js";
 import EventServices from "../../services/EventServices.js";
@@ -24,6 +25,7 @@ class EventDetailsPage extends Component {
                   event:null,
                   recommendations:[],
                   eventsWithinBudget:false,
+                  loading:true
                   }
 
   }
@@ -45,9 +47,9 @@ class EventDetailsPage extends Component {
         if (images && images.length) {
           event.featured_image = images[0].image;
         }
-        this.setState({event:event});
+        this.setState({event:event, loading:false});
       }).catch((err) => {
-        this.setState({event:event});
+        this.setState({event:event, loading:false});
       });
     });
     this.getRecommendations(event_id);
@@ -118,7 +120,10 @@ class EventDetailsPage extends Component {
                         searchTerm:"",
                         eventsWithinBudget:options.withinBudget,
                         location:location,
-                        page:1});
+                        page:1,
+                        });
+      }).catch((errorResponse) => {
+
       });
   }, withinBudget, searchTerm, location);
 }
@@ -196,19 +201,28 @@ class EventDetailsPage extends Component {
                            balance = {this.state.balance}
                            showBalance = {true}
                            currentPage = {"Events"}
+                           loading = {this.state.loading}
       />
+    {!this.state.event && this.state.loading &&
+      <div className = {styles.loadingHeader}>
+        <div className = {styles.loaderContainer}>
+          <Loader color={"white"} size="100px" margin="90px"/>
+        </div>
+      </div>
+    }
     {this.state.event &&
       <div className = {styles.header}>
 
-          <img src = {featured_image}
-               className = {styles.eventPhoto}/>
-        <div className = {styles.eventInfo}>
-          <h1>{event.title}</h1>
-          <p>{dateString}</p>
-          <p>{venueName}</p>
-          <p>{venueAddress}</p>
+          <div>
+            <img src = {featured_image}
+                 className = {styles.eventPhoto}/>
+            <div className = {styles.eventInfo}>
+              <h1>{event.title}</h1>
+              <p>{dateString}</p>
+              <p>{venueName}</p>
+              <p>{venueAddress}</p>
+           </div>
 
-       </div>
 
        <div className = {styles.headerButtonContainer}>
          <button className = {styles.buyButton}
@@ -219,8 +233,10 @@ class EventDetailsPage extends Component {
            <img src = {heartIcon} className = {styles.heartIcon}/>
          </div>
        </div>
+     </div>
+
       </div>
-    }
+         }
       <div className = {styles.secondaryHeader}>
         <p className = {styles.headerDescription}>{"Similar Events"}</p>
         <div className = {styles.switch}>

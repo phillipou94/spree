@@ -24,7 +24,9 @@ class NavbarAuthenticated extends Component {
     var title = this.props.showBalance ? "$ "+this.props.balance+" saved" : "Spree";
     return (
       <div className = {styles.Navbar} style = {{background:background}}>
-        <a href ="/"><p className = {styles.header} style = {{color:color}}>{title}</p></a>
+        {!this.props.loading &&
+          <a href ="/"><p className = {styles.header} style = {{color:color}}>{title}</p></a>
+        }
         {! this.props.hideLinks &&
           <div className = {styles.links}>
             <a href ="/" ><p style = {this.getLinkStyle("Events")}>Events</p></a>
