@@ -41,6 +41,7 @@ class EventDetailsPage extends Component {
     });
     var event_id = this.props.params.event_id;
     EventServices.event(event_id).then((res) => {
+      console.log(res);
       var event = res.body;
       EventServices.images([event]).then((res) => {
         var images = res.body;
@@ -48,9 +49,11 @@ class EventDetailsPage extends Component {
           event.featured_image = images[0].image;
         }
         this.setState({event:event, loading:false});
-      }).catch((err) => {
-        this.setState({event:event, loading:false});
+      }).catch((errorResponse) => {
+        this.setState({loading:false});
       });
+    }).catch((errorResponse) => {
+      this.setState({loading:false});
     });
     this.getRecommendations(event_id);
   }
@@ -123,7 +126,8 @@ class EventDetailsPage extends Component {
                         page:1,
                         });
       }).catch((errorResponse) => {
-
+        console.log("recommendations");
+        console.log(errorResponse);
       });
   }, withinBudget, searchTerm, location);
 }
@@ -208,6 +212,16 @@ class EventDetailsPage extends Component {
         <div className = {styles.loaderContainer}>
           <Loader color={"white"} size="100px" margin="90px"/>
         </div>
+      </div>
+    }
+    {!this.state.event && !this.state.loading &&
+      <div className = {styles.loadingHeader}>
+        <div className = {styles.errorText}>
+          <h2>Sorry, this event isn't available</h2>
+          <p>The link you followed may be broken, or the event may have been removed.</p>
+          <a href = "/">Explore Other Events</a>
+        </div>
+
       </div>
     }
     {this.state.event &&

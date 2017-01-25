@@ -27,18 +27,22 @@ var Event = (function(EventModel) {
   that = {};
   var parse = function(seatGeekObject) {
     var event = new EventModel();
-    event.title = seatGeekObject.title;
-    event.type = seatGeekObject.type;
-    event.low_price = seatGeekObject.stats.lowest_price;
-    event.high_price = seatGeekObject.stats.highest_price;
-    event.average_price = seatGeekObject.stats.average_price;
-    event.time_tbd = seatGeekObject.time_tbd;
-    event.date_tbd = seatGeekObject.date_tbd;
-    event.date = seatGeekObject.datetime_local;
-    event.url = seatGeekObject.url;
-    event.venue = seatGeekObject.venue;
-    event.performers = seatGeekObject.performers;
-    event.seatgeek_id = seatGeekObject.id;
+    if (seatGeekObject) {
+      event.title = seatGeekObject.title;
+      event.type = seatGeekObject.type;
+      event.time_tbd = seatGeekObject.time_tbd;
+      event.date_tbd = seatGeekObject.date_tbd;
+      event.date = seatGeekObject.datetime_local;
+      event.url = seatGeekObject.url;
+      event.venue = seatGeekObject.venue;
+      event.performers = seatGeekObject.performers;
+      event.seatgeek_id = seatGeekObject.id;
+      if (seatGeekObject.stats) {
+        event.low_price = seatGeekObject.stats.lowest_price;
+        event.high_price = seatGeekObject.stats.highest_price;
+        event.average_price = seatGeekObject.stats.average_price;
+      }
+    }
     return event;
   }
 
@@ -64,10 +68,13 @@ var Event = (function(EventModel) {
 
   that.getEvent = function(seatgeek_id, callback) {
     seatgeek.event(seatgeek_id, function(error, response) {
+      var responseBody = JSON.parse(response.body);
       if (error) {
-        callback(error, []);
+        callback(error, null);
+      } else if (responseBody.status === "error") {
+        callback(responseBody, null)
       } else {
-        var event = JSON.parse(response.body);
+        var event = responseBody;
         callback(error,parse(event));
       }
     })
@@ -75,12 +82,16 @@ var Event = (function(EventModel) {
 
   that.recommendations = function(seatgeek_id, options, callback) {
     seatgeek.recommendations(seatgeek_id, options, function(error, response) {
+      var responseObject = JSON.parse(response.body);
       if (error) {
         callback(error, []);
+      } else if (responseObject.status === "error") {
+        callback(response.body, []);
+      } else if (responseObject.status === 400) {
+        callback(response.body, []);
       } else {
-        var responseBody = JSON.parse(response.body);
-        if (responseBody.recommendations) {
-          var events = responseBody.recommendations.map(function(obj){
+        if (responseObject.recommendations) {
+          var events = responseObject.recommendations.map(function(obj){
             return parse(obj.event);
           });
           callback(error,events);
@@ -114,8 +125,6 @@ var Event = (function(EventModel) {
 
   that.saveToWishlist = function(user_id, eventObject, callback) {
     var event = new EventModel();
-    console.log("EVENT OBJECT");
-    console.log(eventObject);
     event.title = eventObject.title;
     event.type = eventObject.type;
     event.low_price = eventObject.low_price;
@@ -136,10 +145,9 @@ var Event = (function(EventModel) {
 
 
   that.getWishlist = function(user_id, callback) {
-    EventModel.find({user_id:user_id}).exec(function(err, weeks) {
-      console.log(weeks);
+    EventModel.find({user_id:user_id}).exec(function(err, events) {
         if(!err) {
-          callback(null, weeks);
+          callback(null, events);
         } else {
           callback(err, null);
         }

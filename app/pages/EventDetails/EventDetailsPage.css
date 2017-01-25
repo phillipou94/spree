@@ -15,6 +15,16 @@
   overflow:hidden;
   text-align: center;
 }
+.errorText {
+  margin-top:120px;
+}
+.errorText p, .errorText h2, .errorText a {
+  color:white;
+}
+
+.errorText a {
+  text-decoration:underline;
+}
 
 .loaderContainer {
   margin-top:120px;

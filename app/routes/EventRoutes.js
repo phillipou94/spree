@@ -37,7 +37,7 @@ router.get("/seatgeek_id=:seatgeek_id", function(req, res) {
     if (!error) {
       utils.sendSuccessResponse(res,event);
     } else {
-      utils.sendErrorResponse(res, 500, events);
+      utils.sendErrorResponse(res, 500, event);
     }
   });
 });
