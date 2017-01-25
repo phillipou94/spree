@@ -38,7 +38,7 @@ class EventsPage extends Component {
                   balance: 0.00,
                   city:"No Location Provided",
                   coordinates: null,
-                  showTooltip: false,
+                  showLocationPopup: false,
                   pending_ticket_id:null,
                   loading:true}
 
@@ -107,16 +107,20 @@ class EventsPage extends Component {
     var options = {page : 1};
     if (withinBudget) {
       options["budget"] = Math.floor(this.state.balance);
-
     }
     if (searchTerm && searchTerm.length) {
       options["searchTerm"] = searchTerm;
     }
     if (!location) {
-      this.getLocation(function(coordinates){
-        options["coordinates"] = coordinates;
+      if (this.state.coordinates) {
+        options["coordinates"] = this.state.coordinates;
         callback(options);
-      });
+      } else {
+        this.getLocation(function(coordinates){
+          options["coordinates"] = coordinates;
+          callback(options);
+        });
+      }
     } else {
       options["coordinates"] = location;
       callback(options);
@@ -236,6 +240,23 @@ getMoreEvents() {
     });
   }
 
+  showLocationPopup() {
+    this.setState({showLocationPopup:true});
+  }
+
+  closeLocationPopup() {
+    this.setState({showLocationPopup:false});
+  }
+
+  didSelectLocation(coordinates, city) {
+    this.setState({coordinates:coordinates, city:city, showLocationPopup:false});
+    var self = this;
+    UserServices.updateCity(coordinates).then((res) => {
+      var city = res.body.location;
+      self.setState({city:city, coordinates:coordinates});
+    });
+    this.getEvents(this.state.eventsWithinBudget, this.state.searchTerm,coordinates);
+  }
 
   render() {
     var headerImage = 'https://static.pexels.com/photos/29021/pexels-photo-29021.jpg';
@@ -266,6 +287,11 @@ getMoreEvents() {
                           denyTicketPurchase = {this.denyTicketPurchase.bind(this)}
                           />
         }
+        {this.state.showLocationPopup &&
+          <PopupConductor type = {"LOCATION"}
+                          closePressed = {this.closeLocationPopup.bind(this)}
+                          didSelectLocation = {this.didSelectLocation.bind(this)}/>
+        }
       <TransparentNavbarAuthenticated   opacity = {navbarOpacity}
                            balance = {this.state.balance}
                            showBalance = {true}
@@ -282,8 +308,12 @@ getMoreEvents() {
             <div>
               <h1>Discover and Book</h1>
               <div>
-                <h1>{"Your Next Adventure in "} <span style = {{textDecoration: "underline", cursor:"pointer"}}>{this.state.city}</span></h1>
-                <img className = {styles.dropdownIndicator} src = {dropdownIndicator} />
+                <h1>{"Your Next Adventure in "}
+                   <span style = {{textDecoration: "underline", cursor:"pointer"}}
+                         onClick = {this.showLocationPopup.bind(this)}>{this.state.city}</span></h1>
+                <img className = {styles.dropdownIndicator}
+                     onClick = {this.showLocationPopup.bind(this)}
+                     src = {dropdownIndicator} />
               </div>
             </div>
             }

@@ -5,13 +5,13 @@ import styles from "./PopupConductor.css";
 
 import BankLoginPopup from "./BankLoginPopup/BankLoginPopup.jsx"
 import BankQuestionPopup from "./BankQuestionPopup/BankQuestionPopup.jsx"
+import LocationPopup from "./LocationPopup/LocationPopup.jsx"
 import SetBudgetPopup from "./SetBudgetPopup/SetBudgetPopup.jsx"
 import TicketConfirmationPopup from "./TicketConfirmationPopup/TicketConfirmationPopup.jsx"
 
 class PopupConductor extends Component {
 
   getPopup(type) {
-    console.log(type);
     switch (type) {
        case 'BANK_LOGIN':
          return <BankLoginPopup {...this.props}/>;  //pass all props
@@ -21,6 +21,8 @@ class PopupConductor extends Component {
          return <SetBudgetPopup {...this.props}/>;
         case 'TICKET':
           return <TicketConfirmationPopup {...this.props}/>;
+        case 'LOCATION':
+          return <LocationPopup {...this.props} />;
        default:
          return null;
      }
