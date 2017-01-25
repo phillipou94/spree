@@ -71,6 +71,17 @@ router.post('/wishlist', function(req, res) {
   });
 });
 
+router.delete('/wishlist/delete/:event_id', function(req, res) {
+  var event_id = req.params.event_id;
+  Event.delete(event_id, function(error, event) {
+    if (!error) {
+      utils.sendSuccessResponse(res,event);
+    } else {
+      utils.sendErrorResponse(res, 500, event);
+    }
+  })
+});
+
 router.get("/wishlist", function(req, res) {
   Event.getWishlist(req.session.user._id, function(error, events){
     if (!error) {

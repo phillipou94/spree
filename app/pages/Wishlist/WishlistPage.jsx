@@ -48,21 +48,21 @@ class WishlistPage extends Component {
   }
 
   removeFromWishList(indexToRemove) {
-    console.log(indexToRemove);
     var event = this.state.events[indexToRemove];
     var events = this.state.events;
     var newWishlist = events.filter(function(_,index) {
 	     return index !== indexToRemove;
      });
     this.setState({events:newWishlist});
+    EventServices.removeFromWishlist(event._id).then((res) => {
+      console.log(res);
+    });
   }
 
 
   render() {
     var user = this.state.user;
     var events = this.state.events;
-    console.log("RENDER!!");
-    console.log(events);
     var balance = this.state.balance;
     var isSearching = this.state.searchTerm && this.state.searchTerm.length > 0;
     var self = this;

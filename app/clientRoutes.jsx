@@ -38,7 +38,7 @@ export default(
       <IndexRoute component={EventsPage} onEnter={authCheck}/>
       <Route path = "/event/:event_id" component = {EventDetailsPage} onEnter={authCheck} />
       <Route path="landing" component={LandingPage} />
-      <Route path="wishlist" component={WishlistPage} />
+      <Route path="wishlist" component={WishlistPage} onEnter={authCheck}/>
       <Route path="signup" component={SignupPage} />
       <Route path="login" component={LoginPage} />
       <Route path="bank" component={BankPage} onEnter={authCheck}/>

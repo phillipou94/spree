@@ -143,6 +143,16 @@ var Event = (function(EventModel) {
     });
   }
 
+  that.delete = function(event_id, callback) {
+    EventModel.find({_id:event_id }).remove().exec(function(err, event) {
+      if(!err) {
+        callback(null, event);
+      } else {
+        callback(err, null);
+      }
+    });
+  }
+
 
   that.getWishlist = function(user_id, callback) {
     EventModel.find({user_id:user_id}).exec(function(err, events) {

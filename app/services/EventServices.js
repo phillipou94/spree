@@ -62,6 +62,14 @@ export default {
     });
   },
 
+  removeFromWishlist : (event_id) => {
+    return request({
+      uri : BASE_URL+"/wishlist/delete/"+event_id,
+      method: 'DELETE',
+      json : true
+    });
+  },
+
   wishlist : () => {
     return request({
       uri : BASE_URL+"/wishlist",
