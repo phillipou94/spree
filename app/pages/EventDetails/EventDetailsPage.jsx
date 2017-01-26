@@ -50,7 +50,7 @@ class EventDetailsPage extends Component {
         }
         this.setState({event:event, loading:false});
       }).catch((errorResponse) => {
-        this.setState({loading:false});
+        this.setState({event:event, loading:false});
       });
     }).catch((errorResponse) => {
       this.setState({loading:false});
@@ -134,6 +134,7 @@ class EventDetailsPage extends Component {
 
   didClickEvent(e) {
     var event = e;
+    this.props.router.push("/event/"+e.seatgeek_id);
     this.getRecommendations(event.seatgeek_id);
     EventServices.event(event.seatgeek_id).then((res) => {
       var newEvent = res.body;
