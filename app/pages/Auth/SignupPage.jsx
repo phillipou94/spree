@@ -29,7 +29,8 @@ class SignpPage extends React.Component {
     });
   }
 
-  signup() {
+  signup(event) {
+    event.preventDefault();
     const name = this.state.name;
     const email = this.state.email;
     const password = this.state.password;
@@ -56,6 +57,7 @@ class SignpPage extends React.Component {
           </div>
           </a>
           <div className = {styles.inputs}>
+            <form onSubmit = {this.signup.bind(this)}>
             <input className = {styles.input} name='name' placeholder='Name' onChange={this.updateInputValue.bind(this)}/>
             <input className = {styles.input} name='email' placeholder='Email' onChange={this.updateInputValue.bind(this)}/>
             <input className = {styles.input} name='password' placeholder='Password' type='password' onChange={this.updateInputValue.bind(this)}/>
@@ -63,6 +65,7 @@ class SignpPage extends React.Component {
                     onClick = {this.signup.bind(this)}
                     loading = {this.state.loading}
                     loadingColor = {"white"}/>
+            </form>
             <p>Already have an account? <a href = "/login"> Log in </a> </p>
           </div>
         </div>

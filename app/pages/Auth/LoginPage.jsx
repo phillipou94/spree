@@ -27,7 +27,8 @@ class LoginPage extends React.Component {
     });
   }
 
-  login() {
+  login(event) {
+    event.preventDefault();
     const email = this.state.email;
     const password = this.state.password;
     this.setState({loading:true})
@@ -55,21 +56,23 @@ class LoginPage extends React.Component {
           </div>
           </a>
           <div className = {styles.inputs}>
-            <input className = {styles.input}
-                   name='email'
-                   placeholder='Email'
-                   onChange={this.updateInputValue.bind(this)}
-            />
-            <input className = {styles.input}
-                   name='password'
-                   placeholder='Password'
-                   type='password'
-                   onChange={this.updateInputValue.bind(this)}
-            />
-            <Button title = {"Sign In"}
-                    onClick = {this.login.bind(this)}
-                    loading = {this.state.loading}
-                    loadingColor = {"white"}/>
+            <form onSubmit = {this.login.bind(this)}>
+              <input className = {styles.input}
+                     name='email'
+                     placeholder='Email'
+                     onChange={this.updateInputValue.bind(this)}
+              />
+              <input className = {styles.input}
+                     name='password'
+                     placeholder='Password'
+                     type='password'
+                     onChange={this.updateInputValue.bind(this)}
+              />
+              <Button title = {"Sign In"}
+                      onClick = {this.login.bind(this)}
+                      loading = {this.state.loading}
+                      loadingColor = {"white"}/>
+            </form>
             <p>Don't have an account? <a href = "/signup"> Sign Up </a> </p>
           </div>
         </div>
