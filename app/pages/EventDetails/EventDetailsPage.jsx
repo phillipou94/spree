@@ -240,11 +240,16 @@ class EventDetailsPage extends Component {
                    onClick= {this.buyTicket.bind(this)}>
                    {"Buy $"+event.low_price}</button>
           }
-          <div className = {styles.wishListButton}
+          {!(this.state.balance > event.low_price) &&
+            <div className = {styles.disabledBuyButton}>
+              <p>{"Not Enough Saved to Purchase"}</p>
+            </div>
+           }
+          <button className = {styles.wishListButton}
                style = {wishListButtonStyle}
                onClick= {this.saveToWishlist.bind(this)}>
-           <p>{this.state.addedToWishlist ? "Added to wishlist" : "Add to wishlist"}</p>
-         </div>
+           {this.state.addedToWishlist ? "Added to wishlist" : "Add to wishlist"}
+         </button>
        </div>
      </div>
 

@@ -59,21 +59,13 @@
 }
 
 .wishListButton {
-  height: 30px;
+  height: 40px;
   width:150px;
   display:inline-block;
   cursor:pointer;
-  padding-top:10px;
   border-radius:10px;
-}
-
-.wishListButton p {
-  margin:0;
   color:white;
   font-size:15px;
-  text-align:center;
-  width:100%;
-  display:inline-block;
 }
 
 
@@ -90,8 +82,29 @@
   weight:700;
   margin-top:10px;
   width:200px;
-
 }
+
+.disabledBuyButton {
+  height: 30px;
+  display:inline-block;
+  cursor:pointer;
+  padding-top:10px;
+  border-radius:10px;
+  background:grey;
+  padding-left:10px;
+  padding-right:10px;
+  margin-right:10px;
+}
+
+.disabledBuyButton p {
+  margin:0;
+  color:white;
+  font-size:15px;
+  text-align:center;
+  width:100%;
+  display:inline-block;
+}
+
 
 .headerTitleContainer {
   text-align:center;
