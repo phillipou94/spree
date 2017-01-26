@@ -1,7 +1,7 @@
 var dev = 'http://localhost:3000/api/weeks';
-var prod = 'https://enigmatic-mesa-53717.herokuapp.com/api/weeks';
+var prod = 'https://spree-save.herokuapp.com/api/weeks';
 
-const BASE_URL =  dev;
+const BASE_URL =  prod;
 
 var request = require('request-promise-native');
 

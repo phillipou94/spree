@@ -1,6 +1,6 @@
 # Spree
 
-https://enigmatic-mesa-53717.herokuapp.com/
+https://spree-save.herokuapp.com/
 
 # Bank Authentication
 During user signup, if you are uncomfortable entering your own personal banking information,
