@@ -35,8 +35,6 @@ router.get('/ticket/:ticket_id', function(req,res) {
 });
 
 router.get('/purchased', function(req,res) {
-  console.log("HITS ROUTER!");
-  console.log(req.session.user._id);
   Ticket.findTicketsFromUser(req.session.user._id, function(error, tickets) {
     if (error) {
       console.log(error);

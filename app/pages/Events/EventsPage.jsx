@@ -49,6 +49,7 @@ class EventsPage extends Component {
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
+      console.log(balance);
       if (user) {
         this.setState({user:user, balance: balance,pending_ticket_id:user.pending_ticket_id});
       }
@@ -171,8 +172,6 @@ getMoreEvents() {
     } else {
       EventServices.events(options).then((res) => {
         events = events.concat(res.body);
-        console.log(res.body.length)
-        console.log(res.body.length > 0)
         self.setState({events:events,
                        searchTerm:"",
                        location:location,
@@ -193,6 +192,10 @@ getMoreEvents() {
   didSelectSwitch(side) {
     var withinBudget = side === "RIGHT";
     var self = this;
+    if (withinBudget && this.state.balance < 0.01) {
+      this.setState({events:[]});
+      return;
+    };
     this.setState({withinBudget:withinBudget}, () => {
       if (this.state.searchTerm && this.state.searchTerm.length) {
         this.getEvents(withinBudget,this.state.searchTerm);
@@ -234,7 +237,7 @@ getMoreEvents() {
     TicketServices.confirmPurchase(ticket, balance).then((res) => {
       var user = res.body.user;
       var ticket = res.body.ticket;
-      var newBalance = Math.max(0,this.state.balance - ticket.price);
+      var newBalance = this.state.balance - ticket.price;
       this.setState({user:user, balance:new Number(newBalance).toFixed(2)});
     });
   }

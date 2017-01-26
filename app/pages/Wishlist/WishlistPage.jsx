@@ -82,6 +82,9 @@ class WishlistPage extends Component {
                         onClick = {() => {self.didClickEvent(event);}}/>
     });
 
+    var subHeaderMessage = events.length > 0 ?   "You can afford "+itemsCanBuy+" events" :
+                                                 "You do not have any events on your wishlist :'("
+
     return (
       <div>
         <NavbarAuthenticated currentPage = {"Wishlist"}
@@ -91,7 +94,7 @@ class WishlistPage extends Component {
       {user &&
         <div className = {styles.titleHeader}>
           <h1 className = {styles.wishlistTitle}>{user.name + "'s Wishlist"}</h1>
-          <p>{"You can afford "+itemsCanBuy+" events"}</p>
+          <p>{subHeaderMessage}</p>
         </div>
       }
       {eventCards.length > 0 &&
