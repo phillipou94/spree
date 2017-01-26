@@ -255,13 +255,14 @@ getMoreEvents() {
   }
 
   didSelectLocation(coordinates, city) {
-    this.setState({coordinates:coordinates, city:city, showLocationPopup:false});
+    this.setState({coordinates:coordinates, city:city, showLocationPopup:false, loading:true});
     var self = this;
     UserServices.updateCity(coordinates).then((res) => {
-      var city = res.body.location;
-      self.setState({city:city, coordinates:coordinates});
+      self.getEvents(self.state.withinBudget, self.state.searchTerm, coordinates);
+      self.setState({city:city, coordinates:coordinates, loading:false});
+    }).catch((error) => {
+      self.setState({loading:false});
     });
-    this.getEvents(this.state.withinBudget, this.state.searchTerm,coordinates);
   }
 
   didEnterAddress(address) {
@@ -270,7 +271,6 @@ getMoreEvents() {
     UserServices.coordinatesFromAddress(address).then((res) => {
       var coordinates = res.body;
       UserServices.updateCity(coordinates).then((res) => {
-        console.log(res);
         var city = res.body.location;
         self.getEvents(self.state.withinBudget, self.state.searchTerm, coordinates);
         self.setState({city:city, coordinates:coordinates, loading:false});
