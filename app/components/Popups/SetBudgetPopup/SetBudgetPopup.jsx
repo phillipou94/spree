@@ -24,12 +24,14 @@ class SetBudgetPopup extends Component {
     var amount = value;
     amount = amount.replace("$", "");
     amount = amount.replace(" ","");
+    amount = amount.replace(",","");
     this.setState({amount:amount});
   }
 
   submitClicked() {
     var amount = this.state.amount.replace("$", "");
     amount = amount.replace(" ","");
+    amount = amount.replace(",","");
     this.props.budgetSubmitted(amount);
   }
 
