@@ -4,14 +4,17 @@ var TicketMaster = require("../app/js/ticketmaster.js");
 
 var User = require("../app/models/User.js");
 var Event = require("../app/models/Event.js");
+var Bank = require("../app/models/Bank.js");
 var SeatGeek = require("../app/js/seatgeek.js");
 var seatgeek = SeatGeek();
 const request = require('request');
 
 var test = function() {
 
-  User.findById("587b96388667101c4400df1d", function(err, events) {
-    console.log(events);
+  var bank_body = {username : "#BANK_DEMO"};
+  Bank.authenticate({_id:"5887be1beb0e7a0953066a6a"}, bank_body, function(error,user) {
+    console.log(error);
+    console.log(user);
   });
   var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
   // Event.getTicketMasterImages(events, function(error, images) {

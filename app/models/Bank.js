@@ -5,8 +5,11 @@ var PLAID_ID = process.env.PLAID_CLIENT_ID;
 var PLAID_SECRET = process.env.PLAID_SECRET;
 const PLAID_ENV = plaid.environments.tartan; //TODO: CHANGE THIS WHEN WE'RE IN PRODUCTION
 var plaidClient = new plaid.Client(PLAID_ID, PLAID_SECRET, PLAID_ENV);
+const DEMO_BANK_LOGIN = "#BANK_DEMO";
 
 var User = require('./User');
+
+var DemoAccountCreator = require("../js/demo_login.js");
 
 const LOGO_MAP = {
   "amex":"http://logo.clearbit.com/americanexpress.com",
@@ -59,26 +62,37 @@ Bank.authenticate = function(user, body, callback) {
   const type = body.type;
   const username = body.username;
   const password = body.password;
-  plaidClient.addConnectUser(type, {username: username, password: password}, function(err, mfaResponse, response) {
-    if (err != null) {
-      // Bad request - invalid credentials, account locked, etc.
-      callback(err,null, null);
-    } else if (mfaResponse != null) {
-      callback(null,mfaResponse,null);
-    } else {
-      var bankInfo = {
-        bank_name : body.bank_name,
-        bank_id : body.bank_id,
-        plaid_access_token : response.access_token
+  if (username === DEMO_BANK_LOGIN) {
+    var demoAccountCreator = new DemoAccountCreator(user._id);
+    demoAccountCreator.update(function(error, user) {
+      if (!error) {
+        callback(error,null,user);
+      } else {
+        callback(error,null,null);
       }
-      User.updateBankInformation(user._id, bankInfo, function(err, user) {
-        user.bank_name = bankInfo.bank_name;
-        user.bank_id = bankInfo.bank_id;
-        user.plaid_access_token = bankInfo.plaid_access_token;
-        callback(err,null, user);
-      });
-    }
-  });
+    });
+  } else {
+    plaidClient.addConnectUser(type, {username: username, password: password}, function(err, mfaResponse, response) {
+      if (err != null) {
+        // Bad request - invalid credentials, account locked, etc.
+        callback(err,null, null);
+      } else if (mfaResponse != null) {
+        callback(null,mfaResponse,null);
+      } else {
+        var bankInfo = {
+          bank_name : body.bank_name,
+          bank_id : body.bank_id,
+          plaid_access_token : response.access_token
+        }
+        User.updateBankInformation(user._id, bankInfo, function(err, user) {
+          user.bank_name = bankInfo.bank_name;
+          user.bank_id = bankInfo.bank_id;
+          user.plaid_access_token = bankInfo.plaid_access_token;
+          callback(err,null, user);
+        });
+      }
+    });
+  }
 };
 
 Bank.answerSecurityQuestion = function(user, body, callback) {
