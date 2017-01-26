@@ -25,7 +25,8 @@ class EventDetailsPage extends Component {
                   event:null,
                   recommendations:[],
                   eventsWithinBudget:false,
-                  loading:true
+                  loading:true,
+                  addedToWishlist:false
                   }
 
   }
@@ -160,7 +161,11 @@ class EventDetailsPage extends Component {
 
   saveToWishlist() {
     var event = this.state.event;
-    EventServices.saveToWishlist(event);
+    if (!this.state.addedToWishlist) {
+      EventServices.saveToWishlist(event);
+    }
+    this.setState({addedToWishlist:true});
+
   }
 
   render() {
@@ -174,7 +179,7 @@ class EventDetailsPage extends Component {
                         balance = {balance}
                         onClick = {() => {self.didClickEvent(event);}}/>
     });
-    var heartIcon = require("../../assets/Heart.svg");
+
     if (this.state.event) {
       var event = this.state.event;
       var eventTime = time.timeString(new Date(event.date));
@@ -185,6 +190,9 @@ class EventDetailsPage extends Component {
       var venueAddress = venue.address + ", "+venue.extended_address;
       var featured_image = event.featured_image ? event.featured_image : event.performers[0].image;
     }
+
+    var wishListButtonStyle = {background : this.state.addedToWishlist ? "#E52F4F" : "none",
+                               border: this.state.addedToWishlist ? "none" : "1px solid white"};
 
 
     return (
@@ -226,14 +234,16 @@ class EventDetailsPage extends Component {
               <p>{venueAddress}</p>
            </div>
 
-
        <div className = {styles.headerButtonContainer}>
-         <button className = {styles.buyButton}
-                 onClick= {this.buyTicket.bind(this)}>
-                 {"Buy $"+event.low_price}</button>
-               <div className = {styles.wishListButton} onClick= {this.saveToWishlist.bind(this)}>
+         {this.state.balance > event.low_price &&
+           <button className = {styles.buyButton}
+                   onClick= {this.buyTicket.bind(this)}>
+                   {"Buy $"+event.low_price}</button>
+          }
+          <div className = {styles.wishListButton}
+               style = {wishListButtonStyle}
+               onClick= {this.saveToWishlist.bind(this)}>
            <p>Add to wishlist</p>
-           <img src = {heartIcon} className = {styles.heartIcon}/>
          </div>
        </div>
      </div>

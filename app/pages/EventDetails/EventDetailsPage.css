@@ -36,13 +36,13 @@
   margin-top:60px;
   margin-left:70px;
   display:inline-block;
+  margin-right:30px;
   float:left;
 }
 
 .eventInfo {
   margin-top:150px;
   display:inline-block;
-  margin-left:30px;
 }
 
 .eventInfo p, .eventInfo h1 {
@@ -59,31 +59,30 @@
 }
 
 .wishListButton {
+  height: 30px;
+  width:150px;
   display:inline-block;
   cursor:pointer;
+  padding-top:10px;
+  border-radius:10px;
 }
 
 .wishListButton p {
   margin:0;
-  margin-left:10px;
   color:white;
+  font-size:15px;
+  text-align:center;
+  width:100%;
   display:inline-block;
 }
 
-.wishListButton img  {
-  width:20px;
-  height:20px;
-  margin-left:5px;
-  display:inline-block;
-}
 
 .buyButton {
   display:inline-block;
-  margin-left:30px;
   background-color: #AC9456;
   color:white;
   height:40px;
-  border-radius:15px;
+  border-radius:10px;
   padding-left:20px;
   padding-right:20px;
   margin-right:10px;
