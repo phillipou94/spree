@@ -4,8 +4,8 @@ var time = require("../utils/time.js");
 
 const DEMO_BANK_LOGIN = "#BANK_DEMO";
 
-var DemoAccountCreator = function(user_id) {
-  var that = Object.create(DemoAccountCreator.prototype);
+var DemoAccount = function(user_id) {
+  var that = Object.create(DemoAccount.prototype);
   that.update = function(callback) {
     var bankInfo = {
       bank_name : DEMO_BANK_LOGIN,
@@ -24,7 +24,27 @@ var DemoAccountCreator = function(user_id) {
         callback(error, null);
       }
     });
+  }
 
+  that.transactions = function(date) {
+    return [
+      transaction(15.37,"13","CLOVER",date),
+      transaction(28.72, "13", "BAR MEZZANNA",date),
+      transaction(10.31, "26", "VENMO DES:PAYMENT ID:XXXXX4349",date),
+      transaction(4.03, "27", "UBER POOL",date),
+      transaction(18.25, "17", "MOVIE REGAL FENWAY", date),
+      transaction(2.00, "26", "VENMO DES:PAYMENT ID:XXXXX4389",date),
+      transaction(9.69, "13", "POKI GO MONTEBELLO CA", date),
+      transaction(39.01, "19", "PRIMARK BOSTON MA", date),
+    ];
+  }
+
+  var transaction = function(amount, category_id, name, date) {
+    var transactionDate = new Date();
+    if (date.getDay() !== 1) {
+      transactionDate.setDate(date.getDate() - 1);
+    }
+    return {amount:amount, category_id:category_id, name:name, date:transactionDate, type:{primary:"demo"}}
   }
 
   var createPreviousWeek = function(user_id, success) {
@@ -51,4 +71,4 @@ var DemoAccountCreator = function(user_id) {
   return that;
 }
 
-module.exports = DemoAccountCreator;
+module.exports = DemoAccount;

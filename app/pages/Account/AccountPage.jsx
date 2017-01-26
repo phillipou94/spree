@@ -71,6 +71,7 @@ class AccountPage extends React.Component {
     var now = new Date();
     var start_of_week = time.getNearestMondayBeforeDate(now);
     BankServices.getTransactions(start_of_week, now).then((res) => {
+      console.log(res.body);
       var transactions = TransactionUtils.filter(res.body);
       var spentThisWeek = TransactionUtils.calculateTotal(transactions);
       this.setState({transactions:transactions, spentThisWeek:spentThisWeek});
@@ -129,7 +130,6 @@ class AccountPage extends React.Component {
 
   transactionItems(transactions) {
     return transactions.map(function(transaction, index){
-
       return (
         <div key = {transaction._id}>
           <TransactionItem transaction = {transaction}/>

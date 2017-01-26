@@ -9,7 +9,7 @@ const DEMO_BANK_LOGIN = "#BANK_DEMO";
 
 var User = require('./User');
 
-var DemoAccountCreator = require("../js/demo_login.js");
+var DemoAccount = require("../js/demo_account.js");
 
 const LOGO_MAP = {
   "amex":"http://logo.clearbit.com/americanexpress.com",
@@ -63,8 +63,8 @@ Bank.authenticate = function(user, body, callback) {
   const username = body.username;
   const password = body.password;
   if (username === DEMO_BANK_LOGIN) {
-    var demoAccountCreator = new DemoAccountCreator(user._id);
-    demoAccountCreator.update(function(error, user) {
+    var demoAccount = new DemoAccount(user._id);
+    demoAccount.update(function(error, user) {
       if (!error) {
         callback(error,null,user);
       } else {
@@ -121,15 +121,21 @@ Bank.answerSecurityQuestion = function(user, body, callback) {
 };
 
 Bank.getTransactions = function(user, startDate, endDate, callback) {
-  plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
-    if (response) {
-      var transactions = response.transactions;
-      callback(err,transactions);
-    } else {
-      callback(err, []);
-    }
+  if (user.plaid_access_token === DEMO_BANK_LOGIN) {
+    var demoAccount = new DemoAccount(user._id);
+    var transactions = demoAccount.transactions(new Date());
+    callback(null,transactions);
+  } else {
+    plaidClient.getConnectUser(user.plaid_access_token, {gte: startDate, lte: endDate}, function(err, response) {
+      if (response) {
+        var transactions = response.transactions;
+        callback(err,transactions);
+      } else {
+        callback(err, []);
+      }
 
-  });
+    });
+  }
 };
 
 
