@@ -4,8 +4,6 @@ import styles from "./style/global.css";
 
 class App extends Component {
 	render(){
-		console.log("PROPS!!!");
-		console.log(this.props.user);
     return (
 			<div id = "app" className = {styles.Application}>
         <div className="content">

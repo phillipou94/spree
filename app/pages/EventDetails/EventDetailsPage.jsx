@@ -243,7 +243,7 @@ class EventDetailsPage extends Component {
           }
           {!(this.state.balance > event.low_price) &&
             <div className = {styles.disabledBuyButton}>
-              <p>{"Not Enough Saved to Purchase"}</p>
+              <p>{"Need $"+event.low_price+" to Purhcase"}</p>
             </div>
            }
           <button className = {styles.wishListButton}
