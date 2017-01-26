@@ -13,10 +13,10 @@ class WeekItem extends Component {
     var amountBelowBudget = new Number(Math.max(0, budget - week.spent)).toFixed(2);
 
     var endDate = new Date(week.end_date);
-    var end_of_week = time.formattedMonthDayString(time.getNearestMondayAfterDate(endDate));
+    var end_of_week = time.formattedMonthDayString(endDate);
 
     var startDate = new Date(week.start_date);
-    var start_of_week = time.formattedMonthDayString(time.getNearestMondayBeforeDate(startDate));
+    var start_of_week = time.formattedMonthDayString(startDate);
     var dateString = start_of_week+" - "+ end_of_week;
     return (
       <div className = {styles.AccountItem}>

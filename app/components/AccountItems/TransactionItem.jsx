@@ -12,7 +12,7 @@ class TransactionItem extends Component {
     if (transaction.category_id) {
       category_id = transaction.category_id.substring(0,2);
     }
-    console.log(category_id);
+
     switch (category_id) {
         case "12":
             return require("../../assets/CommunityIcon.svg");

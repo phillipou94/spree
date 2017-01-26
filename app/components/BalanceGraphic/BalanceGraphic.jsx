@@ -18,7 +18,7 @@ class BalanceGraphic extends Component {
     var budget = new Number(this.props.budget).toFixed(2);
     var spent = new Number(this.props.spentThisWeek).toFixed(2);
     var left = Math.max(0, budget - spent);
-    var leftInBudgetRounded = Math.ceil(left * 100) / 100;
+    var leftInBudgetRounded = new Number(left).toFixed(2);
     var daysLeft = time.daysLeftInWeek();
 
     var spentPercentage = this.calculateSpendingPercentages(spent,budget).spent;

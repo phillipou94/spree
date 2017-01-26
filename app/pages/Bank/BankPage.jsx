@@ -66,7 +66,7 @@ class BankPage extends React.Component {
   }
 
   closePopup() {
-    this.setState({showPopup:false, selectedBank:null, question:"", popupType:"BANK_LOGIN"});
+    this.setState({showPopup:false, selectedBank:null, question:"", popupType:"BANK_LOGIN",errorMessage:null});
   }
 
   bankLoginSubmitted(authInfo) {

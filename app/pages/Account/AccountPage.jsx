@@ -71,7 +71,6 @@ class AccountPage extends React.Component {
     var now = new Date();
     var start_of_week = time.getNearestMondayBeforeDate(now);
     BankServices.getTransactions(start_of_week, now).then((res) => {
-      console.log(res.body);
       var transactions = TransactionUtils.filter(res.body);
       var spentThisWeek = TransactionUtils.calculateTotal(transactions);
       this.setState({transactions:transactions, spentThisWeek:spentThisWeek});
@@ -81,6 +80,12 @@ class AccountPage extends React.Component {
   getRecommendedBudget(callback) {
     if (this.state.budget && this.state.budget > 0) {
       callback(null);
+      return;
+    }
+    var user = this.state.user;
+    if (!user || !user.plaid_access_token) {
+      callback(null);
+      return;
     }
     var now = new Date();
     var start_of_last_week = time.getFirstMondayLastWeek(now);
@@ -131,7 +136,7 @@ class AccountPage extends React.Component {
   transactionItems(transactions) {
     return transactions.map(function(transaction, index){
       return (
-        <div key = {transaction._id}>
+        <div key = {index}>
           <TransactionItem transaction = {transaction}/>
         </div>
       );
@@ -151,7 +156,7 @@ class AccountPage extends React.Component {
   weekItems(weeks) {
     return weeks.map(function(week, index){
       return (
-        <div key = {week._id}>
+        <div key = {index}>
           <WeekItem weekNumber = {weeks.length - index} week = {week}/>
         </div>
       );
@@ -177,7 +182,8 @@ class AccountPage extends React.Component {
       var user = res.body;
       if (user) {
         var budget = user.budget ? user.budget : 0.00;
-        this.setState({user:res.body.user, budget:budget, showPopup:false});
+        user.budget = newBudget;
+        this.setState({user:user, budget:budget, showPopup:false});
       }
     });
   }
@@ -190,7 +196,8 @@ class AccountPage extends React.Component {
 
   render() {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
-    var accountCompleted = this.state.accountCompleted;
+    var user = this.state.user;
+    var accountCompleted =  (user && user.bank_id && this.state.budget);
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
@@ -205,10 +212,10 @@ class AccountPage extends React.Component {
         <NavbarAuthenticated currentPage = {"Account"} logout = {this.logout.bind(this)}/>
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
-          {!accountCompleted &&
+          {!(user && user.bank_id && this.state.budget)  &&
             <AccountChecklistCard user = {this.state.user}/>
           }
-          {accountCompleted &&
+          {(user && user.bank_id && this.state.budget)&&
           <BalanceCard balance = {this.state.balance}
                        spentThisWeek = {this.state.spentThisWeek}
                        budget = {this.state.budget}/>
@@ -225,8 +232,8 @@ class AccountPage extends React.Component {
             <p className = {styles.subheader}>{this.subheader()}</p>
               <div className={styles.dropdown}>
                 <select onChange = {this.didSelectDropdown.bind(this)}>
-                  {this.state.dropDownOptions.map(function(option) {
-                    return <option key = {option} value={option}>{option}</option>
+                  {this.state.dropDownOptions.map(function(option, index) {
+                    return <option key = {index} value={option}>{option}</option>
                   })}
 
                 </select>

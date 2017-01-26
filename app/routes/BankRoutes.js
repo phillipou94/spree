@@ -67,13 +67,17 @@ router.post('/answer', function(req, res) {
 router.get('/transactions/start_date=:start_date&end_date=:end_date', function(req, res) {
   var body = req.body;
   var user = req.session.user;
-  Bank.getTransactions(user,req.params.start_date,req.params.end_date,function(error, transactions) {
-    if (!error) {
-      utils.sendSuccessResponse(res,transactions);
-    } else {
-      utils.sendErrorResponse(res, 500, 'Could not retrieve transactions');
-    }
-  });
+  if (!user.plaid_access_token) {
+    utils.sendErrorResponse(res, 500, 'Could not retrieve transactions');
+  } else {
+    Bank.getTransactions(user,req.params.start_date,req.params.end_date,function(error, transactions) {
+      if (!error) {
+        utils.sendSuccessResponse(res,transactions);
+      } else {
+        utils.sendErrorResponse(res, 500, 'Could not retrieve transactions');
+      }
+    });
+  }
 });
 
 module.exports = router;
