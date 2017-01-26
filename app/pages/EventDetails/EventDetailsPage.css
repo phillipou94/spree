@@ -50,6 +50,10 @@
   margin:0;
 }
 
+.eventInfo h1 {
+  width:500px;
+}
+
 .headerButtonContainer {
   margin-top:40px;
 }

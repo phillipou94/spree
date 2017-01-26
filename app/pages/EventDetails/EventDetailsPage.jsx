@@ -131,16 +131,6 @@ class EventDetailsPage extends Component {
   }, withinBudget, searchTerm, location);
 }
 
-
-  didSelectSwitch(side) {
-    var withinBudget = side === "RIGHT";
-    if (this.state.searchTerm && this.state.searchTerm.length) {
-      this.getEvents(withinBudget,this.state.searchTerm);
-    } else {
-      this.getEvents(withinBudget);
-    }
-  }
-
   didClickEvent(e) {
     var event = e;
     this.getRecommendations(event.seatgeek_id);
@@ -252,9 +242,7 @@ class EventDetailsPage extends Component {
          }
       <div className = {styles.secondaryHeader}>
         <p className = {styles.headerDescription}>{"Similar Events"}</p>
-        <div className = {styles.switch}>
-          <Switch didSelectSwitch = {this.didSelectSwitch.bind(this)}/>
-        </div>
+
 
       </div>
 
