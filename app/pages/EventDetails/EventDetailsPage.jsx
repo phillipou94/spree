@@ -243,7 +243,7 @@ class EventDetailsPage extends Component {
           <div className = {styles.wishListButton}
                style = {wishListButtonStyle}
                onClick= {this.saveToWishlist.bind(this)}>
-           <p>Add to wishlist</p>
+           <p>{this.state.addedToWishlist ? "Added to wishlist" : "Add to wishlist"}</p>
          </div>
        </div>
      </div>

@@ -40,6 +40,7 @@ class EventCard extends Component {
     var date = time.formattedDateString(new Date(eventDate));
 
     var buyable = event.low_price < Math.round(this.props.balance);
+    var price = event.low_price ? "$"+event.low_price : "$TBD";
 
     return (
       <div className = {styles.EventCard}
@@ -52,7 +53,7 @@ class EventCard extends Component {
             {this.props.removeFromWishList &&
               <p className = {styles.deleteButton} onClick = {this.removeFromWishList.bind(this)}>x</p>
             }
-            <p className = {styles.price}>{"$"+event.low_price}</p>
+            <p className = {styles.price}>{price}</p>
             {buyable &&
               <img src = {shopping_bag} className = {styles.buyableIndicator}/>
             }

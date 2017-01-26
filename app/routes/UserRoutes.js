@@ -38,6 +38,10 @@ var invalidLogin = function(req, res) {
 
 
 router.post('/signup', function(req, res) {
+  if (!validator.validate(req.body.email)) {
+    utils.sendErrorResponse(res, 400, 'This is not a valid email address.');
+    return;
+  }
   User.create(req.body.name, req.body.email, req.body.password, function(err, user) {
     if (err) {
       if (err.taken) {
