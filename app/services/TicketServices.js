@@ -1,6 +1,6 @@
 var dev = 'http://localhost:3000/api/tickets';
 var prod = 'https://spree-save.herokuapp.com/api/tickets';
-const BASE_URL =  prod;
+const BASE_URL =  dev;
 
 var request = require('request-promise-native');
 

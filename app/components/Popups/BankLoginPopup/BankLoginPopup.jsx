@@ -24,7 +24,8 @@ class BankLoginPopup extends Component {
     });
   }
 
-  submitClicked() {
+  submitClicked(event) {
+    event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
     var authInfo = {
@@ -50,21 +51,23 @@ class BankLoginPopup extends Component {
         <div className = {styles.exitButton} onClick = {this.props.closePressed}>x</div>
         <img src = {bank.logo_url} className = {styles.logo}/>
         <h1>{bank.name}</h1>
-        <input className = {styles.input}
-                 name='username'
-                 placeholder={bank.credentials.username}
-                 onChange={this.updateInputValue.bind(this)}
-        />
-        <input className = {styles.input}
-                 name='password'
-                 placeholder={bank.credentials.password}
-                 type='password'
-                 onChange={this.updateInputValue.bind(this)}
-        />
-        <Button title = {"Submit"}
-                onClick = {this.submitClicked.bind(this)}
-                loading = {this.props.loading}
-                loadingColor = {"white"}/>
+        <form onSubmit = {this.submitClicked.bind(this)}>
+          <input className = {styles.input}
+                   name='username'
+                   placeholder={bank.credentials.username}
+                   onChange={this.updateInputValue.bind(this)}
+          />
+          <input className = {styles.input}
+                   name='password'
+                   placeholder={bank.credentials.password}
+                   type='password'
+                   onChange={this.updateInputValue.bind(this)}
+          />
+          <Button title = {"Submit"}
+                  onClick = {this.submitClicked.bind(this)}
+                  loading = {this.props.loading}
+                  loadingColor = {"white"}/>
+        </form>
       </div>
     );
   }

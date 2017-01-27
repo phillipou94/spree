@@ -18,7 +18,8 @@ class BankQuestionPopup extends Component {
     this.setState({answer:answer});
   }
 
-  submitClicked() {
+  submitClicked(event) {
+    event.preventDefault();
     this.props.answerSubmitted(this.state.answer, this.props.bank);
   }
 
@@ -38,15 +39,17 @@ class BankQuestionPopup extends Component {
         <img src = {bank.logo_url} className = {styles.logo}/>
         <h1 className = {styles.title}>Security Question</h1>
         <p className = {styles.question}>{this.props.question}</p>
-        <input className = {styles.input}
-                 name='answer'
-                 placeholder={"Answer"}
-                 onChange={this.updateInputValue.bind(this)}
-        />
-        <Button title = {"Submit"}
-                onClick = {this.submitClicked.bind(this)}
-                loading = {this.props.loading}
-                loadingColor = {"white"}/>
+        <form onSubmit = {this.submitClicked.bind(this)}>
+          <input className = {styles.input}
+                   name='answer'
+                   placeholder={"Answer"}
+                   onChange={this.updateInputValue.bind(this)}
+          />
+          <Button title = {"Submit"}
+                  onClick = {this.submitClicked.bind(this)}
+                  loading = {this.props.loading}
+                  loadingColor = {"white"}/>
+        </form>
       </div>
     );
   }

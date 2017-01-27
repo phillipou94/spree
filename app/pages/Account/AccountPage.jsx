@@ -197,7 +197,8 @@ class AccountPage extends React.Component {
   render() {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
     var user = this.state.user;
-    var accountCompleted =  (user && user.bank_id && this.state.budget);
+    var accountCompleted =  (user && user.bank_id && this.state.budget) ? true : false;
+    console.log(accountCompleted);
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
@@ -212,10 +213,10 @@ class AccountPage extends React.Component {
         <NavbarAuthenticated currentPage = {"Account"} logout = {this.logout.bind(this)}/>
         <h1 className = {styles.header}>{title}</h1>
         <div className = {styles.AccountCardsContainer}>
-          {!(user && user.bank_id && this.state.budget)  &&
+          {!accountCompleted  &&
             <AccountChecklistCard user = {this.state.user}/>
           }
-          {(user && user.bank_id && this.state.budget)&&
+          {accountCompleted &&
           <BalanceCard balance = {this.state.balance}
                        spentThisWeek = {this.state.spentThisWeek}
                        budget = {this.state.budget}/>
