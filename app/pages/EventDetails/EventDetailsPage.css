@@ -2,17 +2,18 @@
   background:white;
 }
 .header {
-  height:450px;
+  min-height:450px;
   background:#121212;
   position:relative;
-  overflow:hidden;
+  overflow:visible;
+  display:flex;
 }
 
 .loadingHeader {
   height:450px;
   background:#121212;
   position:relative;
-  overflow:hidden;
+  overflow:auto;;
   text-align: center;
 }
 .errorText {
@@ -30,19 +31,20 @@
   margin-top:120px;
 }
 
+
 .eventPhoto {
   width:640px;
   height:360px;
   margin-top:60px;
   margin-left:70px;
-  display:inline-block;
   margin-right:30px;
-  float:left;
 }
 
 .eventInfo {
-  margin-top:150px;
-  display:inline-block;
+  float:left;
+  margin-top:100px;
+  margin-bottom: 40px;
+  width:500px;
 }
 
 .eventInfo p, .eventInfo h1 {
@@ -51,11 +53,13 @@
 }
 
 .eventInfo h1 {
-  width:500px;
+  width:80%;
+  margin-bottom:10px;
+
 }
 
 .headerButtonContainer {
-  margin-top:40px;
+  margin-top:20px;
 }
 
 .wishListButton {
@@ -108,7 +112,6 @@
 
 .headerTitleContainer {
   text-align:center;
-  margin-top:100px;
 }
 
 .headerInfo h1{
@@ -127,8 +130,8 @@
   display:flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
-  padding-right:100px;
+  justify-content: left;
+  margin-right:100px;
 }
 
 .secondaryHeader {

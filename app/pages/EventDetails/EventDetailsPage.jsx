@@ -225,23 +225,26 @@ class EventDetailsPage extends Component {
     {this.state.event &&
       <div className = {styles.header}>
 
-          <div>
-            <img src = {featured_image}
-                 className = {styles.eventPhoto}/>
-            <div className = {styles.eventInfo}>
-              <h1>{event.title}</h1>
-              <p>{dateString}</p>
-              <p>{venueName}</p>
-              <p>{venueAddress}</p>
-           </div>
+        <img src = {featured_image} className = {styles.eventPhoto}/>
+        <div className = {styles.eventInfo}>
+          <h1>{event.title}</h1>
+          <p>{dateString}</p>
+          <p>{venueName}</p>
+          <p>{venueAddress}</p>
+
 
        <div className = {styles.headerButtonContainer}>
-         {this.state.balance > event.low_price &&
+         {!event.low_price &&
+           <button className = {styles.buyButton}
+                   onClick= {this.buyTicket.bind(this)}>
+                   {"Price TBD"}</button>
+         }
+         {event.low_price && this.state.balance > event.low_price &&
            <button className = {styles.buyButton}
                    onClick= {this.buyTicket.bind(this)}>
                    {"Buy $"+event.low_price}</button>
           }
-          {!(this.state.balance > event.low_price) &&
+          {event.low_price && !(this.state.balance > event.low_price) &&
             <div className = {styles.disabledBuyButton}>
               <p>{"Need $"+event.low_price+" to Purhcase"}</p>
             </div>
@@ -252,7 +255,7 @@ class EventDetailsPage extends Component {
            {this.state.addedToWishlist ? "Added to wishlist" : "Add to wishlist"}
          </button>
        </div>
-     </div>
+       </div>
 
       </div>
          }

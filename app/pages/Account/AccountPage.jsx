@@ -125,7 +125,10 @@ class AccountPage extends React.Component {
 
   subheader() {
     if (this.state.selectedOption === "Tickets") {
-      return "2 Tickets";
+      if (this.state.tickets) {
+        return this.state.tickets.length +" Tickets"
+      }
+      return "0 Tickets";
     } else if (this.state.selectedOption === "Previous Weeks") {
       return "Amount Spent";
     } else {
