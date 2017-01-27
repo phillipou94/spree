@@ -28,7 +28,8 @@ class SetBudgetPopup extends Component {
     this.setState({amount:amount});
   }
 
-  submitClicked() {
+  submitClicked(event) {
+    event.preventDefault();
     var amount = this.state.amount.replace("$", "");
     amount = amount.replace(" ","");
     amount = amount.replace(",","");
@@ -38,19 +39,21 @@ class SetBudgetPopup extends Component {
 
 
   render() {
-    //TODO: DISPLAY TOOLTIP
     return (
       <div className = {styles.SetBudgetPopup}>
 
         <h1 className = {styles.title}>Weekly Budget</h1>
         <p>{"What would you like your weekly budget to be?"}</p>
-        <CurrencyInput  className = {styles.input}
-                        prefix="$ "
-                        onChange = {this.updateInputValue.bind(this)}
-                        value = {this.state.amount}/>
+        <form onSubmit = {this.submitClicked.bind(this)}>
+          <CurrencyInput  className = {styles.input}
+                          prefix="$ "
+                          onChange = {this.updateInputValue.bind(this)}
+                          value = {this.state.amount}/>
 
-        <div className = {styles.exitButton} onClick = {this.props.closePressed}>cancel</div>
-        <Button title = {"Set Budget"} onClick = {this.submitClicked.bind(this)}/>
+          <div className = {styles.exitButton} onClick = {this.props.closePressed}>cancel</div>
+          <Button title = {"Set Budget"} onClick = {this.submitClicked.bind(this)}/>
+        </form>
+
       </div>
     );
   }

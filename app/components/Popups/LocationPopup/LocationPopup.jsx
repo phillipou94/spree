@@ -61,7 +61,6 @@ class LocationPopup extends Component {
 
   didClickGo(event) {
     event.preventDefault();
-    console.log(this);
     this.props.didEnterAddress(this.state.address);
   }
 
