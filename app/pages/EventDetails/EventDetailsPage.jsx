@@ -143,9 +143,12 @@ class EventDetailsPage extends Component {
         if (images && images.length) {
           newEvent.featured_image = images[0].image;
         }
+        window.scrollTo(0, 0)
         this.setState({event:newEvent});
       }).catch((err) => {
+        window.scrollTo(0, 0)
         this.setState({event:newEvent});
+
       });
     });
   }
