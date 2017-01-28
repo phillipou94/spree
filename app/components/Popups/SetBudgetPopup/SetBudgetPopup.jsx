@@ -32,7 +32,7 @@ class SetBudgetPopup extends Component {
     event.preventDefault();
     var amount = this.state.amount.replace("$", "");
     amount = amount.replace(" ","");
-    amount = amount.replace(",","");
+    amount = amount.replace(/,/g,"");
     this.props.budgetSubmitted(amount);
   }
 

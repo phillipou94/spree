@@ -123,8 +123,10 @@ router.get('/cached', function(req, res) {
 
 router.put('/budget', function(req,res) {
   var newBudget = req.body.budget;
+  console.log(newBudget);
   User.updateBudget(req.session.user._id, newBudget, function(error, user) {
     if (error) {
+      console.log(error);
       utils.sendErrorResponse(res, 500, 'Could not update user budget');
     } else {
       utils.sendSuccessResponse(res, user);

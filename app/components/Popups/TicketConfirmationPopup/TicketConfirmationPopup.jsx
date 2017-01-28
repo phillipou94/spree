@@ -51,7 +51,7 @@ class TicketConfirmationPopup extends Component {
     var ticket = this.state.ticket;
     var ticketPrice = this.state.ticketPrice.replace("$", "");
     ticketPrice = ticketPrice.replace(" ","");
-    ticketPrice = ticketPrice.replace(",","");
+    ticketPrice = ticketPrice.replace(/,/g,"");
     ticket.price = ticketPrice;
     this.props.confirmTicketPurchase(ticket);
   }
