@@ -10,13 +10,13 @@ var seatgeek = SeatGeek();
 const request = require('request');
 
 var test = function() {
-
-  var bank_body = {username : "#BANK_DEMO"};
-  Bank.authenticate({_id:"5887be1beb0e7a0953066a6a"}, bank_body, function(error,user) {
-    console.log(error);
-    console.log(user);
-  });
-  var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
+  //
+  // var bank_body = {username : "#BANK_DEMO"};
+  // Bank.authenticate({_id:"5887be1beb0e7a0953066a6a"}, bank_body, function(error,user) {
+  //   console.log(error);
+  //   console.log(user);
+  // });
+  // var events = [{type:"nfl",title:"AFC Conf Championship: Pittsburgh Steelers at New England Patriots", _id:"bom"}];
   // Event.getTicketMasterImages(events, function(error, images) {
   //   console.log(images);
   // });
@@ -37,13 +37,14 @@ var test = function() {
   // seatgeek.searchEvents("red sox", {latitude:"42.36",longitude: "-71.06"}, function(error, data) {
   //   console.log(data);
   // });
-  // User.getLocationCoordinates("91770", function(error, coordinates){
-  //   console.log(coordinates);
-  // });
+  User.getLocationCoordinates("99 Bay State Road", function(error, coordinates){
+    console.log(coordinates);
+    User.getCurrentCity(coordinates, function(error, location){
+      console.log(location)
+    });
+  });
   //
-  // User.getCurrentCity({ latitude: 34.065164, longitude: -118.084194 }, function(error, location){
-  //   console.log(location)
-  // });
+
 }
 
 var photo = function() {

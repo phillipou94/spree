@@ -36,8 +36,12 @@ var MapQuest = function() {
     mapquest.reverse({ coordinates: coordinates, key:MAPQUEST_KEY }, function(err, location) {
       if (!err) {
         var city = location.adminArea5;
-        var state = location.adminArea3
-        callback(null, city+", "+state);
+        if (!city || city.length < 1) {
+          callback(null,"Unspecified Location");
+        } else {
+          var state = location.adminArea3
+          callback(null, city+", "+state);
+        }
       } else {
         callback(err, null);
       }
