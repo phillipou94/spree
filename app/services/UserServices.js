@@ -102,6 +102,15 @@ export default {
       },
       json : true
     });
+  },
 
+  unlinkBankAccount : () => {
+    return request({
+      uri : BASE_URL + '/unlink_bank',
+      method: 'PUT',
+      json : true
+    });
   }
+
+
 }

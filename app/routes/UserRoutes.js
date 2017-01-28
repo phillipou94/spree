@@ -171,6 +171,20 @@ router.post("/address", function(req, resp) {
   });
 });
 
+router.put("/unlink_bank", function(req, resp) {
+  var user_id = req.session.user._id;
+  User.unlinkBankAccount(user_id, function(error, user) {
+    if (error) {
+      utils.sendErrorResponse(resp, 500, 'Could not unlink bank');
+    } else {
+      user.bank_id = null;
+      user.bank_name = null;
+      user.plaid_access_token = null;
+      utils.sendSuccessResponse(resp, user);
+    }
+  });
+});
+
 var calculateTotalBalance = function(user, weeks) {
   var balance = weeks.reduce(function(current,week){
     var weekly_budget = week.budget ? week.budget : 0;

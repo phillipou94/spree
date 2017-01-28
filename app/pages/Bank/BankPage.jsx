@@ -143,12 +143,15 @@ class BankPage extends React.Component {
   }
 
   unlinkBank() {
-    console.log("UNLINK BANK!!");
+    UserServices.unlinkBankAccount().then((res) => {
+      console.log(res.body);
+      this.setState({user:res.body.user});
+    }).catch((error)=> {
+      console.log(error);
+    });
   }
 
   currentBankCard(user, banks) {
-    console.log(user);
-    console.log(banks);
     if (!user || !user.bank_id || !banks) {
       return null;
     }

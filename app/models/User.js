@@ -181,6 +181,17 @@ var User = (function(UserModel) {
     });
   }
 
+  that.unlinkBankAccount = function(user_id, callback) {
+    UserModel.findByIdAndUpdate(user_id,{bank_name:null,bank_id:null,plaid_access_token:null},function(err, user) {
+        if (err) {
+          callback(err,null);
+        } else {
+          callback(null, user);
+        }
+
+    });
+  }
+
   Object.freeze(that);
   return that;
 
