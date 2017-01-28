@@ -27,7 +27,8 @@ const LOGO_MAP = {
   "td":"http://nsomusic.ca/wp-content/uploads/2013/12/td-bank-logo.png",
   "us":"http://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/022014/us_bank_correctcolors.png?itok=DamCfmkg",
   "usaa":"https://files.graphiq.com/765/media/images/USAA_Federal_Savings_Bank_109121.jpg",
-  "wells":"http://www.ppfive.com/wp-content/uploads/2016/04/wells-fargo-logo-high-res.jpg"
+  "wells":"http://www.ppfive.com/wp-content/uploads/2016/04/wells-fargo-logo-high-res.jpg",
+  "#BANK_DEMO":"../assets/DemoBankIcon.svg"
 }
 
 var Bank = function(plaidBankObject) {
@@ -137,7 +138,5 @@ Bank.getTransactions = function(user, startDate, endDate, callback) {
     });
   }
 };
-
-
 
 module.exports = Bank;

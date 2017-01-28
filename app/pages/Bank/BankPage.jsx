@@ -5,6 +5,7 @@ import styles from "./BankPage.css";
 var Loader = require('halogen/ClipLoader');
 
 import BankServices from "../../services/BankServices.js";
+import UserServices from "../../services/UserServices.js";
 
 import BankCard from '../../components/Cards/BankCard/BankCard.jsx';
 import Navbar from '../../components/Navbar/Navbar.jsx';
@@ -21,6 +22,7 @@ class BankPage extends React.Component {
                   popupType : "BANK_LOGIN",
                   question:"",
                   mfa_access_token:"",
+                  user:null,
                   errorMessage:null,
                   buttonLoading:false,
                   banksLoading: true};
@@ -33,6 +35,12 @@ class BankPage extends React.Component {
     }).catch((err) => {
       this.setState({banks:[], banksLoading:false});
       console.log(err);
+    });
+    UserServices.currentUser().then((res) => {
+      var user = res.body.user;
+      this.setState({user:user});
+    }).catch((error) => {
+      console.log(error);
     });
   }
 
@@ -134,11 +142,40 @@ class BankPage extends React.Component {
     });
   }
 
+  unlinkBank() {
+    console.log("UNLINK BANK!!");
+  }
+
+  currentBankCard(user, banks) {
+    console.log(user);
+    console.log(banks);
+    if (!user || !user.bank_id || !banks) {
+      return null;
+    }
+    var demoBankIcon = require("../../assets/DemoBankIcon.svg");
+    var banks = banks.filter(function(bank) {
+      return bank.name === user.bank_name;
+    });
+    var bankImage = (banks && banks[0] && banks[0].logo_url) ? banks[0].logo_url : demoBankIcon;
+
+    return (
+      <div className = {styles.unlinkBankCard}>
+        <img src = {bankImage} />
+        <button onClick = {this.unlinkBank.bind(this)}>Unlink</button>
+        <div className = {styles.textContainer}>
+          <p>{user.bank_name}</p>
+          <p>Current Bank Account</p>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     const infoPaneIcon = require("../../assets/PiggyBankLock.svg");
     const banks = this.state.banks;
     const type = this.state.popupType;
     const skipToPage = "/account";
+    var user = this.state.user;
     return (
       <div>
         {this.state.showPopup &&
@@ -158,11 +195,13 @@ class BankPage extends React.Component {
 
             <div className = {styles.divider}></div>
           </div>
+          {this.currentBankCard(user, banks)}
           <div className = {styles.searchbarContainer}>
             <Searchbar placeholder = {"Find your bank"}
                        inputDidChange = {this.searchInputDidChange.bind(this)}
           />
         </div>
+
         <div className = {styles.infoPane}>
           <img src = {infoPaneIcon} className = {styles.infoPaneIcon}/>
           <div className = {styles.QA}>

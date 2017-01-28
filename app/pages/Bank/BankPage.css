@@ -71,3 +71,43 @@
   flex-wrap: wrap;
   padding-bottom:50px;
 }
+
+.unlinkBankCard {
+  background:white;
+  margin-left:70px;
+  margin-right:70px;
+  border: 1px solid #9199A3;
+
+}
+
+.unlinkBankCard img {
+  margin-top:10px;
+  margin-bottom:10px;
+  margin-left:30px;
+  border-radius:50%;
+  width:70px;
+  height:70px;
+  float:left;
+  margin-right:20px;
+}
+
+.unlinkBankCard .textContainer {
+  padding-top:15px;
+  margin-top:10px;
+  height:70px;
+}
+
+.unlinkBankCard p {
+  margin:0;
+}
+
+.unlinkBankCard button {
+  margin:10px;
+  margin-top:30px;
+  float:right;
+  background:white;
+  border: 1px solid #E52F4F;
+  color: #E52F4F;
+  font-size:15px;
+  padding:5px 10px;
+}
