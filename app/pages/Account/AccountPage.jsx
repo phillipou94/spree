@@ -109,7 +109,7 @@ class AccountPage extends React.Component {
         return total + amountBelowBudget;
       }, 0);
       if (user.ticket_purchase_amount) {
-        totalBalance = Math.max(0,totalBalance - user.ticket_purchase_amount);
+        totalBalance -= user.ticket_purchase_amount;
       }
       weeks.reverse();
       this.setState({weeks:weeks, balance: totalBalance});
