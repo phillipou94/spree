@@ -201,7 +201,6 @@ class AccountPage extends React.Component {
     var title = this.state.user ? this.state.user.name+"'s Account" : "Account";
     var user = this.state.user;
     var accountCompleted =  (user && user.bank_id && this.state.budget) ? true : false;
-    console.log(accountCompleted);
     return (
       <div>
         <link rel="stylesheet" href="https://unpkg.com/react-select/dist/react-select.css" />
