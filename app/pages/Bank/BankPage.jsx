@@ -18,6 +18,7 @@ class BankPage extends React.Component {
     super(props);
     this.state = {searchTerm:"",
                   banks:[],
+                  bankImages:[],
                   showPopup:false,
                   popupType : "BANK_LOGIN",
                   question:"",
@@ -31,9 +32,9 @@ class BankPage extends React.Component {
   componentWillMount() {
     BankServices.all().then((res) => {
       const banks = res.body;
-      this.setState({banks:banks, banksLoading:false});
+      this.setState({banks:banks, bankImages:banks, banksLoading:false});
     }).catch((err) => {
-      this.setState({banks:[], banksLoading:false});
+      this.setState({banks:[],bankImages:[], banksLoading:false});
       console.log(err);
     });
     UserServices.currentUser().then((res) => {
@@ -151,12 +152,12 @@ class BankPage extends React.Component {
     });
   }
 
-  currentBankCard(user, banks) {
-    if (!user || !user.bank_id || !banks) {
+  currentBankCard(user, bankImages) {
+    if (!user || !user.bank_id || !bankImages) {
       return null;
     }
     var demoBankIcon = require("../../assets/DemoBankIcon.svg");
-    var banks = banks.filter(function(bank) {
+    var banks = bankImages.filter(function(bank) {
       return bank.name === user.bank_name;
     });
     var bankImage = (banks && banks[0] && banks[0].logo_url) ? banks[0].logo_url : demoBankIcon;
@@ -176,6 +177,7 @@ class BankPage extends React.Component {
   render() {
     const infoPaneIcon = require("../../assets/PiggyBankLock.svg");
     const banks = this.state.banks;
+    const bankImages = this.state.bankImages;
     const type = this.state.popupType;
     const skipToPage = "/account";
     var user = this.state.user;
@@ -198,7 +200,7 @@ class BankPage extends React.Component {
 
             <div className = {styles.divider}></div>
           </div>
-          {this.currentBankCard(user, banks)}
+          {this.currentBankCard(user, bankImages)}
           <div className = {styles.searchbarContainer}>
             <Searchbar placeholder = {"Find your bank"}
                        inputDidChange = {this.searchInputDidChange.bind(this)}
