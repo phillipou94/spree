@@ -48,7 +48,7 @@ var Event = (function(EventModel) {
 
   that.getEvents = function(options, callback) {
     seatgeek.getEvents(options, function(error, response) {
-      if (error) {
+      if (error || !response) {
         callback(error, []);
       } else {
         var objects = JSON.parse(response.body).events;

@@ -108,7 +108,7 @@ class EventsPage extends Component {
   getEventOptions(callback, withinBudget, searchTerm, location) {
     var options = {page : 1};
     if (withinBudget || this.state.withinBudget) {
-      options["budget"] = Math.floor(this.state.balance);
+      options["budget"] = Math.max(0,Math.floor(this.state.balance));
     }
     if (searchTerm && searchTerm.length) {
       options["searchTerm"] = searchTerm;
