@@ -19,14 +19,14 @@
 }
 
 .SetBudgetPopup p {
-  color:#9199A3;
+  color:#B3B0AF;
   margin-top:5px;
 }
 
 .exitButton {
   font-weight:300;
   font-size:15px;
-  color:#9199A3;
+  color:#B3B0AF;
   background:none;
   cursor:pointer;
   display:inline-block;

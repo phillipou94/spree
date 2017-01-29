@@ -2,7 +2,6 @@
   padding-left:70px;
   color:#121212;
   padding-right:70px;
-  padding-bottom:20px;
 }
 
 .header h1 {
@@ -14,20 +13,23 @@
   margin:0;
   padding:0;
   weight:300;
-  color:#9199A3;
+  color:#B3B0AF;
 }
 
 .skipButton {
   float:right;
   weight:300;
-  color:#9199A3;
+  color:#B3B0AF;
   margin-top:15px;
 }
 
 .divider {
   margin-top:10px;
   background:#AC9456;
-  width:100%;
+  margin-left:70px;
+  margin-right:70px;
+  margin-bottom:20px;
+  margin-top:10px;
   height:5px;
 }
 
@@ -39,10 +41,14 @@
 .infoPane {
   float:right;
   padding-right:50px;
-  padding-left:50px;
+  padding-left:30px;
   width:20%;
   height:100%;
   border-left:2px solid #121212;
+}
+
+.infoPane img {
+  margin-left:30px;
 }
 
 .QA {
@@ -73,6 +79,7 @@
 }
 
 .unlinkBankCard {
+  margin-top:10px;
   background:white;
   margin-left:70px;
   margin-right:70px;

@@ -1,5 +1,5 @@
 .AccountItem {
-  border-bottom: 1px solid #9199A3;
+  border-bottom: 1px solid #B3B0AF;
   background:white;
   padding-top:0px;
   width:100%;
@@ -36,7 +36,7 @@
 .subtitle {
   weight:300;
   margin:0px;
-  color:#9199A3;
+  color:#B3B0AF;
 }
 
 

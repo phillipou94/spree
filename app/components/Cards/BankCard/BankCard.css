@@ -5,6 +5,11 @@
   margin-bottom:12px;
   background:white;
   cursor: pointer;
+  transition: all .2s ease-in-out;
+}
+
+.BankCard:hover {
+  transform: scale(1.08);
 }
 
 .logo {

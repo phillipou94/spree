@@ -45,31 +45,6 @@ class BankPage extends React.Component {
     });
   }
 
-  searchInputDidChange(event) {
-    this.searchBanks(event.target.value);
-  }
-
-  searchBanks(query) {
-    var searchTerm = query;
-    if (searchTerm && searchTerm.length > 0) {
-      BankServices.search(searchTerm).then((res) => {
-        const banks = res.body;
-        this.setState({banks:banks, banksLoading:false});
-      }).catch((err) => {
-        this.setState({banks:[], banksLoading:false});
-        console.log(err);
-      });
-    } else {
-      BankServices.all().then((res) => {
-        const banks = res.body;
-        this.setState({banks:banks, banksLoading:false});
-      }).catch((err) => {
-        this.setState({banks:[], banksLoading:false});
-        console.log(err);
-      });
-    }
-  }
-
   didClickBank(bank) {
     this.setState({showPopup:true, selectedBank:bank});
   }
@@ -145,7 +120,6 @@ class BankPage extends React.Component {
 
   unlinkBank() {
     UserServices.unlinkBankAccount().then((res) => {
-      console.log(res.body);
       this.setState({user:res.body.user});
     }).catch((error)=> {
       console.log(error);
@@ -181,6 +155,7 @@ class BankPage extends React.Component {
     const type = this.state.popupType;
     const skipToPage = "/account";
     var user = this.state.user;
+    var headerTitle = user && user.bank_id ? "Update your bank" : "Select your bank"
     return (
       <div>
         {this.state.showPopup &&
@@ -195,17 +170,11 @@ class BankPage extends React.Component {
         }
           <div className = {styles.header}>
             <a href = {skipToPage} className = {styles.skipButton}>skip > </a>
-            <h1>Select your bank</h1>
+            <h1>{headerTitle}</h1>
             <p>Find your bank below</p>
-
-            <div className = {styles.divider}></div>
           </div>
           {this.currentBankCard(user, bankImages)}
-          <div className = {styles.searchbarContainer}>
-            <Searchbar placeholder = {"Find your bank"}
-                       inputDidChange = {this.searchInputDidChange.bind(this)}
-          />
-        </div>
+          <div className = {styles.divider}></div>
 
         <div className = {styles.infoPane}>
           <img src = {infoPaneIcon} className = {styles.infoPaneIcon}/>
