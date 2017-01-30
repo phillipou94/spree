@@ -49,7 +49,6 @@ class EventsPage extends Component {
     UserServices.currentUser().then((res) => {
       var user = res.body.user;
       var balance = new Number(res.body.balance).toFixed(2);
-      console.log(balance);
       if (user) {
         this.setState({user:user, balance: balance,pending_ticket_id:user.pending_ticket_id});
       }
@@ -185,8 +184,9 @@ getMoreEvents() {
 
 
   searchEvents(searchString) {
-    this.setState({headerState:HeaderStateEnum.SEARCHRESULTS});
-    this.getEvents(false,searchString);
+    this.setState({headerState:HeaderStateEnum.SEARCHRESULTS, withinBudget:false}, function() {
+        this.getEvents(false,searchString);
+    });
   }
 
   didSelectSwitch(side) {
@@ -214,8 +214,9 @@ getMoreEvents() {
   }
 
   exitSearch() {
-    this.setState({headerState:HeaderStateEnum.DEFAULT});
-    this.getEvents();
+    this.setState({headerState:HeaderStateEnum.DEFAULT, withinBudget:false}, function(){
+      this.getEvents(false);
+    });
   }
 
   searchInputDidChange(event) {
