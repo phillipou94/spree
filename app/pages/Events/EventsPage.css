@@ -180,7 +180,7 @@
   padding-left:20px;
   padding-right:20px;
   color:#121212;
-  width:125px;
+  min-width:125px;
   background:white;
   margin-top:15px;
   display:inline-block;
@@ -191,6 +191,7 @@
 .searchTerm p{
   margin:0;
   margin-top:10px;
+  margin-right:10px;
   font-size:17px;
   display:inline-block;
 }
