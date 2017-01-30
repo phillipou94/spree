@@ -31,6 +31,7 @@ export default {
       body : {
         username : req.username,
         password : req.password,
+        pin : req.pin,
         type : req.type,
         bank_name: req.bank_name,
         bank_id: req.bank_id,

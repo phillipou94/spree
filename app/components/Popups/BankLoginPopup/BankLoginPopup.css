@@ -83,3 +83,15 @@
   margin-top:10px;
   text-align:left;
 }
+
+.pinInput {
+  -webkit-border-radius: 5px;
+  height: 35px;
+  font-weight: 300;
+  font-size:15px;
+  width:60%;
+  padding-left:5px;
+  margin-top:10px;
+  text-align:left;
+  margin-left:130px;
+}

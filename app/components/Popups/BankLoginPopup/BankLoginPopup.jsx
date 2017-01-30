@@ -11,7 +11,8 @@ class BankLoginPopup extends Component {
     super(props);
     this.state = {
       username:"",
-      password:""
+      password:"",
+      pin:""
     }
   }
 
@@ -28,6 +29,7 @@ class BankLoginPopup extends Component {
     event.preventDefault();
     const username = this.state.username;
     const password = this.state.password;
+    const pin = this.state.pin;
     var authInfo = {
                     username:username,
                     password: password,
@@ -35,6 +37,9 @@ class BankLoginPopup extends Component {
                     bank_name:this.props.bank.name,
                     bank_id:this.props.bank._id
                   };
+    if (pin.length > 0) {
+      authInfo["pin"] = pin;
+    }
     this.props.bankLoginSubmitted(authInfo);
   }
 
@@ -63,6 +68,14 @@ class BankLoginPopup extends Component {
                    type='password'
                    onChange={this.updateInputValue.bind(this)}
           />
+        {bank.type === "usaa" &&
+          <input className = {styles.pinInput}
+                   name='pin'
+                   placeholder={"Pin"}
+                   type='password'
+                   onChange={this.updateInputValue.bind(this)}
+          />
+        }
           <Button title = {"Submit"}
                   onClick = {this.submitClicked.bind(this)}
                   loading = {this.props.loading}
