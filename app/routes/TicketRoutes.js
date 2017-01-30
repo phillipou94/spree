@@ -48,7 +48,7 @@ router.get('/purchased', function(req,res) {
 
 router.post('/confirm/:ticket_id', function(req,res) {
   var ticket_id = req.params.ticket_id;
-  var ticketPrice = req.body.ticketPrice;
+  var ticketPrice = (req.body.ticketPrice && req.body.ticketPrice.length > 0) ? req.body.ticketPrice : 0;
   User.confirmTicketPurchase(req.session.user._id, ticketPrice, function(error, user) {
     req.session.user = user;
     Ticket.purchase(ticket_id, ticketPrice,function(error, ticket) {
